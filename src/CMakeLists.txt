@@ -3,5 +3,4 @@ project(bellum)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 
-add_subdirectory(src)
-add_subdirectory(test/game)
+add_subdirectory(core)
