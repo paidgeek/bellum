@@ -21,6 +21,9 @@ Vector3::Vector3(float x, float y, float z)
 Vector3::Vector3(float x, float y)
   : x(x), y(y), z(0.0f) {}
 
+Vector3::Vector3(float a)
+:x(a), y(a), z(a) {}
+
 Vector3::Vector3(const float* data)
   : x(data[0]), y(data[1]), z(data[2]) {}
 
@@ -78,18 +81,20 @@ inline float& Vector3::operator[](int i) {
 
 // Algebra
 inline float Vector3::magnitude() const {
-  return Math::sqrt(this->squaredMagnitude());
+  return Math::sqrt(x * x + y * y + z * z);
 }
 
 inline float Vector3::squaredMagnitude() const {
   return x * x + y * y + z * z;
 }
 
-inline void Vector3::normalized(Vector3* dst) const {
+inline void Vector3::normalize(Vector3* dst) const {
   float m = this->magnitude();
 
   if (m != 0.0f) {
-    dst->set(x / m, y / m, z / m);
+    dst->x /= m;
+    dst->y /= m;
+    dst->z /= m;
   }
 }
 
@@ -105,7 +110,7 @@ inline Vector3& Vector3::normalize() {
   return *this;
 }
 
-inline void Vector3::negated(Vector3* dst) const {
+inline void Vector3::negate(Vector3* dst) const {
   dst->set(-x, -y, -z);
 }
 
@@ -122,7 +127,7 @@ inline Vector3& Vector3::cross(const Vector3& v) {
   return *this;
 }
 
-inline static void Vector3::cross(const Vector3& a, const Vector3& b, Vector3* dst) {
+inline void Vector3::cross(const Vector3& a, const Vector3& b, Vector3* dst) {
   dst->x = a.y * b.z - b.y * a.z;
   dst->y = a.z * b.x - b.z * a.x;
   dst->z = a.x * b.y - b.x * a.y;
@@ -132,7 +137,7 @@ inline float Vector3::dot(const Vector3& v) const {
   return x * v.x + y * v.y + z * v.z;
 }
 
-inline static float Vector3::dot(const Vector3& a, const Vector3& b) {
+inline float Vector3::dot(const Vector3& a, const Vector3& b) {
   return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
@@ -279,42 +284,51 @@ inline bool Vector3::operator!=(const Vector3& v) const {
   return x != v.x || y != v.y || z != v.z;
 }
 
-inline Vector3 bellum::operator*(float a, const Vector3& v) {
-  Vector3 result(v);
-  result.scale(a);
-  return result;
+inline Vector3 operator*(float a, const Vector3& v) {
+  return {
+    v.x * a,
+    v.x * a,
+    v.z * a,
+  };
 }
 
 // Singletons
-static const Vector3& Vector3::back() {
+const Vector3& Vector3::back() {
   static Vector3 v{0.0f, 0.0f, -1.0f};
   return v;
 }
-static const Vector3& Vector3::down() {
+
+const Vector3& Vector3::down() {
   static Vector3 v{0.0f, -1.0f, 0.0f};
   return v;
 }
-static const Vector3& Vector3::forward() {
+
+const Vector3& Vector3::forward() {
   static Vector3 v{0.0f, 0.0f, 1.0f};
   return v;
 }
-static const Vector3& Vector3::left() {
+
+const Vector3& Vector3::left() {
   static Vector3 v{-1.0f, 0.0f, 0.0f};
   return v;
 }
-static const Vector3& Vector3::right() {
+
+const Vector3& Vector3::right() {
   static Vector3 v{1.0f, 0.0f, 0.0f};
   return v;
 }
-static const Vector3& Vector3::up() {
+
+const Vector3& Vector3::up() {
   static Vector3 v{0.0f, 1.0f, 0.0f};
   return v;
 }
-static const Vector3& Vector3::zero() {
+
+const Vector3& Vector3::zero() {
   static Vector3 v{0.0f, 0.0f, 0.0f};
   return v;
 }
-static const Vector3& Vector3::one() {
+
+const Vector3& Vector3::one() {
   static Vector3 v{1.0f, 1.0f, 1.0f};
   return v;
 }

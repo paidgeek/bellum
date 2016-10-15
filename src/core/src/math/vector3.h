@@ -14,6 +14,7 @@ struct Vector3 {
   Vector3();
   Vector3(float x, float y, float z);
   Vector3(float x, float y);
+  Vector3(float a);
   Vector3(const float* data);
   Vector3(const Vector3& from, const Vector3& to);
 
@@ -31,9 +32,9 @@ struct Vector3 {
 
   float magnitude() const;
   float squaredMagnitude() const;
-  void normalized(Vector3* dst) const;
+  void normalize(Vector3* dst) const;
   Vector3& normalize();
-  void negated(Vector3* dst) const;
+  void negate(Vector3* dst) const;
   Vector3& negate();
   Vector3& cross(const Vector3& v);
   static void cross(const Vector3& a, const Vector3& b, Vector3* dst);
@@ -100,13 +101,13 @@ struct Vector3 {
 
 inline Vector3 operator*(float a, const Vector3& v);
 
-#include "vector3-inl.h"
-
-std::ostream& bellum::operator<<(std::ostream& os, const Vector3& v) {
+std::ostream& operator<<(std::ostream& os, const Vector3& v) {
   os << "Vector3(x: " << v.x << ", y: " << v.y << ", z: " << v.z << ")";
   return os;
 }
 
 }
+
+#include "vector3.inl"
 
 #endif

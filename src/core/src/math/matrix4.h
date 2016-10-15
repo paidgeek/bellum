@@ -42,46 +42,8 @@ struct Matrix4 {
   static Matrix4 identity();
 };
 
-Matrix4::Matrix4() {
-  std::memset(this->data, 0, 16);
 }
 
-Matrix4::Matrix4(const Matrix4& m) {
-  std::memcpy(this->data, m.data, 16);
-}
-
-Matrix4::Matrix4(std::array<std::array<float, 4>, 4> data) {
-
-}
-
-Matrix4& Matrix4::operator=(const Matrix4& m) {
-  std::memcpy(this->data, m.data, 16);
-}
-
-float* Matrix4::operator[](int32_t i) {
-  return this->data[i];
-}
-
-Matrix4& Matrix4::transpose() {
-  return {};
-}
-
-Matrix4 Matrix4::transposed() const {
-
-}
-
-Matrix4& Matrix4::inverse() {
-
-}
-
-Matrix4 Matrix4::inversed() const {
-
-}
-
-inline Matrix4 Matrix4::identity() {
-  return Matrix4().loadIdentity();
-}
-
-}
+#include "matrix4.inl"
 
 #endif
