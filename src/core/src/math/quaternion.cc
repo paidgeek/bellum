@@ -1,25 +1,25 @@
-#include "quaternion.h"
-#include "vector3.h"
-#include "matrix4.h"
+#include "core/math/quaternion.h"
+#include "core/math/vector3.h"
+#include "core/math/matrix4.h"
 
 namespace bellum {
 
 // Constructors
 Quaternion::Quaternion(const Matrix4& m) {
-  fromRotationMatrix(m, this);
+  makeRotationMatrix(m, this);
 }
 
 Quaternion::Quaternion(const Vector3& axis, float angle) {
-  fromAxisAngle(axis, angle, this);
+  makeAxisAngle(axis, angle, this);
 }
 
 // Setters
 void Quaternion::set(const Matrix4& m) {
-  fromRotationMatrix(m, this);
+  makeRotationMatrix(m, this);
 }
 
 void Quaternion::set(const Vector3& axis, float angle) {
-  fromAxisAngle(axis, angle, this);
+  makeAxisAngle(axis, angle, this);
 }
 
 // Algebra
@@ -144,11 +144,16 @@ void Quaternion::slerp(const Quaternion& a, const Quaternion& b, float t, Quater
   dst->set(x * f1, y * f1, z * f1, w * f1);
 }
 
-void Quaternion::fromEuler(const Vector3& eulerAngles, Quaternion* dst) {
-  fromEuler(eulerAngles.x, eulerAngles.y, eulerAngles.z, dst);
+// Factory methods
+void Quaternion::makeIdentity(Quaternion* dst) {
+  dst->set(0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void Quaternion::fromEuler(float x, float y, float z, Quaternion* dst) {
+void Quaternion::makeEuler(const Vector3& eulerAngles, Quaternion* dst) {
+  makeEuler(eulerAngles.x, eulerAngles.y, eulerAngles.z, dst);
+}
+
+void Quaternion::makeEuler(float x, float y, float z, Quaternion* dst) {
   x /= 2.0f;
   y /= 2.0f;
   z /= 2.0f;
@@ -165,11 +170,11 @@ void Quaternion::fromEuler(float x, float y, float z, Quaternion* dst) {
   dst->z = cosy * cosx * sinz - siny * sinx * cosz;
 }
 
-void Quaternion::fromRotationMatrix(const Matrix4& m, Quaternion* dst) {
+void Quaternion::makeRotationMatrix(const Matrix4& m, Quaternion* dst) {
 
 }
 
-void Quaternion::fromAxisAngle(const Vector3& axis, float angle, Quaternion* dst) {
+void Quaternion::makeAxisAngle(const Vector3& axis, float angle, Quaternion* dst) {
   float ha = angle / 2.0f;
   float sinHa = Math::sin(ha);
   Vector3 n;
@@ -178,7 +183,7 @@ void Quaternion::fromAxisAngle(const Vector3& axis, float angle, Quaternion* dst
   dst->set(n.x * sinHa, n.y * sinHa, n.z * sinHa, ha);
 }
 
-void Quaternion::fromLookAt(const Vector3& direction, const Vector3& up, Quaternion* dst) {
+void Quaternion::makeLookAt(const Vector3& direction, const Vector3& up, Quaternion* dst) {
   Vector3 f;
   direction.normalize(&f);
 

@@ -1,7 +1,7 @@
 #ifndef BELLUM_MATH_H
 #define BELLUM_MATH_H
 
-#include <cstdint>
+#include "../common/common.h"
 #include <cmath>
 
 namespace bellum {
@@ -67,12 +67,12 @@ public:
     return std::floor(x);
   }
 
-  static inline int32_t floorToInt(float x) {
-    return static_cast<int32_t>(std::floor(x));
+  static inline int32 floorToInt(float x) {
+    return static_cast<int32>(std::floor(x));
   }
 
-  static inline int32_t roundToInt(float x) {
-    return static_cast<int32_t>(std::round(x));
+  static inline int32 roundToInt(float x) {
+    return static_cast<int32>(std::round(x));
   }
 
   static inline float sign(float x) {

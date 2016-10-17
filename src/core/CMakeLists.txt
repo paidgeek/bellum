@@ -4,7 +4,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-file(GLOB CORE_SOURCES src/*.cc src/*.h)
+file(GLOB_RECURSE CORE_SOURCES src/**.cc src/**.h)
 add_library(core SHARED ${CORE_SOURCES})
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 

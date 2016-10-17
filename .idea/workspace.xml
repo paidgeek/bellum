@@ -13,25 +13,25 @@
       <config projectName="bellum" targetName="monitors" />
       <config projectName="bellum" targetName="tearing" />
       <config projectName="bellum" targetName="msaa" />
-      <config projectName="bellum" targetName="particles" />
       <config projectName="bellum" targetName="coretest" />
+      <config projectName="bellum" targetName="particles" />
       <config projectName="bellum" targetName="wave" />
-      <config projectName="bellum" targetName="iconify" />
       <config projectName="bellum" targetName="game" />
+      <config projectName="bellum" targetName="iconify" />
       <config projectName="bellum" targetName="clipboard" />
       <config projectName="bellum" targetName="title" />
       <config projectName="bellum" targetName="glfw" />
       <config projectName="bellum" targetName="core" />
       <config projectName="bellum" targetName="icon" />
       <config projectName="bellum" targetName="cursor" />
-      <config projectName="bellum" targetName="reopen" />
       <config projectName="bellum" targetName="simple" />
-      <config projectName="bellum" targetName="uninstall" />
+      <config projectName="bellum" targetName="reopen" />
       <config projectName="bellum" targetName="sharing" />
+      <config projectName="bellum" targetName="uninstall" />
       <config projectName="bellum" targetName="empty" />
       <config projectName="bellum" targetName="gears" />
-      <config projectName="bellum" targetName="events" />
       <config projectName="bellum" targetName="timeout" />
+      <config projectName="bellum" targetName="events" />
       <config projectName="bellum" targetName="heightmap" />
       <config projectName="bellum" targetName="bellum" />
     </generated>
@@ -43,14 +43,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2e45354-a5d7-4502-adf1-1c09f8964765" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/core/src/math/vector3-inl.h" afterPath="$PROJECT_DIR$/src/core/src/math/vector3.inl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/core/include/core/math/matrix4.h" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/core/src/math/matrix4.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/core/src/math/matrix4.inl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/core/src/math/quaternion.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/core/src/math/vector3.h" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/core/src/math/math.h" afterPath="$PROJECT_DIR$/src/core/include/core/math/math.h" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/core/src/math/quaternion.inl" afterPath="$PROJECT_DIR$/src/core/include/core/math/quaternion.h" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/core/src/math/vector3.inl" afterPath="$PROJECT_DIR$/src/core/include/core/math/vector3.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMakeLists.txt" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/CMakeLists.txt" afterPath="$PROJECT_DIR$/src/core/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/src/math/matrix4.h" afterPath="$PROJECT_DIR$/src/core/src/math/matrix4.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/include/core/core.h" afterPath="$PROJECT_DIR$/src/core/include/core/core.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/src/math/matrix4.cc" afterPath="$PROJECT_DIR$/src/core/src/math/matrix4.cc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/src/math/quaternion.cc" afterPath="$PROJECT_DIR$/src/core/src/math/quaternion.cc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/src/math/quaternion.h" afterPath="$PROJECT_DIR$/src/core/src/math/quaternion.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/src/math/vector3.h" afterPath="$PROJECT_DIR$/src/core/src/math/vector3.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/core/src/math/vector3.cc" afterPath="$PROJECT_DIR$/src/core/src/math/vector3.cc" />
     </list>
     <ignored path="bellum.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,7 +75,68 @@
     <favorites_list name="bellum" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="matrix4.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/core/include/core/math/matrix4.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="735">
+              <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="matrix4.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix4.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="633">
+              <caret line="89" column="4" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="vector4.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/core/include/core/math/vector4.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plane.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/core/include/core/math/plane.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="math.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/core/include/core/math/math.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="core.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/core/include/core/core.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -87,7 +154,6 @@
         <option value="$PROJECT_DIR$/src/core/core.h" />
         <option value="$PROJECT_DIR$/src/core/math/math.h" />
         <option value="$PROJECT_DIR$/test/game/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/test/game/src/main.cc" />
         <option value="$PROJECT_DIR$/third_party/doctest/doctest.h" />
         <option value="$PROJECT_DIR$/third_party/doctest/LICENSE" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
@@ -95,20 +161,30 @@
         <option value="$PROJECT_DIR$/src/core/test/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/src/core/test/vector3test.cc" />
         <option value="$PROJECT_DIR$/src/core/src/math/matrix3.h" />
-        <option value="$PROJECT_DIR$/src/core/src/math/matrix4.cc" />
-        <option value="$PROJECT_DIR$/src/core/include/core/core.h" />
-        <option value="$PROJECT_DIR$/src/core/src/math/vector3.cc" />
         <option value="$PROJECT_DIR$/src/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/core/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/core/src/math/math.h" />
         <option value="$PROJECT_DIR$/src/core/src/math/vector3-inl.h" />
-        <option value="$PROJECT_DIR$/src/core/src/math/quaternion.h" />
         <option value="$PROJECT_DIR$/src/core/src/math/quaternion-inl.h" />
         <option value="$PROJECT_DIR$/src/core/src/math/matrix4-inl.h" />
-        <option value="$PROJECT_DIR$/src/core/src/math/vector3.h" />
+        <option value="$PROJECT_DIR$/src/core/src/containers/array_list.h" />
+        <option value="$PROJECT_DIR$/src/core/src/common/common.h" />
+        <option value="$PROJECT_DIR$/src/core/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/core/src/math/math.h" />
+        <option value="$PROJECT_DIR$/src/core/src/common/types.h" />
         <option value="$PROJECT_DIR$/src/core/src/math/vector3.inl" />
+        <option value="$PROJECT_DIR$/src/core/src/math/quaternion.inl" />
+        <option value="$PROJECT_DIR$/src/core/src/math/quaternion.h" />
         <option value="$PROJECT_DIR$/src/core/src/math/matrix4.h" />
+        <option value="$PROJECT_DIR$/src/core/src/math/vector3.h" />
+        <option value="$PROJECT_DIR$/src/core/src/math/vector3.cc" />
+        <option value="$PROJECT_DIR$/src/core/include/core/common/common.h" />
+        <option value="$PROJECT_DIR$/test/game/src/main.cc" />
+        <option value="$PROJECT_DIR$/src/core/include/core/math/plane.h" />
+        <option value="$PROJECT_DIR$/src/core/include/core/math/quaternion.h" />
+        <option value="$PROJECT_DIR$/src/core/include/core/math/vector4.h" />
+        <option value="$PROJECT_DIR$/src/core/include/core/core.h" />
         <option value="$PROJECT_DIR$/src/core/src/math/quaternion.cc" />
+        <option value="$PROJECT_DIR$/src/core/src/math/matrix4.cc" />
+        <option value="$PROJECT_DIR$/src/core/include/core/math/matrix4.h" />
       </list>
     </option>
   </component>
@@ -124,6 +200,25 @@
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1066" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Spelling</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>SpellCheckingInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -306,23 +401,83 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bellum" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bellum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="math" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bellum" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bellum" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="include" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\PaidGEEK\Documents\bellum\src\core\src" />
+      <recent name="C:\Users\PaidGEEK\Documents\bellum\src\core\include\core\common" />
+      <recent name="C:\Users\PaidGEEK\Documents\bellum\src\core\include\core\math" />
       <recent name="C:\Users\PaidGEEK\Documents\bellum\src\core\include\core" />
+      <recent name="C:\Users\PaidGEEK\Documents\bellum\src\core\src" />
       <recent name="C:\Users\PaidGEEK\Documents\bellum\test\game\src" />
-      <recent name="C:\Users\PaidGEEK\Documents\bellum\src\core" />
-      <recent name="C:\Users\PaidGEEK\Documents\bellum\src" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Build All">
@@ -525,11 +680,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18651211" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32690248" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -564,51 +719,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/game/src/main.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="42" selection-start-line="25" selection-start-column="42" selection-end-line="25" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/game/src/main.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="3" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -690,22 +804,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/third_party/glm/detail/dummy.cpp" />
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
-          <folding />
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
       <provider editor-type-id="MarkdownFxPreviewEditor">
         <state />
       </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="8" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -736,7 +848,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-255">
           <caret line="85" column="35" selection-start-line="85" selection-start-column="35" selection-end-line="85" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -755,58 +866,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/test/main.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="10" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/test/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/test/vector3test.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/vector2.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix3.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix3.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/test/main.cc" />
+    <entry file="file://$PROJECT_DIR$/src/core/test/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/src/core/test/vector3test.cc" />
+    <entry file="file://$PROJECT_DIR$/src/core/src/math/vector2.h" />
+    <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix3.cc" />
+    <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix3.h" />
     <entry file="file://$PROJECT_DIR$/test/game/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -823,34 +891,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/game/src/main.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/include/core/core.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix4.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/src/containers/array_list.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -863,50 +915,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/math.h">
+    <entry file="file://$PROJECT_DIR$/src/core/src/math/vector3.inl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/vector3.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        <state relative-caret-position="68">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core/src/math/quaternion.inl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="179" column="0" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/quaternion.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="79" column="25" selection-start-line="79" selection-start-column="25" selection-end-line="79" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/vector3.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="103" column="14" selection-start-line="103" selection-start-column="14" selection-end-line="103" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/vector3.inl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="288" column="12" selection-start-line="288" selection-start-column="12" selection-end-line="288" selection-end-column="12" />
+        <state relative-caret-position="68">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -919,18 +939,106 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix4.h">
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/common/common.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+        <state relative-caret-position="51">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/common/types.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/game/src/main.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/math/plane.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/math/vector3.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="53" column="73" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/math/vector4.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/core.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/math/math.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/core/src/math/quaternion.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="195" column="0" selection-start-line="195" selection-start-column="0" selection-end-line="195" selection-end-column="0" />
+        <state relative-caret-position="347">
+          <caret line="146" column="18" selection-start-line="146" selection-start-column="18" selection-end-line="146" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/src/math/vector3.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="789">
+          <caret line="140" column="0" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/math/quaternion.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="69" column="0" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/src/math/matrix4.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="633">
+          <caret line="89" column="4" selection-start-line="89" selection-start-column="4" selection-end-line="89" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/core/include/core/math/matrix4.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="198" column="0" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
           <folding />
         </state>
       </provider>
