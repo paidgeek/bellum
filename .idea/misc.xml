@@ -3,12 +3,18 @@
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
     <sourceRoots>
-      <file path="$PROJECT_DIR$/src/core/include" />
-      <file path="$PROJECT_DIR$/src/core/src" />
+      <file path="$PROJECT_DIR$/bellum" />
+      <file path="$PROJECT_DIR$/bellum/include" />
+      <file path="$PROJECT_DIR$/bellum/src" />
+      <file path="$PROJECT_DIR$/bellum/view/include" />
+      <file path="$PROJECT_DIR$/bellum/view/src" />
+      <file path="$PROJECT_DIR$/bellum/view/third_party" />
+      <file path="$PROJECT_DIR$/engine" />
       <file path="$PROJECT_DIR$/src/core/test" />
-      <file path="$PROJECT_DIR$/test" />
-      <file path="$PROJECT_DIR$/third_party" />
     </sourceRoots>
+    <libraryRoots>
+      <file path="$PROJECT_DIR$/third_party" />
+    </libraryRoots>
   </component>
   <component name="CompilerConfiguration">
     <resourceExtensions />

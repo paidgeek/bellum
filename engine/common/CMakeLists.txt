@@ -1,0 +1,9 @@
+add_sources(
+    array_list.h
+    common.h
+    logger.h
+    macros.h
+    optional.h
+    os.h
+    types.h
+)

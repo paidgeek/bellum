@@ -1,6 +1,6 @@
-#include "core/math/quaternion.h"
-#include "core/math/vector3.h"
-#include "core/math/matrix4.h"
+#include "quaternion.h"
+#include "vector3.h"
+#include "matrix4.h"
 
 namespace bellum {
 
@@ -195,7 +195,7 @@ void Quaternion::makeLookAt(const Vector3& direction, const Vector3& up, Quatern
   Vector3::cross(r, f, &u);
 
   Matrix4 m;
-  Matrix4::fromRotation(f, up);
+  Matrix4::makeRotation(f, up, &m);
   dst->set(m);
 }
 

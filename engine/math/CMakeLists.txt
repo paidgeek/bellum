@@ -1,0 +1,11 @@
+add_sources(
+    math.h
+    matrix4.h
+    matrix4.cc
+    plane.h
+    quaternion.cc
+    quaternion.h
+    vector3.cc
+    vector3.h
+    vector4.h
+)

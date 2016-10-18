@@ -1,5 +1,5 @@
-#ifndef BELLUM_VECTOR3_H
-#define BELLUM_VECTOR3_H
+#ifndef __BELLUM_VECTOR3_H__
+#define __BELLUM_VECTOR3_H__
 
 #include "math.h"
 #include <ostream>
@@ -11,50 +11,50 @@ struct Vector3 {
   float y;
   float z;
 
-  Vector3();
-  Vector3(float x, float y, float z);
-  Vector3(float x, float y);
-  Vector3(float a);
-  Vector3(const float* data);
-  Vector3(const Vector3& from, const Vector3& to);
+  inline Vector3();
+  inline Vector3(float x, float y, float z);
+  inline Vector3(float x, float y);
+  inline Vector3(float a);
+  inline Vector3(const float* data);
+  inline Vector3(const Vector3& from, const Vector3& to);
 
-  Vector3(const Vector3& v);
-  Vector3& operator=(const Vector3& v);
+  inline Vector3(const Vector3& v);
+  inline Vector3& operator=(const Vector3& v);
 
-  void set(const Vector3& v);
-  void set(float x, float y, float z);
-  void set(float x, float y);
-  void set(const float* data);
-  void set(const Vector3& from, const Vector3& to);
-  void setMagnitude(float magnitude);
-  void setSquaredMagnitude(float sqrMagnitude);
-  float& operator[](int32 i);
+  inline void set(const Vector3& v);
+  inline void set(float x, float y, float z);
+  inline void set(float x, float y);
+  inline void set(const float* data);
+  inline void set(const Vector3& from, const Vector3& to);
+  inline void setMagnitude(float magnitude);
+  inline void setSquaredMagnitude(float sqrMagnitude);
+  inline float& operator[](int32 i);
 
-  float magnitude() const;
-  float squaredMagnitude() const;
-  void normalize(Vector3* dst) const;
-  Vector3& normalize();
-  void negate(Vector3* dst) const;
-  Vector3& negate();
-  Vector3& cross(const Vector3& v);
-  static void cross(const Vector3& a, const Vector3& b, Vector3* dst);
-  float dot(const Vector3& v) const;
-  static float dot(const Vector3& a, const Vector3& b);
-  float angle(const Vector3& to);
-  static float angle(const Vector3& from, const Vector3& to);
-  void scale(float a);
-  void add(const Vector3& v);
-  void add(float x, float y, float z);
-  static void add(const Vector3& a, const Vector3& b, Vector3* dst);
-  void subtract(const Vector3& v);
-  void subtract(float x, float y, float z);
-  static void subtract(const Vector3& a, const Vector3& b, Vector3* dst);
-  void multiply(const Vector3& v);
-  void multiply(float x, float y, float z);
-  static void multiply(const Vector3& a, const Vector3& b, Vector3* dst);
-  void divide(const Vector3& v);
-  void divide(float x, float y, float z);
-  static void divide(const Vector3& a, const Vector3& b, Vector3* dst);
+  inline float magnitude() const;
+  inline float squaredMagnitude() const;
+  inline void normalize(Vector3* dst) const;
+  inline Vector3& normalize();
+  inline void negate(Vector3* dst) const;
+  inline Vector3& negate();
+  inline Vector3& cross(const Vector3& v);
+  inline static void cross(const Vector3& a, const Vector3& b, Vector3* dst);
+  inline float dot(const Vector3& v) const;
+  inline static float dot(const Vector3& a, const Vector3& b);
+  inline float angle(const Vector3& to);
+  inline static float angle(const Vector3& from, const Vector3& to);
+  inline void scale(float a);
+  inline void add(const Vector3& v);
+  inline void add(float x, float y, float z);
+  inline static void add(const Vector3& a, const Vector3& b, Vector3* dst);
+  inline void subtract(const Vector3& v);
+  inline void subtract(float x, float y, float z);
+  inline static void subtract(const Vector3& a, const Vector3& b, Vector3* dst);
+  inline void multiply(const Vector3& v);
+  inline void multiply(float x, float y, float z);
+  inline static void multiply(const Vector3& a, const Vector3& b, Vector3* dst);
+  inline void divide(const Vector3& v);
+  inline void divide(float x, float y, float z);
+  inline static void divide(const Vector3& a, const Vector3& b, Vector3* dst);
 
   inline Vector3 operator+(const Vector3& v) const;
   inline Vector3& operator+=(const Vector3& v);
@@ -87,16 +87,16 @@ struct Vector3 {
   Vector3& rotate(const Vector3& axis, float angle);
   static void rotate(const Vector3& v, const Vector3& axis, float angle, Vector3* dst);
 
-  static const Vector3& back();
-  static const Vector3& down();
-  static const Vector3& forward();
-  static const Vector3& left();
-  static const Vector3& right();
-  static const Vector3& up();
-  static const Vector3& zero();
-  static const Vector3& one();
+  inline static const Vector3& back();
+  inline static const Vector3& down();
+  inline static const Vector3& forward();
+  inline static const Vector3& left();
+  inline static const Vector3& right();
+  inline static const Vector3& up();
+  inline static const Vector3& zero();
+  inline static const Vector3& one();
 
-  friend std::ostream& operator<<(std::ostream& os, const Vector3& vector3);
+  inline friend std::ostream& operator<<(std::ostream& os, const Vector3& vector3);
 };
 
 // Constructors
@@ -430,7 +430,7 @@ const Vector3& Vector3::one() {
   return v;
 }
 
-std::ostream& operator<<(std::ostream& os, const Vector3& v) {
+inline std::ostream& operator<<(std::ostream& os, const Vector3& v) {
   os << "Vector3(x: " << v.x << ", y: " << v.y << ", z: " << v.z << ")";
   return os;
 }

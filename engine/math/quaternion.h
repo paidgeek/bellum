@@ -15,34 +15,34 @@ struct Quaternion {
   float z;
   float w;
 
-  Quaternion();
-  Quaternion(float x, float y, float z, float w);
-  Quaternion(const float* data);
+  inline Quaternion();
+  inline Quaternion(float x, float y, float z, float w);
+  inline Quaternion(const float* data);
   Quaternion(const Matrix4& m);
   Quaternion(const Vector3& axis, float angle);
 
-  Quaternion(const Quaternion& q);
-  Quaternion& operator=(const Quaternion& q);
+  inline Quaternion(const Quaternion& q);
+  inline Quaternion& operator=(const Quaternion& q);
 
-  void set(const Quaternion& q);
-  void set(float x, float y, float z, float w);
-  void set(const float* data);
+  inline void set(const Quaternion& q);
+  inline void set(float x, float y, float z, float w);
+  inline void set(const float* data);
   void set(const Matrix4& m);
   void set(const Vector3& axis, float angle);
-  float& operator[](int32 i);
+  inline float& operator[](int32 i);
 
   inline Quaternion operator*(const Quaternion& q) const;
   inline Quaternion& operator*=(const Quaternion& q);
 
   Vector3 toEulerAngles() const;
-  float magnitude() const;
-  float squaredMagnitude() const;
-  void normalize(Quaternion *dst) const;
-  Quaternion& normalize();
-  void conjugate(Quaternion *dst) const;
-  Quaternion& conjugate();
-  void inverse(Quaternion *dst) const;
-  Quaternion& inverse();
+  inline float magnitude() const;
+  inline float squaredMagnitude() const;
+  inline void normalize(Quaternion* dst) const;
+  inline Quaternion& normalize();
+  inline void conjugate(Quaternion* dst) const;
+  inline Quaternion& conjugate();
+  inline void inverse(Quaternion* dst) const;
+  inline Quaternion& inverse();
   float dot(const Quaternion& q) const;
   static float dot(const Quaternion& a, const Quaternion& b);
   Quaternion& multiply(const Quaternion& q);
@@ -62,8 +62,8 @@ struct Quaternion {
   static void makeAxisAngle(const Vector3& axis, float angle, Quaternion* dst);
   static void makeLookAt(const Vector3& direction, const Vector3& up, Quaternion* dst);
 
-  static const Quaternion& identity();
-  static const Quaternion& zero();
+  inline static const Quaternion& identity();
+  inline static const Quaternion& zero();
 
   friend std::ostream& operator<<(std::ostream& os, const Quaternion& q);
 };
