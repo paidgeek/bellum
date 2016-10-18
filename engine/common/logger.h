@@ -1,24 +1,52 @@
 #ifndef BELLUM_LOGGER_H
 #define BELLUM_LOGGER_H
 
-#include "easylogging++.h"
+#include <string>
+#include <iostream>
 
 namespace bellum {
 
 class Logger {
 public:
-  static Logger getLogger(const char* name) {
-    return Logger{el::Loggers::getLogger(name)};
+  Logger() {}
+
+  Logger(std::string name)
+    : name_(name) {}
+
+  template<typename T, typename ...Args>
+  void info(T&& msg, Args&& ... args) {
+    std::cout << '[' << name_ << "]: ";
+    printHelper(std::cout, msg, std::forward<Args>(args)...);
   }
 
-  el::Logger* operator->() {
-    return logger_;
+  template<typename T>
+  void info(T&& msg) {
+    std::cout << '[' << name_ << "]: " << msg << std::endl;
   }
+
+  template<typename T, typename ...Args>
+  void error(T&& msg, Args&& ... args) {
+    std::cerr << '[' << name_ << "]: ";
+    printHelper(std::cerr, msg, std::forward<Args>(args)...);
+  }
+
+  template<typename T>
+  void error(T&& msg) {
+    std::cerr << '[' << name_ << "]: " << msg << std::endl;
+  }
+
 private:
-  Logger(el::Logger* logger)
-    : logger_(logger) {}
+  std::string name_;
 
-  el::Logger* logger_;
+  void printHelper(std::ostream& out) {
+    out << std::endl;
+  }
+
+  template<typename T, typename... Args>
+  void printHelper(std::ostream& out, T&& msg, Args&& ...args) {
+    out << std::forward<T>(msg);
+    printHelper(out, std::forward<Args>(args)...);
+  }
 };
 
 }

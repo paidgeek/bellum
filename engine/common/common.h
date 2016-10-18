@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 
 #include "macros.h"
 #include "os.h"
@@ -11,7 +12,5 @@
 #include "types.h"
 #include "optional.h"
 #include "logger.h"
-
-// containers
 
 #endif
