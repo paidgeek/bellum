@@ -11,4 +11,6 @@ add_sources(
   scene.cc
   timing.h
   timing.cc
+  game_object.cc
+  game_object.h
 )

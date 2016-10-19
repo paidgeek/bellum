@@ -2,6 +2,7 @@
 #define BELLUM_SCENE_H
 
 #include "common/common.h"
+#include "game_object.h"
 
 namespace bellum {
 
@@ -11,6 +12,10 @@ public:
 
   void update();
   void render();
+
+private:
+  GameObject root_;
+
 };
 
 }

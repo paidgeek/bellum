@@ -5,7 +5,6 @@ add_sources(
     plane.h
     quaternion.cc
     quaternion.h
-    vector3.cc
     vector3.h
     vector4.h
 )
