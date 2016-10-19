@@ -5,19 +5,11 @@
 namespace bellum {
 
 // Constructors
-Quaternion::Quaternion(const Matrix4& m) {
-  makeFromRotationMatrix(m, *this);
-}
-
 Quaternion::Quaternion(const Vector3& axis, float angle) {
   makeAxisAngle(axis, angle, *this);
 }
 
 // Setters
-void Quaternion::set(const Matrix4& m) {
-  makeFromRotationMatrix(m, *this);
-}
-
 void Quaternion::set(const Vector3& axis, float angle) {
   makeAxisAngle(axis, angle, *this);
 }
@@ -62,24 +54,6 @@ void Quaternion::makeEuler(float x, float y, float z, Quaternion& dst) {
     cosy * cosx * sinz - siny * sinx * cosz,
     cosy * cosx * cosz + siny * sinx * sinz
   );
-}
-
-void Quaternion::makeFromRotationMatrix(const Matrix4& m, Quaternion& dst) {
-  float trace = m.get(0) + m.get(1, 1) + m.get(2, 2);
-
-  if (trace > 0.0f) {
-    float s = 0.5f / Math::sqrt(trace + 1.0f);
-    dst.set(
-      (m.get(1, 2) - m.get(2, 1)) * s,
-      (m.get(2, 0) - m.get(0, 2)) * s,
-      (m.get(0, 1) - m.get(1, 0)) * s,
-      0.25f / s
-    );
-  } else {
-    if()
-  }
-
-  dst.normalize();
 }
 
 void Quaternion::makeAxisAngle(const Vector3& axis, float angle, Quaternion& dst) {

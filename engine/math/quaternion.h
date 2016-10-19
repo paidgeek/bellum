@@ -18,7 +18,6 @@ struct Quaternion {
   inline Quaternion();
   inline Quaternion(float x, float y, float z, float w);
   inline Quaternion(const float* data);
-  Quaternion(const Matrix4& m);
   Quaternion(const Vector3& axis, float angle);
 
   inline Quaternion(const Quaternion& q);
@@ -27,7 +26,6 @@ struct Quaternion {
   inline void set(const Quaternion& q);
   inline void set(float x, float y, float z, float w);
   inline void set(const float* data);
-  void set(const Matrix4& m);
   void set(const Vector3& axis, float angle);
 
   inline Quaternion operator*(const Quaternion& q) const;
@@ -53,7 +51,6 @@ struct Quaternion {
   static void makeIdentity(Quaternion& dst);
   static void makeEuler(const Vector3& eulerAngles, Quaternion& dst);
   static void makeEuler(float x, float y, float z, Quaternion& dst);
-  static void makeFromRotationMatrix(const Matrix4& m, Quaternion& dst);
   static void makeAxisAngle(const Vector3& axis, float angle, Quaternion& dst);
   static void makeLookAt(const Vector3& direction, const Vector3& up, Quaternion& dst);
 
@@ -111,12 +108,12 @@ inline void Quaternion::set(const float* data) {
 // Operators
 inline Quaternion Quaternion::operator*(const Quaternion& q) const {
   Quaternion result;
-  multiply(*this, q, &result);
+  multiply(*this, q, result);
   return result;
 }
 
 inline Quaternion& Quaternion::operator*=(const Quaternion& q) {
-  multiply(*this, q, this);
+  multiply(*this, q, *this);
   return *this;
 }
 

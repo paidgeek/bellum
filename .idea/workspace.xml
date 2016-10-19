@@ -73,17 +73,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2e45354-a5d7-4502-adf1-1c09f8964765" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/engine/math/vector3.cc" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/CMakeLists.txt" afterPath="$PROJECT_DIR$/engine/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/math/CMakeLists.txt" afterPath="$PROJECT_DIR$/engine/math/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/math/matrix4.cc" afterPath="$PROJECT_DIR$/engine/math/matrix4.cc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/math/matrix4.h" afterPath="$PROJECT_DIR$/engine/math/matrix4.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/math/quaternion.cc" afterPath="$PROJECT_DIR$/engine/math/quaternion.cc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/math/quaternion.h" afterPath="$PROJECT_DIR$/engine/math/quaternion.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/math/vector3.h" afterPath="$PROJECT_DIR$/engine/math/vector3.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/math/vector4.h" afterPath="$PROJECT_DIR$/engine/math/vector4.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/scene.h" afterPath="$PROJECT_DIR$/engine/scene.h" />
     </list>
     <ignored path="bellum.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -126,18 +122,8 @@
       <file leaf-file-name="matrix4.h" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/engine/math/matrix4.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6031">
-              <caret line="80" column="47" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="matrix4.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/math/matrix4.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1832">
-              <caret line="96" column="55" selection-start-line="96" selection-start-column="55" selection-end-line="96" selection-end-column="55" />
+            <state relative-caret-position="583">
+              <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -146,8 +132,8 @@
       <file leaf-file-name="vector4.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/engine/math/vector4.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="796">
-              <caret line="47" column="44" selection-start-line="47" selection-start-column="44" selection-end-line="47" selection-end-column="44" />
+            <state relative-caret-position="-521">
+              <caret line="190" column="0" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -156,28 +142,8 @@
       <file leaf-file-name="vector3.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/engine/math/vector3.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/math/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="quaternion.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/math/quaternion.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+            <state relative-caret-position="3043">
+              <caret line="179" column="1" selection-start-line="179" selection-start-column="1" selection-end-line="179" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -186,8 +152,38 @@
       <file leaf-file-name="plane.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/engine/math/plane.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="493">
+              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="matrix4.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/math/matrix4.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="quaternion.cc" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/math/quaternion.cc">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="quaternion.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/engine/math/quaternion.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="237">
+              <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -246,12 +242,12 @@
         <option value="$PROJECT_DIR$/engine/transform.h" />
         <option value="$PROJECT_DIR$/engine/math/vector3.cc" />
         <option value="$PROJECT_DIR$/engine/math/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/engine/math/quaternion.h" />
-        <option value="$PROJECT_DIR$/engine/math/quaternion.cc" />
-        <option value="$PROJECT_DIR$/engine/math/matrix4.h" />
-        <option value="$PROJECT_DIR$/engine/math/matrix4.cc" />
         <option value="$PROJECT_DIR$/engine/math/vector3.h" />
         <option value="$PROJECT_DIR$/engine/math/vector4.h" />
+        <option value="$PROJECT_DIR$/engine/math/quaternion.cc" />
+        <option value="$PROJECT_DIR$/engine/math/quaternion.h" />
+        <option value="$PROJECT_DIR$/engine/math/matrix4.cc" />
+        <option value="$PROJECT_DIR$/engine/math/matrix4.h" />
       </list>
     </option>
   </component>
@@ -1023,30 +1019,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/plane.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/quaternion.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/engine/transform.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="548">
@@ -1055,42 +1027,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/vector3.h">
+    <entry file="file://$PROJECT_DIR$/engine/math/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/vector4.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="796">
-          <caret line="47" column="44" selection-start-line="47" selection-start-column="44" selection-end-line="47" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/matrix4.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1832">
-          <caret line="96" column="55" selection-start-line="96" selection-start-column="55" selection-end-line="96" selection-end-column="55" />
+        <state relative-caret-position="153">
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/engine/math/quaternion.cc">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
+        <state relative-caret-position="255">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/math/vector4.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-521">
+          <caret line="190" column="0" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/math/vector3.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3043">
+          <caret line="179" column="1" selection-start-line="179" selection-start-column="1" selection-end-line="179" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/math/quaternion.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/math/plane.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/math/matrix4.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/engine/math/matrix4.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6031">
-          <caret line="80" column="47" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
+        <state relative-caret-position="583">
+          <caret line="80" column="0" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
           <folding />
         </state>
       </provider>

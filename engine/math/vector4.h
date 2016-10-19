@@ -33,6 +33,8 @@ struct Vector4 {
   inline void negate(Vector4& dst) const;
   inline Vector4& negate();
 
+  inline float& operator[](int32 i);
+  inline const float& operator[](int32 i) const;
   inline Vector4 operator+(const Vector4& v) const;
   inline Vector4& operator+=(const Vector4& v);
   inline Vector4 operator-(const Vector4& v) const;
@@ -178,8 +180,15 @@ inline Vector4& Vector4::negate() {
   w = -w;
 }
 
-
 // Operators
+inline float& Vector4::operator[](int32 i) {
+  return *(&this->x + i);
+}
+
+inline const float& Vector4::operator[](int32 i) const {
+  return *(&this->x + i);
+}
+
 inline Vector4 Vector4::operator+(const Vector4& v) const {
   return {x + v.x, y + v.y, z + v.z, w + v.w};
 }

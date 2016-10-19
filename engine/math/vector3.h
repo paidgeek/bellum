@@ -14,7 +14,6 @@ struct Vector3 {
   inline Vector3();
   inline Vector3(float x, float y, float z = 0.0f);
   inline Vector3(const float* data);
-  inline Vector3(const Vector3& from, const Vector3& to);
 
   inline Vector3(const Vector3& v);
   inline Vector3& operator=(const Vector3& v);
@@ -33,6 +32,8 @@ struct Vector3 {
   inline void negate(Vector3& dst) const;
   inline Vector3& negate();
 
+  inline float& operator[](int32 i);
+  inline const float& operator[](int32 i) const;
   inline Vector3 operator+(const Vector3& v) const;
   inline Vector3& operator+=(const Vector3& v);
   inline Vector3 operator-(const Vector3& v) const;
@@ -179,6 +180,14 @@ inline Vector3& Vector3::negate() {
 }
 
 // Operators
+inline float& Vector3::operator[](int32 i) {
+  return *(&this->x + i);
+}
+
+inline const float& Vector3::operator[](int32 i) const {
+  return *(&this->x + i);
+}
+
 inline Vector3 Vector3::operator+(const Vector3& v) const {
   return {x + v.x, y + v.y, z + v.z};
 }
