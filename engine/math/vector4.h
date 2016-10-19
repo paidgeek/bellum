@@ -79,16 +79,13 @@ inline Vector4::Vector4(float x, float y, float z, float w)
   : x(x), y(y), z(z), w(w) {}
 
 inline Vector4::Vector4(const float* data)
-:x(data[0]), y(data[1]), z(data[2]), w(data[3]){}
+  : x(data[0]), y(data[1]), z(data[2]), w(data[3]) {}
 
 inline Vector4::Vector4(const Vector3& v, float w)
   : x(v.x), y(v.y), z(v.z), w(w) {}
 
-inline Vector4::Vector4(const Vector4& from, const Vector4& to)
-:x(to.x - from.x),y(to.y - from.y),z(to.z - from.z),x(to.w - from.w){}
-
 inline Vector4::Vector4(const Vector4& v)
-:x(v.x), y(v.y), z(v.z), w(v.w){}
+  : x(v.x), y(v.y), z(v.z), w(v.w) {}
 
 inline Vector4& Vector4::operator=(const Vector4& v) {
   x = v.x;

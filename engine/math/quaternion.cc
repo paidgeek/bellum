@@ -9,9 +9,50 @@ Quaternion::Quaternion(const Vector3& axis, float angle) {
   makeAxisAngle(axis, angle, *this);
 }
 
+Quaternion::Quaternion(const Matrix4& m) {
+  this->set(m);
+}
+
 // Setters
 void Quaternion::set(const Vector3& axis, float angle) {
   makeAxisAngle(axis, angle, *this);
+}
+
+void Quaternion::set(const Matrix4& m) {
+  float m11 = m.get(0, 0);
+  float m22 = m.get(1, 1);
+  float m33 = m.get(2, 2);
+  float trace = m11 + m22 + m33;
+
+  if (trace > 0.0f) {
+    float s = 0.5f / Math::sqrt(trace + 1.0f);
+    w = 0.25f / s;
+    x = (m.get(1, 2) - m.get(2, 1)) * s;
+    y = (m.get(2, 0) - m.get(0, 2)) * s;
+    z = (m.get(0, 1) - m.get(1, 0)) * s;
+  } else {
+    if (m11 > m22 && m11 > m33) {
+      float s = 2.0f * Math::sqrt(1.0f + m11 - m22 - m33);
+      w = (m.get(1, 2) - m.get(2, 1)) / s;
+      x = 0.25f * s;
+      y = (m.get(1, 0) + m.get(0, 1)) / s;
+      z = (m.get(2, 0) + m.get(0, 2)) / s;
+    } else if (m22 > m33) {
+      float s = 2.0f * Math::sqrt(1.0f + m22 - m11 - m33);
+      w = (m.get(2, 0) - m.get(0, 2)) / s;
+      x = (m.get(1, 0) + m.get(0, 1)) / s;
+      y = 0.25f * s;
+      z = (m.get(2, 1) + m.get(1, 2)) / s;
+    } else {
+      float s = 2.0f * Math::sqrt(1.0f + m33 - m11 - m22);
+      w = (m.get(0, 1) - m.get(1, 0)) / s;
+      x = (m.get(2, 0) + m.get(0, 2)) / s;
+      y = (m.get(1, 2) + m.get(2, 1)) / s;
+      z = 0.25f * s;
+    }
+  }
+
+  this->normalize();
 }
 
 // Algebra
@@ -58,11 +99,11 @@ void Quaternion::makeEuler(float x, float y, float z, Quaternion& dst) {
 
 void Quaternion::makeAxisAngle(const Vector3& axis, float angle, Quaternion& dst) {
   float ha = angle / 2.0f;
-  float sinHa = Math::sin(ha);
+  float sin = Math::sin(ha);
   Vector3 n;
   axis.normalize(n);
 
-  dst.set(n.x * sinHa, n.y * sinHa, n.z * sinHa, ha);
+  dst.set(n.x * sin, n.y * sin, n.z * sin, ha);
 }
 
 void Quaternion::makeLookAt(const Vector3& direction, const Vector3& up, Quaternion& dst) {

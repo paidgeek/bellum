@@ -93,7 +93,7 @@ Vector3& Vector3::operator=(const Vector3& v) {
   return *this;
 }
 
-Vector3::Vector3(float x, float y, float z = 0.0f)
+Vector3::Vector3(float x, float y, float z)
   : x(x), y(y), z(z) {}
 
 Vector3::Vector3(const float* data)

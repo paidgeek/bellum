@@ -19,6 +19,7 @@ struct Quaternion {
   inline Quaternion(float x, float y, float z, float w);
   inline Quaternion(const float* data);
   Quaternion(const Vector3& axis, float angle);
+  Quaternion(const Matrix4& m);
 
   inline Quaternion(const Quaternion& q);
   inline Quaternion& operator=(const Quaternion& q);
@@ -27,6 +28,7 @@ struct Quaternion {
   inline void set(float x, float y, float z, float w);
   inline void set(const float* data);
   void set(const Vector3& axis, float angle);
+  void set(const Matrix4& m);
 
   inline Quaternion operator*(const Quaternion& q) const;
   inline Quaternion& operator*=(const Quaternion& q);

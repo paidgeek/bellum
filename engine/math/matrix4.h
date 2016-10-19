@@ -454,11 +454,11 @@ inline void Matrix4::translate(const Matrix4& m, float x, float y, float z, Matr
 }
 
 inline void Matrix4::scale(const Matrix4& m, float a, Matrix4& dst) {
-  scale(m, a, a, a, dst);
+  Matrix4::scale(m, a, a, a, dst);
 }
 
 inline void Matrix4::scale(const Matrix4& m, const Vector3& scale, Matrix4& dst) {
-  scale(m, scale.x, scale.y, scale.z, dst);
+  Matrix4::scale(m, scale.x, scale.y, scale.z, dst);
 }
 
 inline void Matrix4::scale(const Matrix4& m, float x, float y, float z, Matrix4& dst) {
