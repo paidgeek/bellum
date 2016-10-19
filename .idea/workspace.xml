@@ -73,19 +73,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2e45354-a5d7-4502-adf1-1c09f8964765" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/third_party/easylogging/easylogging++.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/engine/module.h" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/engine/time.cc" afterPath="$PROJECT_DIR$/engine/timing.cc" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/engine/time.h" afterPath="$PROJECT_DIR$/engine/timing.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bellum/CMakeLists.txt" afterPath="$PROJECT_DIR$/bellum/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bellum/main.cc" afterPath="$PROJECT_DIR$/bellum/main.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bellum/main_scene.cc" afterPath="$PROJECT_DIR$/bellum/main_scene.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bellum/main_scene.h" afterPath="$PROJECT_DIR$/bellum/main_scene.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/CMakeLists.txt" afterPath="$PROJECT_DIR$/engine/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/application.cc" afterPath="$PROJECT_DIR$/engine/application.cc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/application.h" afterPath="$PROJECT_DIR$/engine/application.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/common/common.h" afterPath="$PROJECT_DIR$/engine/common/common.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/common/logger.h" afterPath="$PROJECT_DIR$/engine/common/logger.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/scene.cc" afterPath="$PROJECT_DIR$/engine/scene.cc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/scene.h" afterPath="$PROJECT_DIR$/engine/scene.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/standalone/standalone_application.cc" afterPath="$PROJECT_DIR$/engine/standalone/standalone_application.cc" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/standalone/standalone_application.h" afterPath="$PROJECT_DIR$/engine/standalone/standalone_application.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/standalone/window.cc" afterPath="$PROJECT_DIR$/engine/standalone/window.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/standalone/window.h" afterPath="$PROJECT_DIR$/engine/standalone/window.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/engine/view/CMakeLists.txt" afterPath="$PROJECT_DIR$/engine/view/CMakeLists.txt" />
     </list>
     <ignored path="bellum.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -104,112 +110,156 @@
     <favorites_list name="bellum" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="standalone_application.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="time.h" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/engine/time.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="types.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/common/types.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="time.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/time.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/application.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="module.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/module.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scene.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/scene.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-              <folding>
-                <marker date="1476813201660" expanded="true" signature="92:345" ph="{...}" />
-                <marker date="1476813201660" expanded="true" signature="122:341" ph="{...}" />
-                <marker date="1476813201660" expanded="true" signature="298:339" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scene.cc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/scene.cc">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="standalone_application.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="timing.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/timing.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="629">
+                  <caret line="63" column="6" selection-start-line="63" selection-start-column="6" selection-end-line="63" selection-end-column="6" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="renderer.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/view/renderer.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="204">
+                  <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="standalone_application.cc" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.cc">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="531">
+                  <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="scene_manager.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/scene_manager.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="430">
+                  <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="stl_map.h" pinned="false" current-in-tab="false">
+            <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/stl_map.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="177">
+                  <caret line="620" column="0" selection-start-line="620" selection-start-column="0" selection-end-line="620" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="stl_tree.h" pinned="false" current-in-tab="false">
+            <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/stl_tree.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="228">
+                  <caret line="651" column="0" selection-start-line="651" selection-start-column="0" selection-end-line="651" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="window.h" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/engine/standalone/window.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="527">
+                  <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="scene_manager.cc" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/scene_manager.cc">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="238">
+                  <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="scene.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/scene.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="306">
+                  <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.cc" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/bellum/main.cc">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="119">
+                  <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="standalone_application.cc" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.cc">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="374">
+                  <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="application.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/application.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="544">
+                  <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="application.cc" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/application.cc">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="119">
+                  <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="standalone_application.h" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="204">
+                  <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -217,12 +267,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/bellum/src/common/common.h" />
-        <option value="$PROJECT_DIR$/bellum/src/common/logger.h" />
-        <option value="$PROJECT_DIR$/bellum/include/bellum/bellum.h" />
-        <option value="$PROJECT_DIR$/bellum/src/application.h" />
-        <option value="$PROJECT_DIR$/bellum/src/application.cc" />
-        <option value="$PROJECT_DIR$/test/game/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/bellum/bellum.h" />
         <option value="$PROJECT_DIR$/bellum/common/common.h" />
         <option value="$PROJECT_DIR$/bellum/application.h" />
@@ -243,31 +287,37 @@
         <option value="$PROJECT_DIR$/bellum/src/main.cc" />
         <option value="$PROJECT_DIR$/engine/math/quaternion.h" />
         <option value="$PROJECT_DIR$/engine/common/macros.h" />
-        <option value="$PROJECT_DIR$/engine/standalone/window.cc" />
-        <option value="$PROJECT_DIR$/engine/standalone/window.h" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/engine/common/logger.h" />
         <option value="$PROJECT_DIR$/engine/view/renderer.h" />
         <option value="$PROJECT_DIR$/engine/view/forward_renderer.h" />
-        <option value="$PROJECT_DIR$/engine/view/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/engine/common/common.h" />
-        <option value="$PROJECT_DIR$/engine/application.cc" />
-        <option value="$PROJECT_DIR$/bellum/main.cc" />
-        <option value="$PROJECT_DIR$/bellum/main_scene.h" />
         <option value="$PROJECT_DIR$/bellum/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/bellum/main_scene.cc" />
         <option value="$PROJECT_DIR$/engine/view/render_module.cc" />
         <option value="$PROJECT_DIR$/engine/view/render_module.h" />
         <option value="$PROJECT_DIR$/engine/module.h" />
+        <option value="$PROJECT_DIR$/engine/common/types.h" />
+        <option value="$PROJECT_DIR$/engine/standalone/window.cc" />
+        <option value="$PROJECT_DIR$/engine/view/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/engine/time.h" />
+        <option value="$PROJECT_DIR$/engine/time.cc" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/engine/fixed_timestep_timer.h" />
+        <option value="$PROJECT_DIR$/engine/fixed_timestep_timer.cc" />
+        <option value="$PROJECT_DIR$/engine/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/engine/timing.cc" />
+        <option value="$PROJECT_DIR$/engine/common/common.h" />
+        <option value="$PROJECT_DIR$/bellum/main.cc" />
+        <option value="$PROJECT_DIR$/engine/scene_manager.cc" />
         <option value="$PROJECT_DIR$/engine/scene.h" />
         <option value="$PROJECT_DIR$/engine/scene.cc" />
+        <option value="$PROJECT_DIR$/bellum/main_scene.cc" />
+        <option value="$PROJECT_DIR$/bellum/main_scene.h" />
+        <option value="$PROJECT_DIR$/engine/scene_manager.h" />
+        <option value="$PROJECT_DIR$/engine/application.cc" />
         <option value="$PROJECT_DIR$/engine/standalone/standalone_application.h" />
         <option value="$PROJECT_DIR$/engine/application.h" />
-        <option value="$PROJECT_DIR$/engine/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/engine/common/types.h" />
-        <option value="$PROJECT_DIR$/engine/time.cc" />
+        <option value="$PROJECT_DIR$/engine/timing.h" />
+        <option value="$PROJECT_DIR$/engine/standalone/window.h" />
         <option value="$PROJECT_DIR$/engine/standalone/standalone_application.cc" />
-        <option value="$PROJECT_DIR$/engine/time.h" />
       </list>
     </option>
   </component>
@@ -643,10 +693,10 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20126449" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30975348" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21972133" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21972133" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5021075" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.49789253" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22186495" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16827439" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39978564" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -672,136 +722,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="5" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/bellum/src/common/logger.cc" />
-    <entry file="file://$PROJECT_DIR$/test/game/src/test_scene.cc" />
-    <entry file="file://$PROJECT_DIR$/test/game/src/test_scene.h" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bellum/include/bellum/bellum.h" />
-    <entry file="file://$PROJECT_DIR$/engine/math/math.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/matrix4.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="249" column="0" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/vector3.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="7" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/math/vector3.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="74" column="2" selection-start-line="74" selection-start-column="2" selection-end-line="74" selection-end-column="2" />
-          <folding>
-            <marker date="1476782410820" expanded="true" signature="114:10633" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="5617:5644" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="5881:5990" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6029:6140" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6190:6217" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6253:6286" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6337:6431" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6510:6615" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6667:6708" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6772:6819" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6868:6898" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="6968:7151" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7189:7222" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7267:7306" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7360:7411" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7488:7536" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7586:7625" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7684:7735" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7817:7865" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="7915:7954" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8013:8064" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8146:8194" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8242:8281" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8338:8389" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8469:8517" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8590:8652" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8708:8737" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8797:8864" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8920:8954" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="8998:9062" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9113:9177" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9224:9255" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9312:9354" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9407:9445" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9503:9549" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9607:9653" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9707:9765" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9812:9866" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9899:9953" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="9989:10042" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="10075:10129" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="10163:10216" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="10247:10300" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="10333:10386" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="10418:10471" ph="{...}" />
-            <marker date="1476782410820" expanded="true" signature="10541:10630" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/third_party/easylogging++.h" />
-    <entry file="file://$PROJECT_DIR$/engine/bellum.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/third_party/easylogging/easylogging++.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="5626" column="53" selection-start-line="5626" selection-start-column="53" selection-end-line="5626" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/common/array_list.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cmake/add_sources.cmake">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/common/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/engine/math/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -835,7 +760,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -850,15 +774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
           <caret line="26" column="36" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/standalone/window.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -866,7 +781,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="386">
           <caret line="743" column="0" selection-start-line="743" selection-start-column="0" selection-end-line="743" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -878,31 +792,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/engine/common/logger.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="412">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding>
-            <marker date="1476808349647" expanded="true" signature="427:492" ph="{...}" />
-            <marker date="1476808349647" expanded="true" signature="574:681" ph="{...}" />
-            <marker date="1476808349647" expanded="true" signature="728:793" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/standalone/window.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -910,49 +803,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/view/renderer.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/view/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/common/common.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/unique_ptr.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="764" column="0" selection-start-line="764" selection-start-column="0" selection-end-line="764" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bellum/main.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="28" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding>
-            <marker date="1476811754267" expanded="true" signature="109:325" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -964,35 +814,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bellum/main_scene.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bellum/main_scene.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/application.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/engine/view/render_module.cc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1006,66 +831,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/engine/common/macros.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/module.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/scene.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding>
-            <marker date="1476813201660" expanded="true" signature="92:345" ph="{...}" />
-            <marker date="1476813201660" expanded="true" signature="122:341" ph="{...}" />
-            <marker date="1476813201660" expanded="true" signature="298:339" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/scene.cc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/application.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/engine/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/engine/common/types.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1074,7 +839,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/engine/time.cc">
+    <entry file="file://$PROJECT_DIR$/third_party/glfw/include/GLFW/glfw3.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="1882" column="12" selection-start-line="1882" selection-start-column="12" selection-end-line="1882" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/unique_ptr.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/stl_vector.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="423" column="0" selection-start-line="423" selection-start-column="0" selection-end-line="423" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/module.h" />
+    <entry file="file://$PROJECT_DIR$/engine/bellum.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/view/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/include/time.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/memory">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/common/macros.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/include/boost/lexical_cast/detail/converter_lexical_streams.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/ctime">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
@@ -1082,18 +924,200 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.cc">
+    <entry file="file://C:/MinGW/include/boost/program_options.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+        <state relative-caret-position="238">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/engine/time.h">
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/locale_facets_nonio.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="205">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/fixed_timestep_timer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/fixed_timestep_timer.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/standalone/window.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/timing.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="918">
+          <caret line="54" column="43" selection-start-line="54" selection-start-column="43" selection-end-line="54" selection-end-column="43" />
+          <folding>
+            <marker date="1476867852292" expanded="true" signature="62:1225" ph="{...}" />
+            <marker date="1476867852292" expanded="true" signature="146:188" ph="{...}" />
+            <marker date="1476867852292" expanded="true" signature="225:264" ph="{...}" />
+            <marker date="1476867852292" expanded="true" signature="301:337" ph="{...}" />
+            <marker date="1476867852292" expanded="true" signature="369:396" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/common/common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/scene.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bellum/main_scene.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bellum/main_scene.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/scene_manager.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/stl_tree.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="651" column="0" selection-start-line="651" selection-start-column="0" selection-end-line="651" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/MinGW/lib/gcc/mingw32/5.3.0/include/c++/bits/stl_map.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="620" column="0" selection-start-line="620" selection-start-column="0" selection-end-line="620" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bellum/main.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/scene_manager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/application.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/application.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/scene.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/timing.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="63" column="6" selection-start-line="63" selection-start-column="6" selection-end-line="63" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/view/renderer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/standalone/standalone_application.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="65" column="24" selection-start-line="65" selection-start-column="24" selection-end-line="65" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/engine/standalone/window.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding />
         </state>
       </provider>

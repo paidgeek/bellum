@@ -5,11 +5,6 @@ include(cmake/add_sources.cmake)
 
 # Boost
 FIND_PACKAGE (Boost REQUIRED COMPONENTS
-    log_setup
-    thread
-    date_time
-    filesystem
-    system
     program_options)
 INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})

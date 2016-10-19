@@ -2,23 +2,18 @@
 #define BELLUM_APPLICATION_H
 
 #include "common/common.h"
-#include "scene.h"
+#include "scene_manager.h"
 
 namespace bellum {
 
-class RenderModule;
-
 class Application {
 public:
-  Application() {}
-  DELETE_COPY_AND_ASSIGN(Application);
-
   virtual void start(int argc, const char* argv[]) = 0;
   virtual void exit() = 0;
 
   template<typename T>
-  void addScene() {
-    scenes_.emplace_back(new T{});
+  void addScene(const std::string& name) {
+    scene_manager_->addScene<T>(name);
   }
 
   Logger* getLogger() {
@@ -27,10 +22,11 @@ public:
 
   static Application* getInstance();
 protected:
+  Application();
+
   std::unique_ptr<Logger> logger_;
-private:
-  std::vector<std::unique_ptr<Scene>> scenes_;
-  RenderModule* render_module_;
+  std::unique_ptr<SceneManager> scene_manager_;
+  bool is_running_;
 };
 
 }

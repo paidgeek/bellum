@@ -1,9 +1,16 @@
 #include "standalone_application.h"
 #include <boost/program_options.hpp>
+#include "window.h"
+#include "../timing.h"
 
 namespace po = boost::program_options;
 
 namespace bellum {
+
+StandaloneApplication::StandaloneApplication()
+  : Application() {}
+
+StandaloneApplication::~StandaloneApplication() {}
 
 void StandaloneApplication::start(int argc, const char* argv[]) {
   logger_ = std::make_unique<Logger>("Bellum");
@@ -13,7 +20,7 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
   bool vsync = false;
   double targetUps = 60.0;
   {
-    po::options_description desc("Allowed options");
+    po::options_description desc("Application options");
     desc.add_options()
       ("width", po::value<int32>(), "window width")
       ("height", po::value<int32>(), "window height");
@@ -31,7 +38,8 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
     }
   }
 
-  Time::setTargetUps(targetUps);
+  FixedTimeStepTimer frameTimer{targetUps};
+  frameTimer.start();
 
   window_ = std::make_unique<Window>(width, height);
 
@@ -41,15 +49,33 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
   try {
     window_->show();
 
+    scene_manager_->currentScene()->make();
+
+    while (is_running_ && !window_->shouldClose()) {
+      frameTimer.update();
+
+      // update
+      while (frameTimer.doUpdate()) {
+        // TODO: update input
+        scene_manager_->currentScene()->update();
+      }
+
+      // render
+      frameTimer.doRender();
+      scene_manager_->currentScene()->render();
+      window_->render();
+    }
 
   } catch (const std::exception& e) {
     logger_->error(e.what());
-    std::terminate();
+    std::exit(1);
   }
 }
 
 void StandaloneApplication::exit() {
+  is_running_ = false;
   logger_->info("Application exited");
+  std::exit(0);
 }
 
 }

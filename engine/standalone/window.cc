@@ -16,14 +16,15 @@ void Window::show() {
   }
 
   glfwMakeContextCurrent(glfw_window_);
+}
 
-  while (!glfwWindowShouldClose(glfw_window_)) {
-    glClear(GL_COLOR_BUFFER_BIT);
+void Window::render() {
+  glfwSwapBuffers(glfw_window_);
+  glfwPollEvents();
+}
 
-    glfwSwapBuffers(glfw_window_);
-
-    glfwPollEvents();
-  }
+bool Window::shouldClose() {
+  return glfwWindowShouldClose(glfw_window_) != GL_FALSE;
 }
 
 void Window::close() {

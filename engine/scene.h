@@ -5,21 +5,12 @@
 
 namespace bellum {
 
-class Module;
-
 class Scene {
-  friend class Application;
-
 public:
-  virtual void onStart() = 0;
+  virtual void make() = 0;
 
-private:
-  std::vector<std::unique_ptr<Module>> modules_;
-
-  template<typename T>
-  void registerModule() {
-    modules_.emplace_back(new T{});
-  }
+  void update();
+  void render();
 };
 
 }

@@ -1,8 +1,13 @@
 #include "scene.h"
-#include "module.h"
 
 namespace bellum {
 
+void Scene::update() {
 
+}
+
+void Scene::render() {
+
+}
 
 }

@@ -15,6 +15,8 @@ public:
     : width_(width), height_(height) {}
 
   void show();
+  bool shouldClose();
+  void render();
   void close();
 
 private:

@@ -7,7 +7,8 @@ using namespace bellum;
 
 class MainScene : public Scene {
 public:
-   void onStart() override;
+  MainScene() {}
+  void make() override;
 };
 
 #endif

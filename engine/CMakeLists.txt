@@ -9,6 +9,6 @@ add_sources(
   bellum.h
   scene.h
   scene.cc
-  time.h
-  module.h
+  timing.h
+  timing.cc
 )
