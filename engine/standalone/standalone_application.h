@@ -17,6 +17,8 @@ public:
   void exit() override;
 
 private:
+  using super = Application;
+
   std::unique_ptr<Window> window_;
 };
 

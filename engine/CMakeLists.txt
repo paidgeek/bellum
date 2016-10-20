@@ -8,12 +8,14 @@ add_sources(
   application.cc
   application.h
   bellum.h
-  scene.h
-  scene.cc
-  timing.h
-  timing.cc
-  node.cc
-  node.h
   component.h
   module.h
+  node.h
+  scene.cc
+  scene.h
+  scene_manager.cc
+  scene_manager.h
+  timing.h
+  timing.cc
+  transform.h
 )

@@ -5,7 +5,7 @@ using namespace bellum;
 
 int main(int argc, const char* argv[]) {
   Application* application = Application::getInstance();
-  application->addScene<MainScene>("Main");
+  application->addScene("Main", std::make_unique<MainScene>());
   application->start(argc, argv);
 
   return 0;

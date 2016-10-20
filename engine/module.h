@@ -8,16 +8,14 @@ namespace bellum {
 class Scene;
 
 class Module {
-friend class Scene;
+public:
+  Module() {}
 
-protected:
-  Module(Scene* scene)
-  :scene_(scene){}
-
-  virtual void onCreate() {};
+  virtual void onEnterScene(Scene* scene) = 0;
   virtual void update() {};
   virtual void render() {};
 
+protected:
   Scene* scene_;
 };
 

@@ -1,13 +1,13 @@
 #include <cstdlib>
 #include <sstream>
+#include <cstring>
 #include "standalone_application.h"
 #include "window.h"
 #include "../timing.h"
 
 namespace bellum {
 
-StandaloneApplication::StandaloneApplication()
-  : Application() {}
+StandaloneApplication::StandaloneApplication() : super::Application() {}
 
 StandaloneApplication::~StandaloneApplication() {}
 
@@ -53,23 +53,21 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
   try {
     window_->show();
 
-    scene_manager_.currentScene()->make();
+    super::onStart();
 
     while (running_ && !window_->shouldClose()) {
       frameTimer.update();
 
       // update
       while (frameTimer.doUpdate()) {
-        // TODO: update input
-        scene_manager_.currentScene()->update();
+        super::update();
       }
 
       // render
       frameTimer.doRender();
-      scene_manager_.currentScene()->render();
+      super::render();
       window_->render();
     }
-
   } catch (const std::exception& e) {
     logger_->error(e.what());
     std::exit(1);

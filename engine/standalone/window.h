@@ -11,8 +11,7 @@ class Window {
 public:
   DEFINE_EXCEPTION(ShowException, "Cannot show window");
 
-  Window(int32 width, int32 height)
-    : width_(width), height_(height) {}
+  Window(int32 width, int32 height);
 
   void show();
   bool shouldClose();

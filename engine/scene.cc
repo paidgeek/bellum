@@ -2,12 +2,4 @@
 
 namespace bellum {
 
-void Scene::update() {
-
-}
-
-void Scene::render() {
-
-}
-
 }

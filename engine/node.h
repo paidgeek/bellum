@@ -3,14 +3,12 @@
 
 #include "common/common.h"
 #include "transform.h"
-#include "component.h"
 
 namespace bellum {
 
-class Node {
-  friend class Component;
-  friend class Scene;
+class Component;
 
+class Node {
 public:
   Node(int32 id)
     : id_(id) {}
@@ -39,7 +37,6 @@ public:
     return active_;
   }
 
-private:
   inline const std::vector<std::unique_ptr<Component>>& components() const {
     return components_;
   }
@@ -48,6 +45,11 @@ private:
     components_.push_back(std::move(component));
   }
 
+  inline const std::vector<Node*>& children() const {
+    return children_;
+  }
+
+private:
   int32 id_;
   Transform transform_;
   std::string tag_;

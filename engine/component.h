@@ -8,9 +8,6 @@ namespace bellum {
 class Node;
 
 class Component {
-  friend class Node;
-  friend class Scene;
-
 public:
   Component() {}
 
@@ -22,7 +19,6 @@ public:
     return node_;
   }
 
-protected:
   virtual void onAdd() {};
   virtual void onRemove() {};
   virtual void onEnable() {};

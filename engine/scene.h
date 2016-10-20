@@ -3,14 +3,13 @@
 
 #include "common/common.h"
 #include "node.h"
+#include "component.h"
 
 namespace bellum {
 
 class Scene {
 public:
   virtual void make() = 0;
-  void update();
-  void render();
 
   Node* makeNode() {
     static int idCounter = 0;
@@ -25,6 +24,10 @@ public:
     std::unique_ptr<T> c{std::make_unique<T>()};
     c->onAdd();
     node->addComponent(std::move(c));
+  }
+
+  inline const std::vector<std::unique_ptr<Node>>& nodes() const {
+    return nodes_;
   }
 private:
   std::vector<std::unique_ptr<Node>> nodes_;
