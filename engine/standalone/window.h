@@ -1,7 +1,7 @@
 #ifndef BELLUM_WINDOW_H
 #define BELLUM_WINDOW_H
 
-#include "../common/common.h"
+#include "../common.h"
 
 struct GLFWwindow;
 

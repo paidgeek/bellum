@@ -1,7 +1,7 @@
 #ifndef __BELLUM_TIME_H__
 #define __BELLUM_TIME_H__
 
-#include "common/common.h"
+#include "common.h"
 
 namespace bellum {
 

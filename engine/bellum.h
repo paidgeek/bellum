@@ -5,12 +5,17 @@
 #define APPLICATION_VERSION_MINOR 0
 #define APPLICATION_VERSION_PATCH 0
 
-#include "common/common.h"
+#include "common.h"
 
 #include "application.h"
 #include "scene.h"
 #include "node.h"
 #include "component.h"
+
+// components
+#include "components/mesh_filter.h"
+#include "components/mesh_renderer.h"
+#include "components/renderer.h"
 
 // math
 #include "math/math.h"

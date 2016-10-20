@@ -1,7 +1,7 @@
 #ifndef __BELLUM_TRANSFORM_H__
 #define __BELLUM_TRANSFORM_H__
 
-#include "common/common.h"
+#include "common.h"
 #include "math/vector3.h"
 #include "math/quaternion.h"
 #include "math/matrix4.h"

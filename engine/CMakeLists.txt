@@ -3,11 +3,14 @@ add_subdirectory(math)
 add_subdirectory(standalone)
 add_subdirectory(update)
 add_subdirectory(render)
+add_subdirectory(components)
+add_subdirectory(resources)
 
 add_sources(
   application.cc
   application.h
   bellum.h
+  common.h
   component.h
   module.h
   node.h

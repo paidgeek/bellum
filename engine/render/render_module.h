@@ -1,26 +1,41 @@
 #ifndef BELLUM_RENDER_MODULE_H
 #define BELLUM_RENDER_MODULE_H
 
-#include "../common/common.h"
+#include "../common.h"
 #include "../module.h"
-#include "renderer.h"
+#include "../math/matrix4.h"
 
 namespace bellum {
 
+class Component;
+class Renderer;
+
 class RenderModule : public Module {
 public:
-  RenderModule() {}
+  DEFINE_EXCEPTION(IllegalRenderersState, "Illegal renderers state");
 
-  template<typename T>
-  void setRenderer() {
-    renderer_ = std::make_unique<T>();
-  }
+  RenderModule() {}
 
   void onEnterScene(Scene* scene) override;
   void render() override;
 
 private:
-  std::unique_ptr<Renderer> renderer_;
+  struct RenderState {
+    Renderer* renderer;
+    Matrix4 projection;
+    Matrix4 view_projection;
+
+    void clear() {
+      renderer = nullptr;
+    }
+  } render_state;
+
+  void ambientPass();
+
+  void onAddComponent(Component* component);
+  void onRemoveComponent(Component* component);
+
+  std::vector<Renderer*> renderers_;
 };
 
 }

@@ -1,7 +1,7 @@
 #ifndef __BELLUM_GAME_OBJECT_H__
 #define __BELLUM_GAME_OBJECT_H__
 
-#include "common/common.h"
+#include "common.h"
 #include "transform.h"
 
 namespace bellum {
@@ -43,6 +43,17 @@ public:
 
   inline void addComponent(std::unique_ptr<Component> component) {
     components_.push_back(std::move(component));
+  }
+
+  template<typename T>
+  inline T* getComponent() {
+    for (const auto& component : components_) {
+      if (dynamic_cast<const T*>(component) != nullptr) {
+        return component.get();
+      }
+    }
+
+    return nullptr;
   }
 
   inline const std::vector<Node*>& children() const {

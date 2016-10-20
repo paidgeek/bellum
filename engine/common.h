@@ -5,12 +5,11 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <functional>
 
-#include "macros.h"
-#include "os.h"
-
-// utils
-#include "types.h"
-#include "logger.h"
+#include "common/macros.h"
+#include "common/os.h"
+#include "common/types.h"
+#include "common/logger.h"
 
 #endif
