@@ -1,9 +1,8 @@
+#include <cstdlib>
+#include <sstream>
 #include "standalone_application.h"
-#include <boost/program_options.hpp>
 #include "window.h"
 #include "../timing.h"
-
-namespace po = boost::program_options;
 
 namespace bellum {
 
@@ -20,21 +19,26 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
   bool vsync = false;
   double targetUps = 60.0;
   {
-    po::options_description desc("Application options");
-    desc.add_options()
-      ("width", po::value<int32>(), "window width")
-      ("height", po::value<int32>(), "window height");
+    // parse '--x=y' arguments
+    std::stringstream ss;
 
-    po::variables_map vm;
-    po::store(po::parse_command_line(argc, argv, desc), vm);
-    po::notify(vm);
+    for (int32 i = 1; i < argc; i++) {
+      if (std::strncmp("--width=", argv[i], 8) == 0) {
+        ss.str(argv[i] + 8);
+        ss >> width;
+      } else if (std::strncmp("--height=", argv[i], 9) == 0) {
+        ss.str(argv[i] + 9);
+        ss >> height;
+      } else {
+        logger_->error("Unknown option '", argv[i], "'");
+        continue;
+      }
 
-    if (vm.count("width")) {
-      width = vm["width"].as<int32>();
-    }
+      if (ss.fail() || ss.get() != -1) {
+        logger_->error("Failed to parse '", argv[i], "', using defaults");
+      }
 
-    if (vm.count("height")) {
-      height = vm["height"].as<int32>();
+      ss.clear();
     }
   }
 
@@ -44,25 +48,25 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
   window_ = std::make_unique<Window>(width, height);
 
   logger_->info("Application started");
-  is_running_ = true;
+  running_ = true;
 
   try {
     window_->show();
 
-    scene_manager_->currentScene()->make();
+    scene_manager_.currentScene()->make();
 
-    while (is_running_ && !window_->shouldClose()) {
+    while (running_ && !window_->shouldClose()) {
       frameTimer.update();
 
       // update
       while (frameTimer.doUpdate()) {
         // TODO: update input
-        scene_manager_->currentScene()->update();
+        scene_manager_.currentScene()->update();
       }
 
       // render
       frameTimer.doRender();
-      scene_manager_->currentScene()->render();
+      scene_manager_.currentScene()->render();
       window_->render();
     }
 
@@ -73,7 +77,7 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
 }
 
 void StandaloneApplication::exit() {
-  is_running_ = false;
+  running_ = false;
   logger_->info("Application exited");
   std::exit(0);
 }

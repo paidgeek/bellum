@@ -12,6 +12,8 @@ public:
 
   template<typename T>
   void addScene(const std::string& name) {
+    static_assert(std::is_base_of<Scene, T>::value, "T is not a Scene");
+
     scenes_.insert(std::make_pair(name, std::make_unique<T>()));
 
     if (scenes_.size() == 1) {

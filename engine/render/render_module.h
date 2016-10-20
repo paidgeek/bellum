@@ -1,7 +1,7 @@
 #ifndef BELLUM_RENDER_MODULE_H
 #define BELLUM_RENDER_MODULE_H
 
-#include "common/common.h"
+#include "../common/common.h"
 #include "renderer.h"
 
 namespace bellum {

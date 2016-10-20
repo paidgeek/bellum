@@ -1,23 +1,9 @@
 #include "quaternion.h"
-#include "vector3.h"
 #include "matrix4.h"
 
 namespace bellum {
 
-// Constructors
-Quaternion::Quaternion(const Vector3& axis, float angle) {
-  makeAxisAngle(axis, angle, *this);
-}
-
-Quaternion::Quaternion(const Matrix4& m) {
-  this->set(m);
-}
-
 // Setters
-void Quaternion::set(const Vector3& axis, float angle) {
-  makeAxisAngle(axis, angle, *this);
-}
-
 void Quaternion::set(const Matrix4& m) {
   float m11 = m.get(0, 0);
   float m22 = m.get(1, 1);

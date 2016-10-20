@@ -9,6 +9,8 @@
 
 #include "application.h"
 #include "scene.h"
+#include "node.h"
+#include "component.h"
 
 // math
 #include "math/math.h"

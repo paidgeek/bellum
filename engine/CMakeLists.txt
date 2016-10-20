@@ -1,7 +1,8 @@
 add_subdirectory(common)
 add_subdirectory(math)
 add_subdirectory(standalone)
-add_subdirectory(view)
+add_subdirectory(update)
+add_subdirectory(render)
 
 add_sources(
   application.cc
@@ -11,6 +12,8 @@ add_sources(
   scene.cc
   timing.h
   timing.cc
-  game_object.cc
-  game_object.h
+  node.cc
+  node.h
+  component.h
+  module.h
 )

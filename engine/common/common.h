@@ -11,7 +11,6 @@
 
 // utils
 #include "types.h"
-#include "optional.h"
 #include "logger.h"
 
 #endif

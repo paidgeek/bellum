@@ -3,12 +3,6 @@ project(bellum)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 include(cmake/add_sources.cmake)
 
-# Boost
-FIND_PACKAGE (Boost REQUIRED COMPONENTS
-    program_options)
-INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
-LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
-
 # GLFW
 add_subdirectory(third_party/glew)
 include_directories(third_party/glfw/include)
@@ -31,6 +25,5 @@ endif()
 
 target_link_libraries(bellum
     glfw3
-    ${Boost_LIBRARIES}
     ${OPENGL_gl_LIBRARY}
     ${OPENGL_glu_LIBRARY})

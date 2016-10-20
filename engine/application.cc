@@ -3,8 +3,7 @@
 
 namespace bellum {
 
-Application::Application()
-  : scene_manager_(std::make_unique<SceneManager>()) {}
+Application::Application() {}
 
 Application* Application::getInstance() {
 #ifdef BELLUM_STANDALONE

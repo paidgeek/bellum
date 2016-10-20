@@ -3,6 +3,7 @@
 
 #include <ostream>
 #include "math.h"
+#include "vector3.h"
 
 namespace bellum {
 
@@ -18,8 +19,8 @@ struct Quaternion {
   inline Quaternion();
   inline Quaternion(float x, float y, float z, float w);
   inline Quaternion(const float* data);
-  Quaternion(const Vector3& axis, float angle);
-  Quaternion(const Matrix4& m);
+  inline Quaternion(const Vector3& axis, float angle);
+  inline Quaternion(const Matrix4& m);
 
   inline Quaternion(const Quaternion& q);
   inline Quaternion& operator=(const Quaternion& q);
@@ -27,7 +28,7 @@ struct Quaternion {
   inline void set(const Quaternion& q);
   inline void set(float x, float y, float z, float w);
   inline void set(const float* data);
-  void set(const Vector3& axis, float angle);
+  inline void set(const Vector3& axis, float angle);
   void set(const Matrix4& m);
 
   inline Quaternion operator*(const Quaternion& q) const;
@@ -63,26 +64,34 @@ struct Quaternion {
 };
 
 // Constructors
-Quaternion::Quaternion() {}
+inline Quaternion::Quaternion() {}
 
-Quaternion::Quaternion(float x, float y, float z, float w)
+inline Quaternion::Quaternion(float x, float y, float z, float w)
   : x(x), y(y), z(z), w(w) {}
 
-Quaternion::Quaternion(const float* data)
+inline Quaternion::Quaternion(const float* data)
   : x(data[0]), y(data[1]), z(data[2]), w(data[3]) {}
 
-Quaternion::Quaternion(const Quaternion& q) {
+inline Quaternion::Quaternion(const Quaternion& q) {
   x = q.x;
   y = q.y;
   z = q.z;
   w = q.w;
 }
 
-Quaternion& Quaternion::operator=(const Quaternion& q) {
+inline Quaternion& Quaternion::operator=(const Quaternion& q) {
   x = q.x;
   y = q.y;
   z = q.z;
   w = q.w;
+}
+
+inline Quaternion::Quaternion(const Vector3& axis, float angle) {
+  makeAxisAngle(axis, angle, *this);
+}
+
+inline Quaternion::Quaternion(const Matrix4& m) {
+  this->set(m);
 }
 
 // Setters
@@ -107,6 +116,10 @@ inline void Quaternion::set(const float* data) {
   w = data[3];
 }
 
+inline void Quaternion::set(const Vector3& axis, float angle) {
+  makeAxisAngle(axis, angle, *this);
+}
+
 // Operators
 inline Quaternion Quaternion::operator*(const Quaternion& q) const {
   Quaternion result;
@@ -117,6 +130,12 @@ inline Quaternion Quaternion::operator*(const Quaternion& q) const {
 inline Quaternion& Quaternion::operator*=(const Quaternion& q) {
   multiply(*this, q, *this);
   return *this;
+}
+
+inline Vector3 operator*(const Quaternion& q, const Vector3& v) {
+  Vector3 result;
+  Quaternion::rotatePoint(q, v, result);
+  return result;
 }
 
 // Algebra

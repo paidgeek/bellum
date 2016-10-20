@@ -52,9 +52,13 @@ struct Vector3 {
   inline static float angle(const Vector3& from, const Vector3& to);
   inline static void scale(const Vector3& v, float a, Vector3& dst);
   inline static void add(const Vector3& a, const Vector3& b, Vector3& dst);
+  inline static void add(const Vector3& a, float x, float y, float z, Vector3& dst);
   inline static void subtract(const Vector3& a, const Vector3& b, Vector3& dst);
+  inline static void subtract(const Vector3& a, float x, float y, float z, Vector3& dst);
   inline static void multiply(const Vector3& a, const Vector3& b, Vector3& dst);
+  inline static void multiply(const Vector3& a, float x, float y, float z, Vector3& dst);
   inline static void divide(const Vector3& a, const Vector3& b, Vector3& dst);
+  inline static void divide(const Vector3& a, float x, float y, float z, Vector3& dst);
 
   inline static void clamp(const Vector3& v, const Vector3& min, const Vector3& max, Vector3& dst);
   inline static void clampMagnitude(const Vector3& v, float max, Vector3& dst);
@@ -252,6 +256,14 @@ inline Vector3 operator*(float a, const Vector3& v) {
   };
 }
 
+inline Vector3 operator*(const Vector3& a, const Vector3& b) {
+  return {a.x * b.x, a.y * b.y, a.z * b.z};
+}
+
+inline Vector3 operator/(const Vector3& a, const Vector3& b) {
+  return {a.x / b.x, a.y / b.y, a.z / b.z};
+}
+
 inline void Vector3::cross(const Vector3& a, const Vector3& b, Vector3& dst) {
   dst.set(
     a.y * b.z - b.y * a.z,
@@ -290,16 +302,32 @@ inline void Vector3::add(const Vector3& a, const Vector3& b, Vector3& dst) {
   dst.set(a.x + b.x, a.y + b.y, a.z + b.z);
 }
 
+inline void Vector3::add(const Vector3& a, float x, float y, float z, Vector3& dst) {
+  dst.set(a.x + x, a.y + y, a.z + z);
+}
+
 inline void Vector3::subtract(const Vector3& a, const Vector3& b, Vector3& dst) {
   dst.set(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+inline void Vector3::subtract(const Vector3& a, float x, float y, float z, Vector3& dst) {
+  dst.set(a.x - x, a.y - y, a.z - z);
 }
 
 inline void Vector3::multiply(const Vector3& a, const Vector3& b, Vector3& dst) {
   dst.set(a.x * b.x, a.y * b.y, a.z * b.z);
 }
 
+inline void Vector3::multiply(const Vector3& a, float x, float y, float z, Vector3& dst) {
+  dst.set(a.x * x, a.y * y, a.z * z);
+}
+
 inline void Vector3::divide(const Vector3& a, const Vector3& b, Vector3& dst) {
   dst.set(a.x / b.x, a.y / b.y, a.z / b.z);
+}
+
+inline void Vector3::divide(const Vector3& a, float x, float y, float z, Vector3& dst) {
+  dst.set(a.x / x, a.y / y, a.z / z);
 }
 
 // Utilities

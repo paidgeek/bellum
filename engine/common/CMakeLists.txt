@@ -3,7 +3,6 @@ add_sources(
     common.h
     logger.h
     macros.h
-    optional.h
     os.h
     types.h
 )

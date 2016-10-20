@@ -13,7 +13,7 @@ public:
 
   template<typename T>
   void addScene(const std::string& name) {
-    scene_manager_->addScene<T>(name);
+    scene_manager_.addScene<T>(name);
   }
 
   Logger* getLogger() {
@@ -25,8 +25,8 @@ protected:
   Application();
 
   std::unique_ptr<Logger> logger_;
-  std::unique_ptr<SceneManager> scene_manager_;
-  bool is_running_;
+  SceneManager scene_manager_;
+  bool running_;
 };
 
 }
