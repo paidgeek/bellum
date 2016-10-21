@@ -19,6 +19,10 @@ public:
     return std::sqrt(x);
   }
 
+  static inline float pow(float x, float y) {
+    return std::pow(x, y);
+  }
+
   static inline float sin(float x) {
     return std::sin(x);
   }

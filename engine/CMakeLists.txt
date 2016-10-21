@@ -10,6 +10,7 @@ add_sources(
   application.cc
   application.h
   bellum.h
+  color.h
   common.h
   component.h
   module.h

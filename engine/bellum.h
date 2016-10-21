@@ -5,9 +5,9 @@
 #define APPLICATION_VERSION_MINOR 0
 #define APPLICATION_VERSION_PATCH 0
 
-#include "common.h"
-
 #include "application.h"
+#include "color.h"
+#include "common.h"
 #include "scene.h"
 #include "node.h"
 #include "component.h"
