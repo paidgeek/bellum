@@ -1,6 +1,8 @@
 #include "render_module.h"
 #include "../scene.h"
+#include "../component.h"
 #include "../components/renderer.h"
+
 #include <algorithm>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -9,13 +11,17 @@ namespace bellum {
 
 void RenderModule::onEnterScene(Scene* scene) {
   scene_ = scene;
-  scene_->registerOnAddComponent(this->onAddComponent);
-  scene_->registerOnRemoveComponent(this->onRemoveComponent);
+  scene_->registerOnAddComponent([this](Component* component) {
+    this->onAddComponent(component);
+  });
+  scene_->registerOnRemoveComponent([this](Component* component) {
+    this->onRemoveComponent(component);
+  });
 }
 
 void RenderModule::render() {
   render_state.clear();
-  Matrix4::makeOrthographic(0.0f, 1280.0f, 720.0f, 0.0f, -1.0f, 1.0f, render_state.projection);
+  render_state.projection = Matrix4::makeOrthographic(0.0f, 1280.0f, 720.0f, 0.0f, -1.0f, 1.0f);
   render_state.view_projection = render_state.projection;
 
   glFrontFace(GL_CW);
@@ -30,13 +36,11 @@ void RenderModule::render() {
 }
 
 void RenderModule::ambientPass() {
-  for(auto renderer : renderers_) {
-    if(renderer->enabled()) {
+  for (auto renderer : renderers_) {
+    if (renderer->enabled()) {
       render_state.renderer = renderer;
 
-
-
-      glActiveTexture(GL_TEXTURE0);
+      glActiveTextureARB(GL_TEXTURE0_ARB);
       glBindTexture(GL_TEXTURE_2D, 0);
     }
   }

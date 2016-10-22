@@ -11,29 +11,23 @@ struct Vector3 {
   float y;
   float z;
 
-  inline Vector3();
-  inline Vector3(float x, float y, float z = 0.0f);
+  inline Vector3(float x = 0.0f, float y = 0.0f, float z = 0.0f);
   inline Vector3(const float* data);
-
   inline Vector3(const Vector3& v);
   inline Vector3& operator=(const Vector3& v);
 
-  inline void set(const Vector3& v);
-  inline void set(float x, float y, float z);
-  inline void set(float x, float y);
+  inline void set(float x, float y, float z = 0.0f);
   inline void set(const float* data);
   inline void setMagnitude(float magnitude);
   inline void setSquaredMagnitude(float sqrMagnitude);
+  inline float& operator[](int32 i);
+  inline const float& operator[](int32 i) const;
 
   inline float magnitude() const;
   inline float squaredMagnitude() const;
-  inline void normalize(Vector3& dst) const;
   inline Vector3& normalize();
-  inline void negate(Vector3& dst) const;
-  inline Vector3& negate();
+  inline Vector3 normalized() const;
 
-  inline float& operator[](int32 i);
-  inline const float& operator[](int32 i) const;
   inline Vector3 operator+(const Vector3& v) const;
   inline Vector3& operator+=(const Vector3& v);
   inline Vector3 operator-(const Vector3& v) const;
@@ -46,31 +40,26 @@ struct Vector3 {
   inline bool operator==(const Vector3& v) const;
   inline bool operator!=(const Vector3& v) const;
 
-  inline static void cross(const Vector3& a, const Vector3& b, Vector3& dst);
-  inline static float dot(const Vector3& a);
-  inline static float dot(const Vector3& a, const Vector3& b);
   inline static float angle(const Vector3& from, const Vector3& to);
-  inline static void scale(const Vector3& v, float a, Vector3& dst);
-  inline static void add(const Vector3& a, const Vector3& b, Vector3& dst);
-  inline static void add(const Vector3& a, float x, float y, float z, Vector3& dst);
-  inline static void subtract(const Vector3& a, const Vector3& b, Vector3& dst);
-  inline static void subtract(const Vector3& a, float x, float y, float z, Vector3& dst);
-  inline static void multiply(const Vector3& a, const Vector3& b, Vector3& dst);
-  inline static void multiply(const Vector3& a, float x, float y, float z, Vector3& dst);
-  inline static void divide(const Vector3& a, const Vector3& b, Vector3& dst);
-  inline static void divide(const Vector3& a, float x, float y, float z, Vector3& dst);
-
-  inline static void clamp(const Vector3& v, const Vector3& min, const Vector3& max, Vector3& dst);
-  inline static void clampMagnitude(const Vector3& v, float max, Vector3& dst);
+  inline static Vector3 clampMagnitude(const Vector3& v, float max);
+  inline static Vector3 cross(const Vector3& a, const Vector3& b);
   inline static float distance(const Vector3& a, const Vector3& b);
   inline static float squaredDistance(const Vector3& a, const Vector3& b);
-  inline static void lerp(const Vector3& a, const Vector3& b, float t, Vector3& dst);
+  inline static float dot(const Vector3& a);
+  inline static float dot(const Vector3& a, const Vector3& b);
+  inline static Vector3 lerp(const Vector3& a, const Vector3& b, float t);
+  inline static Vector3 lerpUnclamped(const Vector3& a, const Vector3& b, float t);
   inline static Vector3 max(const Vector3& a, const Vector3& b);
   inline static Vector3 min(const Vector3& a, const Vector3& b);
-  inline static void project(const Vector3& v, const Vector3& on, Vector3& dst);
-  inline static void reflect(const Vector3& in, const Vector3& normal, Vector3& dst);
-  inline static void slerp(const Vector3& a, const Vector3& b, float t, Vector3& dst);
-  inline static void rotate(const Vector3& v, const Vector3& axis, float angle, Vector3& dst);
+  inline static Vector3 moveTowards(const Vector3& current, const Vector3& target, float delta);
+  inline static Vector3 project(const Vector3& v, const Vector3& on);
+  inline static Vector3 projectOnPlane(const Vector3& v, const Vector3& planeNormal);
+  inline static Vector3 reflect(const Vector3& in, const Vector3& normal);
+  inline static Vector3 rotate(const Vector3& v, const Vector3& axis, float angle);
+  inline static Vector3 slerp(const Vector3& a, const Vector3& b, float t);
+  inline static Vector3 slerpUnclamped(const Vector3& a, const Vector3& b, float t);
+  inline static Vector3 clamp(const Vector3& v, const Vector3& min, const Vector3& max);
+  inline static Vector3 scale(const Vector3& a, const Vector3& b);
 
   inline static const Vector3& back();
   inline static const Vector3& down();
@@ -85,7 +74,11 @@ struct Vector3 {
 };
 
 // Constructors
-Vector3::Vector3() {}
+Vector3::Vector3(float x, float y, float z)
+  : x(x), y(y), z(z) {}
+
+Vector3::Vector3(const float* data)
+  : x(data[0]), y(data[1]), z(data[2]) {}
 
 Vector3::Vector3(const Vector3& v)
   : x(v.x), y(v.y), z(v.z) {}
@@ -97,28 +90,11 @@ Vector3& Vector3::operator=(const Vector3& v) {
   return *this;
 }
 
-Vector3::Vector3(float x, float y, float z)
-  : x(x), y(y), z(z) {}
-
-Vector3::Vector3(const float* data)
-  : x(data[0]), y(data[1]), z(data[2]) {}
-
 // Setters
-inline void Vector3::set(const Vector3& v) {
-  x = v.x;
-  y = v.x;
-  z = v.z;
-}
-
 inline void Vector3::set(float x, float y, float z) {
   this->x = x;
   this->y = y;
   this->z = z;
-}
-
-inline void Vector3::set(float x, float y) {
-  this->x = x;
-  this->y = y;
 }
 
 inline void Vector3::set(const float* data) {
@@ -142,7 +118,15 @@ inline void Vector3::setSquaredMagnitude(float sqrMagnitude) {
   }
 }
 
-// Algebra
+inline float& Vector3::operator[](int32 i) {
+  return *(&this->x + i);
+}
+
+inline const float& Vector3::operator[](int32 i) const {
+  return *(&this->x + i);
+}
+
+// Properties
 inline float Vector3::magnitude() const {
   return Math::sqrt(x * x + y * y + z * z);
 }
@@ -151,18 +135,8 @@ inline float Vector3::squaredMagnitude() const {
   return x * x + y * y + z * z;
 }
 
-inline void Vector3::normalize(Vector3& dst) const {
-  float m = this->magnitude();
-
-  if (m != 0.0f) {
-    dst.x /= m;
-    dst.y /= m;
-    dst.z /= m;
-  }
-}
-
 inline Vector3& Vector3::normalize() {
-  float m = this->magnitude();
+  float m = magnitude();
 
   if (m != 0.0f) {
     x /= m;
@@ -173,25 +147,17 @@ inline Vector3& Vector3::normalize() {
   return *this;
 }
 
-inline void Vector3::negate(Vector3& dst) const {
-  dst.set(-x, -y, -z);
-}
+inline Vector3 Vector3::normalized() const {
+  float m = magnitude();
 
-inline Vector3& Vector3::negate() {
-  x = -x;
-  y = -y;
-  z = -z;
+  if (m != 0.0f) {
+    return {x / m, y / m, z / m};
+  }
+
+  return *this;
 }
 
 // Operators
-inline float& Vector3::operator[](int32 i) {
-  return *(&this->x + i);
-}
-
-inline const float& Vector3::operator[](int32 i) const {
-  return *(&this->x + i);
-}
-
 inline Vector3 Vector3::operator+(const Vector3& v) const {
   return {x + v.x, y + v.y, z + v.z};
 }
@@ -256,30 +222,7 @@ inline Vector3 operator*(float a, const Vector3& v) {
   };
 }
 
-inline Vector3 operator*(const Vector3& a, const Vector3& b) {
-  return {a.x * b.x, a.y * b.y, a.z * b.z};
-}
-
-inline Vector3 operator/(const Vector3& a, const Vector3& b) {
-  return {a.x / b.x, a.y / b.y, a.z / b.z};
-}
-
-inline void Vector3::cross(const Vector3& a, const Vector3& b, Vector3& dst) {
-  dst.set(
-    a.y * b.z - b.y * a.z,
-    a.z * b.x - b.z * a.x,
-    a.x * b.y - b.x * a.y
-  );
-}
-
-inline float Vector3::dot(const Vector3& a) {
-  return a.x * a.x + a.y * a.y + a.z * a.z;
-}
-
-inline float Vector3::dot(const Vector3& a, const Vector3& b) {
-  return a.x * b.x + a.y * b.y + a.z * b.z;
-}
-
+// Algebra
 inline float Vector3::angle(const Vector3& from, const Vector3& to) {
   float dls = dot(from, to) / (from.magnitude() * to.magnitude());
 
@@ -292,60 +235,23 @@ inline float Vector3::angle(const Vector3& from, const Vector3& to) {
   return Math::acos(dls);
 }
 
-inline void Vector3::scale(const Vector3& v, float a, Vector3& dst) {
-  dst.x *= a;
-  dst.y *= a;
-  dst.z *= a;
-}
-
-inline void Vector3::add(const Vector3& a, const Vector3& b, Vector3& dst) {
-  dst.set(a.x + b.x, a.y + b.y, a.z + b.z);
-}
-
-inline void Vector3::add(const Vector3& a, float x, float y, float z, Vector3& dst) {
-  dst.set(a.x + x, a.y + y, a.z + z);
-}
-
-inline void Vector3::subtract(const Vector3& a, const Vector3& b, Vector3& dst) {
-  dst.set(a.x - b.x, a.y - b.y, a.z - b.z);
-}
-
-inline void Vector3::subtract(const Vector3& a, float x, float y, float z, Vector3& dst) {
-  dst.set(a.x - x, a.y - y, a.z - z);
-}
-
-inline void Vector3::multiply(const Vector3& a, const Vector3& b, Vector3& dst) {
-  dst.set(a.x * b.x, a.y * b.y, a.z * b.z);
-}
-
-inline void Vector3::multiply(const Vector3& a, float x, float y, float z, Vector3& dst) {
-  dst.set(a.x * x, a.y * y, a.z * z);
-}
-
-inline void Vector3::divide(const Vector3& a, const Vector3& b, Vector3& dst) {
-  dst.set(a.x / b.x, a.y / b.y, a.z / b.z);
-}
-
-inline void Vector3::divide(const Vector3& a, float x, float y, float z, Vector3& dst) {
-  dst.set(a.x / x, a.y / y, a.z / z);
-}
-
-// Utilities
-inline void Vector3::clamp(const Vector3& v, const Vector3& min, const Vector3& max, Vector3& dst) {
-  dst.set(
-    Math::clamp(v.x, min.x, max.x),
-    Math::clamp(v.y, min.y, max.y),
-    Math::clamp(v.z, min.z, max.z)
-  );
-}
-
-inline void Vector3::clampMagnitude(const Vector3& v, float max, Vector3& dst) {
-  dst.set(v);
+inline Vector3 Vector3::clampMagnitude(const Vector3& v, float max) {
+  Vector3 result{v};
 
   if (v.magnitude() > max) {
-    dst.normalize();
-    scale(dst, max, dst);
+    result.normalize();
+    result *= max;
   }
+
+  return result;
+}
+
+inline Vector3 Vector3::cross(const Vector3& a, const Vector3& b) {
+  return {
+    a.y * b.z - b.y * a.z,
+    a.z * b.x - b.z * a.x,
+    a.x * b.y - b.x * a.y
+  };
 }
 
 inline float Vector3::distance(const Vector3& a, const Vector3& b) {
@@ -362,12 +268,24 @@ inline float Vector3::squaredDistance(const Vector3& a, const Vector3& b) {
   return dx * dx + dy * dy + dz * dz;
 }
 
-inline void Vector3::lerp(const Vector3& a, const Vector3& b, float t, Vector3& dst) {
-  dst.set(
+inline float Vector3::dot(const Vector3& a) {
+  return a.x * a.x + a.y * a.y + a.z * a.z;
+}
+
+inline float Vector3::dot(const Vector3& a, const Vector3& b) {
+  return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+inline Vector3 Vector3::lerp(const Vector3& a, const Vector3& b, float t) {
+  return lerpUnclamped(a, b, Math::clamp(t, 0.0f, 1.0f));
+}
+
+inline Vector3 Vector3::lerpUnclamped(const Vector3& a, const Vector3& b, float t) {
+  return {
     a.x + (b.x - a.x) * t,
     a.y + (b.y - a.y) * t,
     a.z + (b.z - a.z) * t
-  );
+  };
 }
 
 inline Vector3 Vector3::max(const Vector3& a, const Vector3& b) {
@@ -386,21 +304,39 @@ inline Vector3 Vector3::min(const Vector3& a, const Vector3& b) {
   };
 }
 
-inline void Vector3::project(const Vector3& v, const Vector3& on, Vector3& dst) {
-  float sm = on.squaredMagnitude();
-  dst.set(on * (dot(on, v) / sm));
+Vector3 Vector3::moveTowards(const Vector3& current, const Vector3& target, float delta) {
+  Vector3 d = (target - current).normalized();
+  return current + d * delta;
 }
 
-inline void Vector3::reflect(const Vector3& in, const Vector3& normal, Vector3& dst) {
-  dst.set(in - 2.0f * dot(in, normal) * normal);
+inline Vector3 Vector3::project(const Vector3& v, const Vector3& on) {
+  return on * (dot(on, v) / on.squaredMagnitude());
 }
 
-inline void Vector3::slerp(const Vector3& a, const Vector3& b, float t, Vector3& dst) {
+Vector3 Vector3::projectOnPlane(const Vector3& v, const Vector3& planeNormal) {
+  return v - project(v, planeNormal);
+}
+
+inline Vector3 Vector3::reflect(const Vector3& in, const Vector3& normal) {
+  return in - 2.0f * dot(in, normal) * normal;
+}
+
+inline Vector3 Vector3::rotate(const Vector3& v, const Vector3& axis, float angle) {
+  float sin = Math::sin(-angle);
+  float cos = Math::cos(-angle);
+
+  return cross(v, axis * sin) + v * cos + axis * dot(axis * (1.0f - cos));
+}
+
+inline Vector3 Vector3::slerp(const Vector3& a, const Vector3& b, float t) {
+  return slerpUnclamped(a, b, Math::clamp(t, 0.0f, 1.0f));
+}
+
+inline Vector3 Vector3::slerpUnclamped(const Vector3& a, const Vector3& b, float t) {
   float d = dot(a, b);
 
   if (d > 0.9995f || d < -0.9995f) {
-    lerp(a, b, t, dst);
-    return;
+    return lerp(a, b, t);
   }
 
   float theta0 = Math::acos(d);
@@ -414,17 +350,27 @@ inline void Vector3::slerp(const Vector3& a, const Vector3& b, float t, Vector3&
   float dl = st * ((l2 < 0.0001f) ? 1.0f : 1.0f / Math::sqrt(l2));
 
   float cost = Math::cos(theta);
-  dst.set(a.x * cost + (tx * dl), a.y * cost + (ty * dl), a.z * cost + (tz * dl));
-  dst.normalize();
+
+  return Vector3{a.x * cost + (tx * dl),
+                 a.y * cost + (ty * dl),
+                 a.z * cost + (tz * dl)}
+    .normalized();
 }
 
-inline void Vector3::rotate(const Vector3& v, const Vector3& axis, float angle, Vector3& dst) {
-  float sin = Math::sin(-angle);
-  float cos = Math::cos(-angle);
+inline Vector3 Vector3::clamp(const Vector3& v, const Vector3& min, const Vector3& max) {
+  return {
+    Math::clamp(v.x, min.x, max.x),
+    Math::clamp(v.y, min.y, max.y),
+    Math::clamp(v.z, min.z, max.z)
+  };
+}
 
-  cross(v, axis * sin, dst);
-  add(dst, v * cos, dst);
-  add(dst, axis * dot(axis * (1.0f - cos)), dst);
+inline Vector3 Vector3::scale(const Vector3& a, const Vector3& b) {
+  return {
+    a.x * b.x,
+    a.y * b.y,
+    a.z * b.z
+  };
 }
 
 // Singletons

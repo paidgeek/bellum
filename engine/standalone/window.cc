@@ -1,6 +1,6 @@
 #include "window.h"
-#include "GL/glew.h"
-#include "GLFW/glfw3.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 namespace bellum {
 
@@ -8,6 +8,11 @@ Window::Window(int32 width, int32 height)
   : width_(width), height_(height) {}
 
 void Window::show() {
+  glewExperimental=GL_TRUE;
+  if(!glewInit()) {
+    throw ShowException{};
+  }
+
   if (!glfwInit()) {
     throw ShowException{};
   }

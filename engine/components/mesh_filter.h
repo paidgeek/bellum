@@ -6,7 +6,7 @@
 
 namespace bellum {
 
-class MeshFilter : Component {
+class MeshFilter : public Component {
 
 };
 

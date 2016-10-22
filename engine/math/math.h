@@ -1,7 +1,7 @@
 #ifndef BELLUM_MATH_H
 #define BELLUM_MATH_H
 
-#include "../common/common.h"
+#include "../common.h"
 #include <cmath>
 
 namespace bellum {

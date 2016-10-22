@@ -2,6 +2,7 @@
 #define BELLUM_QUATERNION_H
 
 #include <ostream>
+#include "../common.h"
 #include "math.h"
 #include "vector3.h"
 
@@ -16,56 +17,51 @@ struct Quaternion {
   float z;
   float w;
 
-  inline Quaternion();
-  inline Quaternion(float x, float y, float z, float w);
+  inline Quaternion(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f);
   inline Quaternion(const float* data);
-  inline Quaternion(const Vector3& axis, float angle);
-  inline Quaternion(const Matrix4& m);
-
   inline Quaternion(const Quaternion& q);
+  Quaternion(const Matrix4& m);
   inline Quaternion& operator=(const Quaternion& q);
 
-  inline void set(const Quaternion& q);
   inline void set(float x, float y, float z, float w);
   inline void set(const float* data);
-  inline void set(const Vector3& axis, float angle);
   void set(const Matrix4& m);
+  inline float& operator[](int32 i);
+  inline const float& operator[](int32 i) const;
 
   inline Quaternion operator*(const Quaternion& q) const;
   inline Quaternion& operator*=(const Quaternion& q);
 
-  Vector3 toEulerAngles() const;
+  inline Vector3 eulerAngles() const;
   inline float magnitude() const;
   inline float squaredMagnitude() const;
-  inline void normalize(Quaternion& dst) const;
   inline Quaternion& normalize();
-  inline void conjugate(Quaternion& dst) const;
+  inline Quaternion normalized() const;
   inline Quaternion& conjugate();
-  inline void inverse(Quaternion& dst) const;
+  inline Quaternion conjugated() const;
   inline Quaternion& inverse();
+  inline Quaternion inversed() const;
 
+  inline static float angle(const Quaternion& a, const Quaternion& b);
+  inline static Quaternion makeAngleAxis(float angle, const Vector3& axis);
   inline static float dot(const Quaternion& q);
   inline static float dot(const Quaternion& a, const Quaternion& b);
-  inline static void multiply(const Quaternion& a, const Quaternion& b, Quaternion& dst);
-  static void rotatePoint(const Quaternion& q, const Vector3& point, Vector3& dst);
-  inline static void lerp(const Quaternion& a, const Quaternion& b, float t, Quaternion& dst);
-  inline static void slerp(const Quaternion& a, const Quaternion& b, float t, Quaternion& dst);
-
-  static void makeIdentity(Quaternion& dst);
-  static void makeEuler(const Vector3& eulerAngles, Quaternion& dst);
-  static void makeEuler(float x, float y, float z, Quaternion& dst);
-  static void makeAxisAngle(const Vector3& axis, float angle, Quaternion& dst);
-  static void makeLookAt(const Vector3& direction, const Vector3& up, Quaternion& dst);
+  inline static Quaternion makeEuler(const Vector3& euler);
+  inline static Quaternion makeEuler(float x, float y, float z);
+  inline static Quaternion makeFromToRotation(const Vector3& from, const Vector3& to);
+  inline static Quaternion lerp(const Quaternion& a, const Quaternion& b, float t);
+  inline static Quaternion lerpUnclamped(const Quaternion& a, const Quaternion& b, float t);
+  inline static Quaternion makeLookRotation(const Vector3& forward, const Vector3& upwards);
+  inline static Quaternion rotateTowards(const Quaternion& from, const Quaternion& to, float delta);
+  inline static Quaternion slerp(const Quaternion& a, const Quaternion& b, float t);
+  inline static Quaternion slerpUnclamped(const Quaternion& a, const Quaternion& b, float t);
 
   inline static const Quaternion& identity();
-  inline static const Quaternion& zero();
 
   friend std::ostream& operator<<(std::ostream& os, const Quaternion& q);
 };
 
 // Constructors
-inline Quaternion::Quaternion() {}
-
 inline Quaternion::Quaternion(float x, float y, float z, float w)
   : x(x), y(y), z(z), w(w) {}
 
@@ -86,22 +82,7 @@ inline Quaternion& Quaternion::operator=(const Quaternion& q) {
   w = q.w;
 }
 
-inline Quaternion::Quaternion(const Vector3& axis, float angle) {
-  makeAxisAngle(axis, angle, *this);
-}
-
-inline Quaternion::Quaternion(const Matrix4& m) {
-  this->set(m);
-}
-
 // Setters
-inline void Quaternion::set(const Quaternion& q) {
-  x = q.x;
-  y = q.y;
-  z = q.z;
-  w = q.w;
-}
-
 inline void Quaternion::set(float x, float y, float z, float w) {
   this->x = x;
   this->y = y;
@@ -116,58 +97,111 @@ inline void Quaternion::set(const float* data) {
   w = data[3];
 }
 
-inline void Quaternion::set(const Vector3& axis, float angle) {
-  makeAxisAngle(axis, angle, *this);
+inline float& Quaternion::operator[](int32 i) {
+  return *(&this->x + i);
+}
+
+inline const float& Quaternion::operator[](int32 i) const {
+  return *(&this->x + i);
 }
 
 // Operators
 inline Quaternion Quaternion::operator*(const Quaternion& q) const {
-  Quaternion result;
-  multiply(*this, q, result);
-  return result;
+  return {
+    w * q.x + x * q.w + y * q.z - z * q.y,
+    w * q.y - x * q.z + y * q.w + z * q.x,
+    w * q.z + x * q.y - y * q.x + z * q.w,
+    w * q.w - x * q.x - y * q.y - z * q.z
+  };
 }
 
 inline Quaternion& Quaternion::operator*=(const Quaternion& q) {
-  multiply(*this, q, *this);
+  set(
+    w * q.x + x * q.w + y * q.z - z * q.y,
+    w * q.y - x * q.z + y * q.w + z * q.x,
+    w * q.z + x * q.y - y * q.x + z * q.w,
+    w * q.w - x * q.x - y * q.y - z * q.z
+  );
   return *this;
 }
 
 inline Vector3 operator*(const Quaternion& q, const Vector3& v) {
-  Vector3 result;
-  Quaternion::rotatePoint(q, v, result);
-  return result;
+  // TODO
+  return {};
 }
 
-// Algebra
+// Properties
+inline Vector3 Quaternion::eulerAngles() const {
+  return {
+    Math::atan2(2.0f * (w * x + y * z), 1.0f - 2.0f * (x * x + y * y)),
+    Math::asin(2.0f * (w * y - z * x)),
+    Math::atan2(2.0f * (w * z + x * y), 1.0f - 2.0f * (y * y + z * z))
+  };
+}
+
 inline float Quaternion::magnitude() const {
   return Math::sqrt(x * x + y * y + z * z + w * w);
+
 }
 
 inline float Quaternion::squaredMagnitude() const {
   return x * x + y * y + z * z + w * w;
 }
 
-inline void Quaternion::normalize(Quaternion& dst) const {
+inline Quaternion& Quaternion::normalize() {
   float m = magnitude();
 
   if (m != 0.0f) {
-    dst.set(x / m, y / m, z / m, w / m);
+    set(x / m, y / m, z / m, w / m);
   } else {
-    dst.set(0.0f, 0.0f, 0.0f, 1.0f);
-  }
-}
-
-inline Quaternion& Quaternion::normalize() {
-  float m = this->magnitude();
-
-  if (m != 0.0f) {
-    x /= m;
-    y /= m;
-    z /= m;
-    w /= m;
+    set(0.0f, 0.0f, 0.0f, 1.0f);
   }
 
   return *this;
+}
+
+inline Quaternion Quaternion::normalized() const {
+  float m = magnitude();
+
+  if (m != 0.0f) {
+    return {x / m, y / m, z / m, w / m};
+  } else {
+    return {0.0f, 0.0f, 0.0f, 1.0f};
+  }
+
+  return *this;
+}
+
+inline Quaternion& Quaternion::conjugate() {
+  set(-x, -y, -z, w);
+  return *this;
+}
+
+inline Quaternion Quaternion::conjugated() const {
+  return {-x, -y, -z, w};
+}
+
+inline Quaternion& Quaternion::inverse() {
+  normalize();
+  conjugate();
+  return *this;
+}
+
+inline Quaternion Quaternion::inversed() const {
+  return normalized().conjugate();
+}
+
+// Algebra
+float Quaternion::angle(const Quaternion& a, const Quaternion& b) {
+  // TODO
+}
+
+Quaternion Quaternion::makeAngleAxis(float angle, const Vector3& axis) {
+  float ha = angle / 2.0f;
+  float sin = Math::sin(ha);
+  Vector3 n = axis.normalized();
+
+  return {n.x * sin, n.y * sin, n.z * sin, ha};
 }
 
 inline float Quaternion::dot(const Quaternion& q) {
@@ -178,70 +212,71 @@ inline float Quaternion::dot(const Quaternion& a, const Quaternion& b) {
   return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
 }
 
-inline void Quaternion::conjugate(Quaternion& dst) const {
-  dst.set(-x, -y, -z, w);
+inline Quaternion Quaternion::makeEuler(const Vector3& euler) {
+  return makeEuler(euler.x, euler.y, euler.z);
 }
 
-inline Quaternion& Quaternion::conjugate() {
-  this->x = -x;
-  this->y = -y;
-  this->w = -z;
+inline Quaternion Quaternion::makeEuler(float x, float y, float z) {
+  x /= 2.0f;
+  y /= 2.0f;
+  z /= 2.0f;
+  float sinx = Math::sin(x);
+  float cosx = Math::cos(x);
+  float siny = Math::sin(y);
+  float cosy = Math::cos(y);
+  float sinz = Math::sin(z);
+  float cosz = Math::cos(z);
 
-  return *this;
+  return {
+    siny * cosx * cosz - cosy * sinx * sinz,
+    cosy * sinx * cosz + siny * cosx * sinz,
+    cosy * cosx * sinz - siny * sinx * cosz,
+    cosy * cosx * cosz + siny * sinx * sinz
+  };
 }
 
-void Quaternion::inverse(Quaternion& dst) const {
-  dst.set(*this);
-  dst.normalize();
-  dst.conjugate();
+inline Quaternion Quaternion::makeFromToRotation(const Vector3& from, const Vector3& to) {
+  // TODO
 }
 
-inline Quaternion& Quaternion::inverse() {
-  this->normalize();
-  this->conjugate();
-  return *this;
+inline Quaternion Quaternion::lerp(const Quaternion& a, const Quaternion& b, float t) {
+  return lerpUnclamped(a, b, Math::clamp(t, 0.0f, 1.0f));
 }
 
-inline void Quaternion::multiply(const Quaternion& a, const Quaternion& b, Quaternion& dst) {
-  dst.set(
-    a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
-    a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
-    a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
-    a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
-  );
-}
-
-inline void Quaternion::lerp(const Quaternion& a, const Quaternion& b, float t, Quaternion& dst) {
+inline Quaternion Quaternion::lerpUnclamped(const Quaternion& a, const Quaternion& b, float t) {
   if (t == 0.0f) {
-    dst.set(a);
-    return;
+    return a;
   } else if (t == 1.0f) {
-    dst.set(b);
-    return;
+    return b;
   }
 
   float t1 = 1.0f - t;
 
-  dst.set(
+  return {
     t1 * a.x + t * b.x,
     t1 * a.y + t * b.y,
     t1 * a.z + t * b.z,
     t1 * a.w + t * b.w
-  );
+  };
 }
 
-inline void Quaternion::slerp(const Quaternion& a, const Quaternion& b, float t, Quaternion& dst) {
+Quaternion Quaternion::rotateTowards(const Quaternion& from, const Quaternion& to, float delta) {
+  // TODO
+}
+
+inline Quaternion Quaternion::slerp(const Quaternion& a, const Quaternion& b, float t) {
+  return slerpUnclamped(a, b, Math::clamp(t, 0.0f, 1.0f));
+}
+
+Quaternion Quaternion::slerpUnclamped(const Quaternion& a, const Quaternion& b, float t) {
   if (t == 0.0f) {
-    dst.set(a);
-    return;
+    return a;
   } else if (t == 1.0f) {
-    dst.set(b);
-    return;
+    return b;
   }
 
   if (a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w) {
-    dst.set(a);
-    return;
+    return a;
   }
 
   float halfY, alpha, beta;
@@ -291,17 +326,12 @@ inline void Quaternion::slerp(const Quaternion& a, const Quaternion& b, float t,
   float z = alpha * a.z + beta * b.z;
 
   f1 = 1.5f - 0.5f * (w * w + x * x + y * y + z * z);
-  dst.set(x * f1, y * f1, z * f1, w * f1);
+  return {x * f1, y * f1, z * f1, w * f1};
 }
 
 // Singletons
 const Quaternion& Quaternion::identity() {
   static Quaternion value{0.0f, 0.0f, 0.0f, 1.0f};
-  return value;
-}
-
-const Quaternion& Quaternion::zero() {
-  static Quaternion value{0.0f, 0.0f, 0.0f, 0.0f};
   return value;
 }
 

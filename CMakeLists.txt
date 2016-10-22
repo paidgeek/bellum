@@ -4,6 +4,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++14")
 include(cmake/add_sources.cmake)
 
 # GLFW
+add_definitions(-DGLEW_STATIC)
 add_subdirectory(third_party/glew)
 include_directories(third_party/glfw/include)
 include_directories(third_party/glew/include)
@@ -19,11 +20,11 @@ add_subdirectory(bellum)
 
 add_executable(bellum ${SRCS})
 
-if(WIN32)
+if (WIN32)
   link_directories(third_party/glfw/lib/mingw)
-endif()
+endif ()
 
 target_link_libraries(bellum
-    glfw3
-    ${OPENGL_gl_LIBRARY}
-    ${OPENGL_glu_LIBRARY})
+  glfw3
+  ${OPENGL_gl_LIBRARY}
+  ${OPENGL_glu_LIBRARY})

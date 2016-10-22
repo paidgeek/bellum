@@ -20,6 +20,7 @@
 // math
 #include "math/math.h"
 #include "math/plane.h"
+#include "math/vector2.h"
 #include "math/vector3.h"
 #include "math/vector4.h"
 #include "math/quaternion.h"

@@ -34,23 +34,19 @@ public:
     rotate(Vector3{x, y, z}, space);
   }
 
-  void rotate(const Vector3& eulerAngles, Space space = Space::WORLD) {
-    Quaternion rotation;
-    Quaternion::makeEuler(eulerAngles, rotation);
-    this->rotate(rotation, space);
+  void rotate(const Vector3& euler, Space space = Space::WORLD) {
+    rotate(Quaternion::makeEuler(euler), space);
   }
 
-  void rotate(const Vector3& axis, float angle, Space space = Space::WORLD) {
-    Quaternion rotation;
-    Quaternion::makeAxisAngle(axis, angle, rotation);
-    this->rotate(rotation, space);
+  void rotate(float angle, const Vector3& axis, Space space = Space::WORLD) {
+    rotate(Quaternion::makeAngleAxis(angle, axis), space);
   }
 
   void rotate(const Quaternion& rotation, Space space = Space::WORLD) {
     if(space == Space::WORLD) {
-      rotation_.set(rotation * rotation_);
+      rotation_ = rotation * rotation_;
     } else {
-      rotation_.set(rotation_ * rotation);
+      rotation_ = rotation_ * rotation;
     }
 
     rotation_.normalize();
@@ -61,7 +57,7 @@ public:
   }
 
   inline void setPosition(const Vector3& position) {
-    position_.set(parentMatrix().inverse() * position);
+    position_ = parentMatrix().inverse() * position;
   }
 
   inline const Vector3& localPosition() {
@@ -69,7 +65,7 @@ public:
   }
 
   inline void setLocalPosition(const Vector3& position) {
-    position_.set(position);
+    position_ = position;
   }
 
   inline Quaternion rotation() {
@@ -81,7 +77,7 @@ public:
   }
 
   inline void setRotation(const Quaternion& rotation) {
-    rotation_.set(parent_->rotation().inverse() * rotation);
+    rotation_ = parent_->rotation().inverse() * rotation;
   }
 
   inline const Quaternion& localRotation() const {
@@ -89,19 +85,20 @@ public:
   }
 
   inline void setLocalRotation(const Quaternion& rotation) {
-    rotation_.set(rotation);
+    rotation_= rotation;
   }
 
   inline Vector3 scale() {
     if (parent_ != nullptr) {
-      return parent_->scale() * scale_;
+      return Vector3::scale(parent_->scale(), scale_);
     }
 
     return scale_;
   }
 
   inline void setScale(const Vector3& scale) {
-    scale_.set(scale / parent_->scale());
+    Vector3 ps = parent_->scale();
+    scale_.set(1.0f / ps.x, 1.0f / ps.y, 1.0f / ps.z);
   }
 
   inline const Vector3& localScale() const {
@@ -109,7 +106,7 @@ public:
   }
 
   inline void setLocalScale(const Vector3& scale) {
-    scale_.set(scale);
+    scale_ = scale;
   }
 
   inline Transform* parent() {
@@ -120,54 +117,41 @@ public:
     if (worldPositionStays) {
       position_ = parent->localToWorld().inverse() * position_;
       rotation_ = parent_->rotation().inverse() * rotation_;
-      scale_ = scale_ / parent->scale();
+      Vector3 ps = parent->scale();
+      scale_.set(scale_.x / ps.x, scale_.y / ps.y, scale_.z / ps.z);
     }
 
     parent_ = parent;
   }
 
   inline Matrix4 localToWorld() {
-    Matrix4 t, r, s;
-    Matrix4::makeTranslation(position_, t);
-
-    return parent_matrix_ * t * r * s;
+    return parent_matrix_ * Matrix4::makeTransformation(position_, rotation_, scale_);
   }
 
   inline Vector3 forward() {
-    Vector3 result;
-    Quaternion::rotatePoint(rotation(), Vector3::forward(), result);
-    return result;
+    return rotation() * Vector3::forward();
   }
 
   inline Vector3 back() {
-    Vector3 result;
-    Quaternion::rotatePoint(rotation(), Vector3::back(), result);
-    return result;
+    return rotation() * Vector3::back();
   }
 
   inline Vector3 right() {
-    Vector3 result;
-    Quaternion::rotatePoint(rotation(), Vector3::right(), result);
-    return result;
+    return rotation() * Vector3::right();
   }
 
   inline Vector3 left() {
-    Vector3 result;
-    Quaternion::rotatePoint(rotation(), Vector3::left(), result);
-    return result;
+    return rotation() * Vector3::left();
   }
 
   inline Vector3 up() {
-    Vector3 result;
-    Quaternion::rotatePoint(rotation(), Vector3::up(), result);
-    return result;
+    return rotation() * Vector3::up();
   }
 
   inline Vector3 down() {
-    Vector3 result;
-    Quaternion::rotatePoint(rotation(), Vector3::down(), result);
-    return result;
+    return rotation() * Vector3::down();
   }
+
 private:
   Vector3 position_;
   Quaternion rotation_;

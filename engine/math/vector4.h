@@ -11,30 +11,23 @@ struct Vector4 {
   float z;
   float w;
 
-  inline Vector4();
-  inline Vector4(float x, float y, float z, float w);
+  inline Vector4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
   inline Vector4(const float* data);
-  inline Vector4(const Vector3& v, float w = 0.0f);
-  inline Vector4(const Vector4& from, const Vector4& to);
-
   inline Vector4(const Vector4& v);
   inline Vector4& operator=(const Vector4& v);
 
-  inline void set(const Vector4& v);
-  inline void set(float x, float y, float z, float w);
+  inline void set(float x, float y, float z, float w = 0.0f);
   inline void set(const float* data);
   inline void setMagnitude(float magnitude);
   inline void setSquaredMagnitude(float sqrMagnitude);
+  inline float& operator[](int32 i);
+  inline const float& operator[](int32 i) const;
 
   inline float magnitude() const;
   inline float squaredMagnitude() const;
-  inline void normalize(Vector4& dst) const;
   inline Vector4& normalize();
-  inline void negate(Vector4& dst) const;
-  inline Vector4& negate();
+  inline Vector4 normalized() const;
 
-  inline float& operator[](int32 i);
-  inline const float& operator[](int32 i) const;
   inline Vector4 operator+(const Vector4& v) const;
   inline Vector4& operator+=(const Vector4& v);
   inline Vector4 operator-(const Vector4& v) const;
@@ -47,24 +40,17 @@ struct Vector4 {
   inline bool operator==(const Vector4& v) const;
   inline bool operator!=(const Vector4& v) const;
 
-  inline static float dot(const Vector4& a);
-  inline static float dot(const Vector4& a, const Vector4& b);
-  inline static float angle(const Vector4& from, const Vector4& to);
-  inline static void scale(const Vector4& v, float a, Vector4& dst);
-  inline static void add(const Vector4& a, const Vector4& b, Vector4& dst);
-  inline static void subtract(const Vector4& a, const Vector4& b, Vector4& dst);
-  inline static void multiply(const Vector4& a, const Vector4& b, Vector4& dst);
-  inline static void divide(const Vector4& a, const Vector4& b, Vector4& dst);
-
-  inline static void clamp(const Vector4& v, const Vector4& min, const Vector4& max, Vector4& dst);
-  inline static void clampMagnitude(const Vector4& v, float max, Vector4& dst);
   inline static float distance(const Vector4& a, const Vector4& b);
   inline static float squaredDistance(const Vector4& a, const Vector4& b);
-  inline static void lerp(const Vector4& a, const Vector4& b, float t, Vector4& dst);
+  inline static float dot(const Vector4& a);
+  inline static float dot(const Vector4& a, const Vector4& b);
+  inline static Vector4 lerp(const Vector4& a, const Vector4& b, float t);
+  inline static Vector4 lerpUnclamped(const Vector4& a, const Vector4& b, float t);
   inline static Vector4 max(const Vector4& a, const Vector4& b);
   inline static Vector4 min(const Vector4& a, const Vector4& b);
-  inline static void project(const Vector4& v, const Vector4& on, Vector4& dst);
-  inline static void reflect(const Vector4& in, const Vector4& normal, Vector4& dst);
+  inline static Vector4 moveTowards(const Vector4& current, const Vector4& target, float delta);
+  inline static Vector4 project(const Vector4& v, const Vector4& on);
+  inline static Vector4 scale(const Vector4& a, const Vector4& b);
 
   inline static const Vector4& zero();
   inline static const Vector4& one();
@@ -73,16 +59,11 @@ struct Vector4 {
 };
 
 // Constructors
-inline Vector4::Vector4() {}
-
 inline Vector4::Vector4(float x, float y, float z, float w)
   : x(x), y(y), z(z), w(w) {}
 
 inline Vector4::Vector4(const float* data)
   : x(data[0]), y(data[1]), z(data[2]), w(data[3]) {}
-
-inline Vector4::Vector4(const Vector3& v, float w)
-  : x(v.x), y(v.y), z(v.z), w(w) {}
 
 inline Vector4::Vector4(const Vector4& v)
   : x(v.x), y(v.y), z(v.z), w(v.w) {}
@@ -96,13 +77,6 @@ inline Vector4& Vector4::operator=(const Vector4& v) {
 }
 
 // Setters
-inline void Vector4::set(const Vector4& v) {
-  x = v.x;
-  y = v.y;
-  z = v.z;
-  w = v.w;
-}
-
 inline void Vector4::set(float x, float y, float z, float w) {
   this->x = x;
   this->y = y;
@@ -133,24 +107,21 @@ inline void Vector4::setSquaredMagnitude(float sqrMagnitude) {
   }
 }
 
-// Algebra
+inline float& Vector4::operator[](int32 i) {
+  return *(&this->x + i);
+}
+
+inline const float& Vector4::operator[](int32 i) const {
+  return *(&this->x + i);
+}
+
+// Properties
 inline float Vector4::magnitude() const {
   return Math::sqrt(x * x + y * y + z * z + w * w);
 }
 
 inline float Vector4::squaredMagnitude() const {
   return x * x + y * y + z * z + w * w;
-}
-
-inline void Vector4::normalize(Vector4& dst) const {
-  float m = this->magnitude();
-
-  if (m != 0.0f) {
-    dst.x /= m;
-    dst.y /= m;
-    dst.z /= m;
-    dst.w /= m;
-  }
 }
 
 inline Vector4& Vector4::normalize() {
@@ -166,26 +137,17 @@ inline Vector4& Vector4::normalize() {
   return *this;
 }
 
-inline void Vector4::negate(Vector4& dst) const {
-  dst.set(-x, -y, -z, -w);
-}
+inline Vector4 Vector4::normalized() const {
+  float m = this->magnitude();
 
-inline Vector4& Vector4::negate() {
-  x = -x;
-  y = -y;
-  z = -z;
-  w = -w;
+  if (m != 0.0f) {
+    return {x / m, y / m, z / m, w / m};
+  }
+
+  return *this;
 }
 
 // Operators
-inline float& Vector4::operator[](int32 i) {
-  return *(&this->x + i);
-}
-
-inline const float& Vector4::operator[](int32 i) const {
-  return *(&this->x + i);
-}
-
 inline Vector4 Vector4::operator+(const Vector4& v) const {
   return {x + v.x, y + v.y, z + v.z, w + v.w};
 }
@@ -255,68 +217,7 @@ inline Vector4 operator*(float a, const Vector4& v) {
   };
 }
 
-inline float Vector4::dot(const Vector4& a) {
-  return a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w;
-}
-
-inline float Vector4::dot(const Vector4& a, const Vector4& b) {
-  return a.x * b.x + a.y * b.y + a.z * b.z + a.w + b.w;
-}
-
-inline float Vector4::angle(const Vector4& from, const Vector4& to) {
-  float dls = dot(from, to) / (from.magnitude() * to.magnitude());
-
-  if (dls < -1.0f) {
-    dls = -1.0f;
-  } else if (dls > 1.0f) {
-    dls = 1.0f;
-  }
-
-  return Math::acos(dls);
-}
-
-inline void Vector4::scale(const Vector4& v, float a, Vector4& dst) {
-  dst.x *= a;
-  dst.y *= a;
-  dst.z *= a;
-  dst.w *= a;
-}
-
-inline void Vector4::add(const Vector4& a, const Vector4& b, Vector4& dst) {
-  dst.set(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
-}
-
-inline void Vector4::subtract(const Vector4& a, const Vector4& b, Vector4& dst) {
-  dst.set(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
-}
-
-inline void Vector4::multiply(const Vector4& a, const Vector4& b, Vector4& dst) {
-  dst.set(a.x * b.x, a.y * b.y, a.z * b.z, a.z * b.z);
-}
-
-inline void Vector4::divide(const Vector4& a, const Vector4& b, Vector4& dst) {
-  dst.set(a.x / b.x, a.y / b.y, a.z / b.z, a.z / b.z);
-}
-
-// Utilities
-inline void Vector4::clamp(const Vector4& v, const Vector4& min, const Vector4& max, Vector4& dst) {
-  dst.set(
-    Math::clamp(v.x, min.x, max.x),
-    Math::clamp(v.y, min.y, max.y),
-    Math::clamp(v.z, min.z, max.z),
-    Math::clamp(v.w, min.w, max.w)
-  );
-}
-
-inline void Vector4::clampMagnitude(const Vector4& v, float max, Vector4& dst) {
-  dst.set(v);
-
-  if (v.magnitude() > max) {
-    dst.normalize();
-    scale(dst, max, dst);
-  }
-}
-
+// Algebra
 inline float Vector4::distance(const Vector4& a, const Vector4& b) {
   float dx = b.x - a.x;
   float dy = b.y - a.y;
@@ -333,13 +234,25 @@ inline float Vector4::squaredDistance(const Vector4& a, const Vector4& b) {
   return dx * dx + dy * dy + dz * dz + dw * dw;
 }
 
-inline void Vector4::lerp(const Vector4& a, const Vector4& b, float t, Vector4& dst) {
-  dst.set(
+inline float Vector4::dot(const Vector4& a) {
+  return a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w;
+}
+
+inline float Vector4::dot(const Vector4& a, const Vector4& b) {
+  return a.x * b.x + a.y * b.y + a.z * b.z + a.w + b.w;
+}
+
+inline Vector4 Vector4::lerp(const Vector4& a, const Vector4& b, float t) {
+  return lerpUnclamped(a, b, Math::clamp(t, 0.0f, 1.0f));
+}
+
+inline Vector4 Vector4::lerpUnclamped(const Vector4& a, const Vector4& b, float t) {
+  return {
     a.x + (b.x - a.x) * t,
     a.y + (b.y - a.y) * t,
     a.z + (b.z - a.z) * t,
     a.w + (b.w - a.w) * t
-  );
+  };
 }
 
 inline Vector4 Vector4::max(const Vector4& a, const Vector4& b) {
@@ -360,13 +273,17 @@ inline Vector4 Vector4::min(const Vector4& a, const Vector4& b) {
   };
 }
 
-inline void Vector4::project(const Vector4& v, const Vector4& on, Vector4& dst) {
-  float sm = on.squaredMagnitude();
-  dst.set(on * (dot(on, v) / sm));
+Vector4 Vector4::moveTowards(const Vector4& current, const Vector4& target, float delta) {
+  Vector4 d = (target - current).normalized();
+  return current + d * delta;
 }
 
-inline void Vector4::reflect(const Vector4& in, const Vector4& normal, Vector4& dst) {
-  dst.set(in - 2.0f * dot(in, normal) * normal);
+inline Vector4 Vector4::project(const Vector4& v, const Vector4& on) {
+  return on * (dot(on, v) / on.squaredMagnitude());
+}
+
+inline Vector4 Vector4::scale(const Vector4& a, const Vector4& b) {
+  return {a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w};
 }
 
 // Singletons

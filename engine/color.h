@@ -18,7 +18,6 @@ struct Color {
 
   inline Color(float r = 0.0f, float g = 0.0f, float b = 0.0f, float a = 1.0f);
   inline Color(uint32 rgba);
-  inline Color(uint8 r = 0, uint8 g = 0, uint8 b = 0, uint8 a = 255);
   inline Color(const float* data);
 
   inline Color(const Color& c);
@@ -57,7 +56,7 @@ struct Color {
   inline static Color& cyan();
   inline static Color& blue();
 
-  friend std::ostream& operator<<(std::ostream& os, const Color& color);
+  inline friend std::ostream& operator<<(std::ostream& os, const Color& color);
 };
 
 inline Color::Color(float r, float g, float b, float a)
@@ -68,9 +67,6 @@ inline Color::Color(uint32 rgba)
           static_cast<uint8>((rgba >> 8) & 0xFF),
           static_cast<uint8>((rgba >> 16) & 0xFF),
           static_cast<uint8>((rgba >> 24) & 0xFF)) {}
-
-inline Color::Color(uint8 r, uint8 g, uint8 b, uint8 a)
-  : r(r / 255.0f), g(g / 255.0f), b(b / 255.0f), a(a / 255.0f) {}
 
 inline Color::Color(const Color& c)
   : r(c.r), g(c.g), b(c.b), a(c.a) {}
@@ -169,17 +165,17 @@ inline void Color::makeHsv(float hue, float saturation, float value, Color& dst)
     float min = value - diff;
     float h = hue * 360.0f;
 
-    if (h < 60f) {
+    if (h < 60.0f) {
       dst.set(max, h * diff / 60.0f + min, min);
-    } else if (h < 120f) {
+    } else if (h < 120.0f) {
       dst.set(-(h - 120.0f) * diff / 60.0f + min, max, min);
-    } else if (h < 180f) {
+    } else if (h < 180.0f) {
       dst.set(min, max, (h - 120.0f) * diff / 60.0f + min);
-    } else if (h < 240f) {
+    } else if (h < 240.0f) {
       dst.set(min, -(h - 240.0f) * diff / 60.0f + min, max);
-    } else if (h < 300f) {
+    } else if (h < 300.0f) {
       dst.set((h - 240.0f) * diff / 60.0f + min, min, max);
-    } else if (h <= 360f) {
+    } else if (h <= 360.0f) {
       dst.set(max, min, -(h - 360.0f) * diff / 60.0f + min);
     } else {
       dst.set(0.0f, 0.0f, 0.0f);
@@ -195,11 +191,12 @@ inline void Color::makeHex(const std::string& value, Color& dst) {
   uint8 g = static_cast<uint8>(std::strtoul(value.substr(2, 4).c_str(), nullptr, 16));
   uint8 b = static_cast<uint8>(std::strtoul(value.substr(4, 6).c_str(), nullptr, 16));
   uint8 a = 255;
+
   if (hex.length() > 8) {
     a = static_cast<uint8>(std::strtoul(value.substr(6, 8).c_str(), nullptr, 16));
   }
 
-  dst.set(r, g, b, a);
+  dst.set(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
 }
 
 inline void Color::lerp(const Color& a, const Color& b, float t, Color& dst) {
@@ -218,22 +215,22 @@ inline Color& Color::clear() {
 }
 
 inline Color& Color::white() {
-  static Color value{255, 255, 255};
+  static Color value{1.0f, 1.0f, 1.0f};
   return value;
 }
 
 inline Color& Color::lightGray() {
-  static Color value{192, 192, 192};
+  static Color value{192 / 255.0f, 192 / 255.0f, 192 / 255.0f};
   return value;
 }
 
 inline Color& Color::gray() {
-  static Color value{128, 128, 128};
+  static Color value{128 / 255.0f, 128 / 255.0f, 128 / 255.0f};
   return value;
 }
 
 inline Color& Color::darkGray() {
-  static Color value{64, 64, 64};
+  static Color value{64 / 255.0f, 64 / 255.0f, 64 / 255.0f};
   return value;
 }
 
@@ -243,46 +240,46 @@ inline Color& Color::black() {
 }
 
 inline Color& Color::red() {
-  static Color value{255, 0, 0};
+  static Color value{1.0f, 0, 0};
   return value;
 }
 
 inline Color& Color::pink() {
-  static Color value{255, 175, 175};
+  static Color value{1.0f, 175 / 255.0f, 175 / 255.0f};
   return value;
 }
 
 inline Color& Color::orange() {
-  static Color value{255, 200, 0};
+  static Color value{1.0f, 200 / 255.0f, 0};
   return value;
 }
 
 inline Color& Color::yellow() {
-  static Color value{255, 255, 0};
+  static Color value{1.0f, 1.0f, 0};
   return value;
 }
 
 inline Color& Color::green() {
-  static Color value{0, 255, 0};
+  static Color value{0, 1.0f, 0};
   return value;
 }
 
 inline Color& Color::magenta() {
-  static Color value{255, 0, 255};
+  static Color value{1.0f, 0, 1.0f};
   return value;
 }
 
 inline Color& Color::cyan() {
-  static Color value{0, 255, 255};
+  static Color value{0, 1.0f, 1.0f};
   return value;
 }
 
 inline Color& Color::blue() {
-  static Color value{0, 0, 255};
+  static Color value{0, 0, 1.0f};
   return value;
 }
 
-std::ostream& bellum::operator<<(std::ostream& os, const Color& c) {
+inline std::ostream& operator<<(std::ostream& os, const Color& c) {
   os << "Color(r: " << c.r << ", g: " << c.g << ", b: " << c.b << ", a: " << c.a << ")";
   return os;
 }

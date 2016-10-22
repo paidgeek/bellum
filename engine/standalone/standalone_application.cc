@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <sstream>
 #include <cstring>
+#include "resources/resource_loader.h"
 #include "standalone_application.h"
 #include "window.h"
 #include "../timing.h"
@@ -70,14 +71,14 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
     }
   } catch (const std::exception& e) {
     logger_->error(e.what());
-    std::exit(1);
   }
+
+  ResourceLoader::disposeAll();
 }
 
 void StandaloneApplication::exit() {
   running_ = false;
   logger_->info("Application exited");
-  std::exit(0);
 }
 
 }

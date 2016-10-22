@@ -18,7 +18,7 @@ public:
   Node* makeNode() {
     static int idCounter = 0;
     nodes_.emplace_back(new Node{++idCounter});
-    return (*nodes_.end()).get();
+    return nodes_.back().get();
   }
 
   template<typename T>

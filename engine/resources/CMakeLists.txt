@@ -1,3 +1,12 @@
 add_sources(
+  attribute.cc
+  attribute.h
+  binding_info.h
+  mesh.cc
   mesh.h
+  resource.h
+  resource_loader.cc
+  resource_loader.h
+  shader.cc
+  shader.h
 )

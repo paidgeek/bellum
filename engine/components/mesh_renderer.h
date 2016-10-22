@@ -6,7 +6,7 @@
 
 namespace bellum {
 
-class MeshRenderer : Component {
+class MeshRenderer : public Component {
 
 };
 

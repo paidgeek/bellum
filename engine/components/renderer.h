@@ -6,7 +6,7 @@
 
 namespace bellum {
 
-class Renderer : Component {
+class Renderer : public Component {
 public:
   virtual void render() = 0;
 };

@@ -23,11 +23,9 @@ struct Matrix4 {
                  float m31, float m32, float m33, float m34,
                  float m41, float m42, float m43, float m44);
   inline Matrix4(std::array<std::array<float, 4>, 4> data);
-
   inline Matrix4(const Matrix4& m);
   inline Matrix4& operator=(const Matrix4& m);
 
-  inline void set(const Matrix4& m);
   inline void set(const float* data);
   inline void set(const std::array<float, 16>& data);
   inline void set(float m11, float m12, float m13, float m14,
@@ -40,35 +38,27 @@ struct Matrix4 {
   inline void set(int32 i, float value);
   inline float& operator[](size_t i);
   inline const float& operator[](size_t i) const;
+  inline void clear();
+  inline void setTransformation(const Vector3& translation,
+                                const Quaternion& rotation,
+                                const Vector3& scale);
 
   inline float determinant() const;
   inline Matrix4& inverse();
-  inline void inverse(Matrix4& dst) const;
+  inline Matrix4 inversed() const;
   inline Matrix4& negate();
-  inline void negate(Matrix4& dst) const;
+  inline Matrix4 negated() const;
   inline Matrix4& transpose();
-  inline void transpose(Matrix4& dst) const;
+  inline Matrix4 transposed() const;
+  inline bool isIdentity() const;
 
-  inline static void add(const Matrix4& m, float a, Matrix4& dst);
-  inline static void add(const Matrix4& a, const Matrix4& b, Matrix4& dst);
-  inline static void subtract(const Matrix4& m, float a, Matrix4& dst);
-  inline static void subtract(const Matrix4& a, const Matrix4& b, Matrix4& dst);
-  inline static void multiply(const Matrix4& m, float a, Matrix4& dst);
-  inline static void multiply(const Matrix4& a, const Matrix4& b, Matrix4& dst);
-  inline static void translate(const Matrix4& m, const Vector3& translation, Matrix4& dst);
-  inline static void translate(const Matrix4& m, float x, float y, float z, Matrix4& dst);
-  inline static void scale(const Matrix4& m, float a, Matrix4& dst);
-  inline static void scale(const Matrix4& m, const Vector3& scale, Matrix4& dst);
-  inline static void scale(const Matrix4& m, float x, float y, float z, Matrix4& dst);
-  inline static void rotate(const Matrix4& m, const Quaternion& rotation, Matrix4& dst);
-  inline static void rotateAxis(const Matrix4& m, const Vector3& axis, float angle, Matrix4& dst);
-  inline static void rotateAroundX(const Matrix4& m, float angle, Matrix4& dst);
-  inline static void rotateAroundY(const Matrix4& m, float angle, Matrix4& dst);
-  inline static void rotateAroundZ(const Matrix4& m, float angle, Matrix4& dst);
-  inline static void transformPoint(const Matrix4& m, const Vector3& point, Vector3& dst);
-  inline static void transformVector(const Matrix4& m, const Vector3& v, Vector3& dst);
-  inline static void transformVector(const Matrix4& m, const Vector4& v, Vector3& dst);
-  inline static void transformVector(const Matrix4& m, const Vector4& v, Vector4& dst);
+  inline Vector4 getColumn(int32 i) const;
+  inline Vector4 getRow(int32 i) const;
+
+  inline static Vector3 multiplyPoint(const Matrix4& m, const Vector3& point);
+  inline static Vector3 multiplyVector(const Matrix4& m, const Vector3& v);
+  inline static Vector3 multiplyVector(const Matrix4& m, const Vector4& v);
+  inline static Vector4 multiplyVector4(const Matrix4& m, const Vector4& v);
 
   inline Matrix4 operator+(const Matrix4& m) const;
   inline Matrix4 operator-(const Matrix4& m) const;
@@ -77,35 +67,43 @@ struct Matrix4 {
   inline Matrix4 operator-() const;
   inline Matrix4 operator*(const Matrix4& m) const;
   inline Matrix4& operator*=(const Matrix4& m);
+  inline Matrix4 operator+(float a) const;
+  inline Matrix4& operator+=(float a);
+  inline Matrix4 operator-(float a) const;
+  inline Matrix4& operator-=(float a);
+  inline Matrix4 operator*(float a) const;
+  inline Matrix4& operator*=(float a);
+  inline Matrix4 operator/(float a) const;
+  inline Matrix4& operator/=(float a);
 
-  static void makeIdentity(Matrix4& dst);
-  static void makeLookAt(const Vector3& position, const Vector3& target, const Vector3& up,
-                         Matrix4& dst);
-  static void makeOrthographic(float left, float right,
-                               float bottom, float top,
-                               float near, float far,
-                               Matrix4& dst);
-  static void makePerspective(float fov, float aspectRatio, float near, float far, Matrix4& dst);
-  static void makeBillboard(const Vector3& position,
-                            const Vector3& cameraPosition,
-                            const Vector3& cameraUp,
-                            const Vector3& cameraForward,
-                            Matrix4& dst);
-  static void makeReflection(const Plane& plane, Matrix4& dst);
-  static void makeTranslation(const Vector3& translation, Matrix4& dst);
-  static void makeTranslation(float x, float y, float z, Matrix4& dst);
-  static void makeScale(const Vector3& scale, Matrix4& dst);
-  static void makeScale(float x, float y, float z, Matrix4& dst);
-  static void makeRotation(const Vector3& forward, const Vector3& up, const Vector3& right,
-                           Matrix4& dst);
-  static void makeRotation(const Vector3& forward, const Vector3& up, Matrix4& dst);
-  static void makeRotation(const Quaternion& q, Matrix4& dst);
-  static void makeAxisRotation(const Vector3& axis, float angle, Matrix4& dst);
-  static void makeEulerRotation(const Vector3& eulerAngles, Matrix4& dst);
-  static void makeEulerRotation(float x, float y, float z, Matrix4& dst);
-  static void makeRotationAroundX(float angle, Matrix4& dst);
-  static void makeRotationAroundY(float angle, Matrix4& dst);
-  static void makeRotationAroundZ(float angle, Matrix4& dst);
+  inline static Matrix4 makeOrthographic(float left, float right,
+                                         float bottom, float top,
+                                         float near, float far);
+  inline static Matrix4 makePerspective(float fov, float aspect, float near, float far);
+  inline static Matrix4 makeTransformation(const Vector3& translation,
+                                           const Quaternion& rotation,
+                                           const Vector3& scale);
+  inline static Matrix4
+  makeLookAt(const Vector3& position, const Vector3& target, const Vector3& up);
+  inline static Matrix4 makeBillboard(const Vector3& position,
+                                      const Vector3& cameraPosition,
+                                      const Vector3& cameraUp,
+                                      const Vector3& cameraForward);
+  inline static Matrix4 makeReflection(const Plane& plane);
+  inline static Matrix4 makeTranslation(const Vector3& translation);
+  inline static Matrix4 makeTranslation(float x, float y, float z);
+  inline static Matrix4 makeScale(const Vector3& scale);
+  inline static Matrix4 makeScale(float x, float y, float z);
+  inline static Matrix4
+  makeRotation(const Vector3& forward, const Vector3& up, const Vector3& right);
+  inline static Matrix4 makeRotation(const Vector3& forward, const Vector3& up);
+  inline static Matrix4 makeRotation(const Quaternion& q);
+  inline static Matrix4 makeAxisRotation(const Vector3& axis, float angle);
+  inline static Matrix4 makeEulerRotation(const Vector3& euler);
+  inline static Matrix4 makeEulerRotation(float x, float y, float z);
+  inline static Matrix4 makeRotationAroundX(float angle);
+  inline static Matrix4 makeRotationAroundY(float angle);
+  inline static Matrix4 makeRotationAroundZ(float angle);
 
   inline static const Matrix4& identity();
   inline static const Matrix4& zero();
@@ -114,43 +112,39 @@ struct Matrix4 {
 };
 
 // Constructors
-Matrix4::Matrix4() {
+inline Matrix4::Matrix4() {
   *this = identity();
 }
 
-Matrix4::Matrix4(const float* data) {
+inline Matrix4::Matrix4(const float* data) {
   this->set(data);
 }
 
-Matrix4::Matrix4(const std::array<float, 16>& data) {
+inline Matrix4::Matrix4(const std::array<float, 16>& data) {
   this->set(data);
 }
 
-Matrix4::Matrix4(float m11, float m12, float m13, float m14,
-                 float m21, float m22, float m23, float m24,
-                 float m31, float m32, float m33, float m34,
-                 float m41, float m42, float m43, float m44) {
+inline Matrix4::Matrix4(float m11, float m12, float m13, float m14,
+                        float m21, float m22, float m23, float m24,
+                        float m31, float m32, float m33, float m34,
+                        float m41, float m42, float m43, float m44) {
   this->set(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
 }
 
-Matrix4::Matrix4(std::array<std::array<float, 4>, 4> data) {
+inline Matrix4::Matrix4(std::array<std::array<float, 4>, 4> data) {
   this->set(data);
 }
 
-Matrix4::Matrix4(const Matrix4& m) {
-  this->set(m);
+inline Matrix4::Matrix4(const Matrix4& m) {
+  std::memcpy(data, m.data, 16);
 }
 
-Matrix4& Matrix4::operator=(const Matrix4& m) {
-  this->set(m);
+inline Matrix4& Matrix4::operator=(const Matrix4& m) {
+  std::memcpy(data, m.data, 16);
   return *this;
 }
 
 // Setters and getters
-inline void Matrix4::set(const Matrix4& m) {
-  std::memcpy(this->data, m.data, 16);
-}
-
 inline void Matrix4::set(const float* data) {
   std::memcpy(this->data, data, 16);
 }
@@ -197,12 +191,22 @@ inline void Matrix4::set(int32 i, float value) {
   data[i] = value;
 }
 
-float& Matrix4::operator[](size_t i) {
+inline float& Matrix4::operator[](size_t i) {
   return data[i];
 }
 
-const float& Matrix4::operator[](size_t i) const {
+inline const float& Matrix4::operator[](size_t i) const {
   return data[i];
+}
+
+inline void Matrix4::clear() {
+  std::memset(data, 0, 16);
+}
+
+inline void Matrix4::setTransformation(const Vector3& translation,
+                                       const Quaternion& rotation,
+                                       const Vector3& scale) {
+  *this = makeTransformation(translation, rotation, scale);
 }
 
 // Algebra
@@ -224,10 +228,12 @@ inline float Matrix4::determinant() const {
 }
 
 inline Matrix4& Matrix4::inverse() {
-  this->inverse(*this);
+  Matrix4 inv = inversed();
+  std::memcpy(data, inv.data, 16);
+  return *this;
 }
 
-inline void Matrix4::inverse(Matrix4& dst) const {
+inline Matrix4 Matrix4::inversed() const {
   float a0 = data[0] * data[5] - data[1] * data[4];
   float a1 = data[0] * data[6] - data[2] * data[4];
   float a2 = data[0] * data[7] - data[3] * data[4];
@@ -264,7 +270,7 @@ inline void Matrix4::inverse(Matrix4& dst) const {
   inverse[14] = -data[12] * a3 + data[13] * a1 - data[14] * a0;
   inverse[15] = data[8] * a3 - data[9] * a1 + data[10] * a0;
 
-  multiply(inverse, 1.0f / d, dst);
+  return inverse / d;
 }
 
 inline Matrix4& Matrix4::negate() {
@@ -286,23 +292,25 @@ inline Matrix4& Matrix4::negate() {
   data[15] = -data[15];
 }
 
-inline void Matrix4::negate(Matrix4& dst) const {
-  dst.data[0] = -data[0];
-  dst.data[1] = -data[1];
-  dst.data[2] = -data[2];
-  dst.data[3] = -data[3];
-  dst.data[4] = -data[4];
-  dst.data[5] = -data[5];
-  dst.data[6] = -data[6];
-  dst.data[7] = -data[7];
-  dst.data[8] = -data[8];
-  dst.data[9] = -data[9];
-  dst.data[10] = -data[10];
-  dst.data[11] = -data[11];
-  dst.data[12] = -data[12];
-  dst.data[13] = -data[13];
-  dst.data[14] = -data[14];
-  dst.data[15] = -data[15];
+inline Matrix4 Matrix4::negated() const {
+  return {
+    -data[0],
+    -data[1],
+    -data[2],
+    -data[3],
+    -data[4],
+    -data[5],
+    -data[6],
+    -data[7],
+    -data[8],
+    -data[9],
+    -data[10],
+    -data[11],
+    -data[12],
+    -data[13],
+    -data[14],
+    -data[15]
+  };
 }
 
 inline Matrix4& Matrix4::transpose() {
@@ -315,276 +323,556 @@ inline Matrix4& Matrix4::transpose() {
   std::memcpy(data, t, 16);
 }
 
-inline void Matrix4::transpose(Matrix4& dst) const {
+inline Matrix4 Matrix4::transposed() const {
   float t[16] = {
     data[0], data[4], data[8], data[12],
     data[1], data[5], data[9], data[13],
     data[2], data[6], data[10], data[14],
     data[3], data[7], data[11], data[15]
   };
-  std::memcpy(dst.data, t, 16);
+  return {t};
 }
 
-inline void Matrix4::add(const Matrix4& m, float a, Matrix4& dst) {
-  dst[0] = m.data[0] + a;
-  dst[1] = m.data[1] + a;
-  dst[2] = m.data[2] + a;
-  dst[3] = m.data[3] + a;
-  dst[4] = m.data[4] + a;
-  dst[5] = m.data[5] + a;
-  dst[6] = m.data[6] + a;
-  dst[7] = m.data[7] + a;
-  dst[8] = m.data[8] + a;
-  dst[9] = m.data[9] + a;
-  dst[10] = m.data[10] + a;
-  dst[11] = m.data[11] + a;
-  dst[12] = m.data[12] + a;
-  dst[13] = m.data[13] + a;
-  dst[14] = m.data[14] + a;
-  dst[15] = m.data[15] + a;
+inline bool Matrix4::isIdentity() const {
+  return std::memcmp(data, identity().data, 16) == 0;
 }
 
-inline void Matrix4::add(const Matrix4& a, const Matrix4& b, Matrix4& dst) {
-  dst[0] = a.data[0] + b.data[0];
-  dst[1] = a.data[1] + b.data[1];
-  dst[2] = a.data[2] + b.data[2];
-  dst[3] = a.data[3] + b.data[3];
-  dst[4] = a.data[4] + b.data[4];
-  dst[5] = a.data[5] + b.data[5];
-  dst[6] = a.data[6] + b.data[6];
-  dst[7] = a.data[7] + b.data[7];
-  dst[8] = a.data[8] + b.data[8];
-  dst[9] = a.data[9] + b.data[9];
-  dst[10] = a.data[10] + b.data[10];
-  dst[11] = a.data[11] + b.data[11];
-  dst[12] = a.data[12] + b.data[12];
-  dst[13] = a.data[13] + b.data[13];
-  dst[14] = a.data[14] + b.data[14];
-  dst[15] = a.data[15] + b.data[15];
+inline Vector4 Matrix4::getColumn(int32 i) const {
+  return {get(0, i), get(1, i), get(2, i), get(3, i)};
 }
 
-inline void Matrix4::subtract(const Matrix4& m, float a, Matrix4& dst) {
-  dst[0] = m.data[0] - a;
-  dst[1] = m.data[1] - a;
-  dst[2] = m.data[2] - a;
-  dst[3] = m.data[3] - a;
-  dst[4] = m.data[4] - a;
-  dst[5] = m.data[5] - a;
-  dst[6] = m.data[6] - a;
-  dst[7] = m.data[7] - a;
-  dst[8] = m.data[8] - a;
-  dst[9] = m.data[9] - a;
-  dst[10] = m.data[10] - a;
-  dst[11] = m.data[11] - a;
-  dst[12] = m.data[12] - a;
-  dst[13] = m.data[13] - a;
-  dst[14] = m.data[14] - a;
-  dst[15] = m.data[15] - a;
+inline Vector4 Matrix4::getRow(int32 i) const {
+  return {get(i, 0), get(i, 1), get(i, 2), get(i, 3)};
 }
 
-inline void Matrix4::subtract(const Matrix4& a, const Matrix4& b, Matrix4& dst) {
-  dst[0] = a.data[0] - b.data[0];
-  dst[1] = a.data[1] - b.data[1];
-  dst[2] = a.data[2] - b.data[2];
-  dst[3] = a.data[3] - b.data[3];
-  dst[4] = a.data[4] - b.data[4];
-  dst[5] = a.data[5] - b.data[5];
-  dst[6] = a.data[6] - b.data[6];
-  dst[7] = a.data[7] - b.data[7];
-  dst[8] = a.data[8] - b.data[8];
-  dst[9] = a.data[9] - b.data[9];
-  dst[10] = a.data[10] - b.data[10];
-  dst[11] = a.data[11] - b.data[11];
-  dst[12] = a.data[12] - b.data[12];
-  dst[13] = a.data[13] - b.data[13];
-  dst[14] = a.data[14] - b.data[14];
-  dst[15] = a.data[15] - b.data[15];
+inline Vector3 Matrix4::multiplyPoint(const Matrix4& m, const Vector3& point) {
+  return multiplyVector(m, Vector4{point.x, point.y, point.z, 1.0f});
 }
 
-inline void Matrix4::multiply(const Matrix4& m, float a, Matrix4& dst) {
-  dst[0] = m.data[0] * a;
-  dst[1] = m.data[1] * a;
-  dst[2] = m.data[2] * a;
-  dst[3] = m.data[3] * a;
-  dst[4] = m.data[4] * a;
-  dst[5] = m.data[5] * a;
-  dst[6] = m.data[6] * a;
-  dst[7] = m.data[7] * a;
-  dst[8] = m.data[8] * a;
-  dst[9] = m.data[9] * a;
-  dst[10] = m.data[10] * a;
-  dst[11] = m.data[11] * a;
-  dst[12] = m.data[12] * a;
-  dst[13] = m.data[13] * a;
-  dst[14] = m.data[14] * a;
-  dst[15] = m.data[15] * a;
+inline Vector3 Matrix4::multiplyVector(const Matrix4& m, const Vector3& v) {
+  return multiplyVector(m, {v.x, v.y, v.z, 0.0f});
 }
 
-inline void Matrix4::multiply(const Matrix4& a, const Matrix4& b, Matrix4& dst) {
-  dst[0] = a[0] * b[0] + a[4] * b[1] + a[8] * b[2] + a[12] * b[3];
-  dst[1] = a[1] * b[0] + a[5] * b[1] + a[9] * b[2] + a[13] * b[3];
-  dst[2] = a[2] * b[0] + a[6] * b[1] + a[10] * b[2] + a[14] * b[3];
-  dst[3] = a[3] * b[0] + a[7] * b[1] + a[11] * b[2] + a[15] * b[3];
-
-  dst[4] = a[0] * b[4] + a[4] * b[5] + a[8] * b[6] + a[12] * b[7];
-  dst[5] = a[1] * b[4] + a[5] * b[5] + a[9] * b[6] + a[13] * b[7];
-  dst[6] = a[2] * b[4] + a[6] * b[5] + a[10] * b[6] + a[14] * b[7];
-  dst[7] = a[3] * b[4] + a[7] * b[5] + a[11] * b[6] + a[15] * b[7];
-
-  dst[8] = a[0] * b[8] + a[4] * b[9] + a[8] * b[10] + a[12] * b[11];
-  dst[9] = a[1] * b[8] + a[5] * b[9] + a[9] * b[10] + a[13] * b[11];
-  dst[10] = a[2] * b[8] + a[6] * b[9] + a[10] * b[10] + a[14] * b[11];
-  dst[11] = a[3] * b[8] + a[7] * b[9] + a[11] * b[10] + a[15] * b[11];
-
-  dst[12] = a[0] * b[12] + a[4] * b[13] + a[8] * b[14] + a[12] * b[15];
-  dst[13] = a[1] * b[12] + a[5] * b[13] + a[9] * b[14] + a[13] * b[15];
-  dst[14] = a[2] * b[12] + a[6] * b[13] + a[10] * b[14] + a[14] * b[15];
-  dst[15] = a[3] * b[12] + a[7] * b[13] + a[11] * b[14] + a[15] * b[15];
-}
-
-// Transformations
-inline void Matrix4::translate(const Matrix4& m, const Vector3& translation, Matrix4& dst) {
-  translate(m, translation.x, translation.y, translation.z, dst);
-}
-
-inline void Matrix4::translate(const Matrix4& m, float x, float y, float z, Matrix4& dst) {
-  Matrix4 t;
-  makeTranslation(x, y, z, t);
-  multiply(m, t, dst);
-}
-
-inline void Matrix4::scale(const Matrix4& m, float a, Matrix4& dst) {
-  Matrix4::scale(m, a, a, a, dst);
-}
-
-inline void Matrix4::scale(const Matrix4& m, const Vector3& scale, Matrix4& dst) {
-  Matrix4::scale(m, scale.x, scale.y, scale.z, dst);
-}
-
-inline void Matrix4::scale(const Matrix4& m, float x, float y, float z, Matrix4& dst) {
-  Matrix4 s;
-  makeScale(x, y, z, s);
-  multiply(m, s, dst);
-}
-
-inline void Matrix4::rotate(const Matrix4& m, const Quaternion& rotation, Matrix4& dst) {
-  Matrix4 r;
-  makeRotation(rotation, r);
-  multiply(m, r, dst);
-}
-
-inline void Matrix4::rotateAxis(const Matrix4& m, const Vector3& axis, float angle, Matrix4& dst) {
-  Matrix4 r;
-  makeAxisRotation(axis, angle, r);
-  multiply(m, r, dst);
-}
-
-inline void Matrix4::rotateAroundX(const Matrix4& m, float angle, Matrix4& dst) {
-  Matrix4 r;
-  makeRotationAroundX(angle, r);
-  multiply(m, r, dst);
-}
-
-inline void Matrix4::rotateAroundY(const Matrix4& m, float angle, Matrix4& dst) {
-  Matrix4 r;
-  makeRotationAroundY(angle, r);
-  multiply(m, r, dst);
-}
-
-inline void Matrix4::rotateAroundZ(const Matrix4& m, float angle, Matrix4& dst) {
-  Matrix4 r;
-  makeRotationAroundZ(angle, r);
-  multiply(m, r, dst);
-}
-
-inline void Matrix4::transformPoint(const Matrix4& m, const Vector3& point, Vector3& dst) {
-  transformVector(m, Vector4{point, 1.0f}, dst);
-}
-
-inline void Matrix4::transformVector(const Matrix4& m, const Vector3& v, Vector3& dst) {
-  transformVector(m, {v, 0.0f}, dst);
-}
-
-inline void Matrix4::transformVector(const Matrix4& m, const Vector4& v, Vector3& dst) {
-  dst.set(
+inline Vector3 Matrix4::multiplyVector(const Matrix4& m, const Vector4& v) {
+  return {
     v.x * m[0] + v.y * m[4] + v.z * m[8] + v.w * m[12],
     v.x * m[1] + v.y * m[5] + v.z * m[9] + v.w * m[13],
     v.x * m[2] + v.y * m[6] + v.z * m[10] + v.w * m[14]
-  );
+  };
 }
 
-inline void Matrix4::transformVector(const Matrix4& m, const Vector4& v, Vector4& dst) {
-  dst.set(
+inline Vector4 Matrix4::multiplyVector4(const Matrix4& m, const Vector4& v) {
+  return {
     v[0] * m[0] + v[1] * m[4] + v[2] * m[8] + v[3] * m[12],
     v[0] * m[1] + v[1] * m[5] + v[2] * m[9] + v[3] * m[13],
     v[0] * m[2] + v[1] * m[6] + v[2] * m[10] + v[3] * m[14],
     v[0] * m[3] + v[1] * m[7] + v[2] * m[11] + v[3] * m[15]
-  );
+  };
 }
 
 // Operators
 inline Matrix4 Matrix4::operator+(const Matrix4& m) const {
-  Matrix4 result;
-  add(*this, m, result);
-  return result;
+  return {
+    m.data[0] + data[0],
+    m.data[1] + data[1],
+    m.data[2] + data[2],
+    m.data[3] + data[3],
+    m.data[4] + data[4],
+    m.data[5] + data[5],
+    m.data[6] + data[6],
+    m.data[7] + data[7],
+    m.data[8] + data[8],
+    m.data[9] + data[9],
+    m.data[10] + data[10],
+    m.data[11] + data[11],
+    m.data[12] + data[12],
+    m.data[13] + data[13],
+    m.data[14] + data[14],
+    m.data[15] + data[15]
+  };
 }
 
 inline Matrix4 Matrix4::operator-(const Matrix4& m) const {
-  Matrix4 result;
-  subtract(*this, m, result);
-  return result;
+  return {
+    m.data[0] - data[0],
+    m.data[1] - data[1],
+    m.data[2] - data[2],
+    m.data[3] - data[3],
+    m.data[4] - data[4],
+    m.data[5] - data[5],
+    m.data[6] - data[6],
+    m.data[7] - data[7],
+    m.data[8] - data[8],
+    m.data[9] - data[9],
+    m.data[10] - data[10],
+    m.data[11] - data[11],
+    m.data[12] - data[12],
+    m.data[13] - data[13],
+    m.data[14] - data[14],
+    m.data[15] - data[15]
+  };
 }
 
 inline Matrix4& Matrix4::operator+=(const Matrix4& m) {
-  add(*this, m, *this);
+  *this = *this + m;
   return *this;
 }
 
 inline Matrix4& Matrix4::operator-=(const Matrix4& m) {
-  subtract(*this, m, *this);
+  *this = *this - m;
   return *this;
 }
 
 inline Matrix4 Matrix4::operator-() const {
-  Matrix4 result;
-  this->negate(result);
-  return result;
+  return {
+    -data[0],
+    -data[1],
+    -data[2],
+    -data[3],
+    -data[4],
+    -data[5],
+    -data[6],
+    -data[7],
+    -data[8],
+    -data[9],
+    -data[10],
+    -data[11],
+    -data[12],
+    -data[13],
+    -data[14],
+    -data[15]
+  };
 }
 
 inline Matrix4 Matrix4::operator*(const Matrix4& m) const {
-  Matrix4 result;
-  multiply(*this, m, result);
-  return result;
+  return {
+    data[0] * m[0] + data[4] * m[1] + data[8] * m[2] + data[12] * m[3],
+    data[1] * m[0] + data[5] * m[1] + data[9] * m[2] + data[13] * m[3],
+    data[2] * m[0] + data[6] * m[1] + data[10] * m[2] + data[14] * m[3],
+    data[3] * m[0] + data[7] * m[1] + data[11] * m[2] + data[15] * m[3],
+    data[0] * m[4] + data[4] * m[5] + data[8] * m[6] + data[12] * m[7],
+    data[1] * m[4] + data[5] * m[5] + data[9] * m[6] + data[13] * m[7],
+    data[2] * m[4] + data[6] * m[5] + data[10] * m[6] + data[14] * m[7],
+    data[3] * m[4] + data[7] * m[5] + data[11] * m[6] + data[15] * m[7],
+    data[0] * m[8] + data[4] * m[9] + data[8] * m[10] + data[12] * m[11],
+    data[1] * m[8] + data[5] * m[9] + data[9] * m[10] + data[13] * m[11],
+    data[2] * m[8] + data[6] * m[9] + data[10] * m[10] + data[14] * m[11],
+    data[3] * m[8] + data[7] * m[9] + data[11] * m[10] + data[15] * m[11],
+    data[0] * m[12] + data[4] * m[13] + data[8] * m[14] + data[12] * m[15],
+    data[1] * m[12] + data[5] * m[13] + data[9] * m[14] + data[13] * m[15],
+    data[2] * m[12] + data[6] * m[13] + data[10] * m[14] + data[14] * m[15],
+    data[3] * m[12] + data[7] * m[13] + data[11] * m[14] + data[15] * m[15]
+  };
 }
 
 inline Matrix4& Matrix4::operator*=(const Matrix4& m) {
-  multiply(*this, m, *this);
+  *this = *this * m;
+  return *this;
 }
 
-inline Vector3& operator*=(Vector3& v, const Matrix4& m) {
-  Matrix4::transformVector(m, v, v);
-  return v;
+inline Matrix4 Matrix4::operator+(float a) const {
+  return {
+    data[0] + a,
+    data[1] + a,
+    data[2] + a,
+    data[3] + a,
+    data[4] + a,
+    data[5] + a,
+    data[6] + a,
+    data[7] + a,
+    data[8] + a,
+    data[9] + a,
+    data[10] + a,
+    data[11] + a,
+    data[12] + a,
+    data[13] + a,
+    data[14] + a,
+    data[15] + a
+  };
 }
 
-inline Vector3 operator*(const Matrix4& m, const Vector3& v) {
-  Vector3 result;
-  Matrix4::transformVector(m, v, result);
+inline Matrix4& Matrix4::operator+=(float a) {
+  *this = *this + a;
+  return *this;
+}
+
+inline Matrix4 Matrix4::operator-(float a) const {
+  return {
+    data[0] - a,
+    data[1] - a,
+    data[2] - a,
+    data[3] - a,
+    data[4] - a,
+    data[5] - a,
+    data[6] - a,
+    data[7] - a,
+    data[8] - a,
+    data[9] - a,
+    data[10] - a,
+    data[11] - a,
+    data[12] - a,
+    data[13] - a,
+    data[14] - a,
+    data[15] - a
+  };
+}
+
+inline Matrix4& Matrix4::operator-=(float a) {
+  *this = *this - a;
+  return *this;
+}
+
+inline Matrix4 Matrix4::operator*(float a) const {
+  return {
+    data[0] * a,
+    data[1] * a,
+    data[2] * a,
+    data[3] * a,
+    data[4] * a,
+    data[5] * a,
+    data[6] * a,
+    data[7] * a,
+    data[8] * a,
+    data[9] * a,
+    data[10] * a,
+    data[11] * a,
+    data[12] * a,
+    data[13] * a,
+    data[14] * a,
+    data[15] * a
+  };
+}
+
+inline Matrix4& Matrix4::operator*=(float a) {
+  *this = *this * a;
+  return *this;
+}
+
+inline Matrix4 Matrix4::operator/(float a) const {
+  return {
+    data[0] / a,
+    data[1] / a,
+    data[2] / a,
+    data[3] / a,
+    data[4] / a,
+    data[5] / a,
+    data[6] / a,
+    data[7] / a,
+    data[8] / a,
+    data[9] / a,
+    data[10] / a,
+    data[11] / a,
+    data[12] / a,
+    data[13] / a,
+    data[14] / a,
+    data[15] / a
+  };
+}
+
+inline Matrix4& Matrix4::operator/=(float a) {
+  *this = *this / a;
+  return *this;
+}
+
+// Factory methods
+inline Matrix4 Matrix4::makeOrthographic(float left, float right,
+                                         float bottom, float top,
+                                         float near, float far) {
+  Matrix4 result;
+  result.clear();
+  result[0] = 2.0f / (right - left);
+  result[5] = 2.0f / (top - bottom);
+  result[12] = (left + right) / (left - right);
+  result[10] = 1.0f / (near - far);
+  result[13] = (top + bottom) / (bottom - top);
+  result[14] = near / (near - far);
+  result[15] = 1.0f;
   return result;
 }
 
-inline Vector4& operator*=(Vector4& v, const Matrix4& m) {
-  Matrix4::transformVector(m, v, v);
-  return v;
+inline Matrix4 Matrix4::makePerspective(float fov, float aspect, float near, float far) {
+  float f = 1.0f / (far - near);
+  float theta = Math::kDegToRad * fov / 2.0f;
+
+  float d = Math::tan(theta);
+  float m = 1.0f / d;
+
+  Matrix4 result;
+  result.clear();
+  result.data[0] = (1.0f / aspect) * m;
+  result.data[5] = m;
+  result.data[10] = f * (-far - near);
+  result.data[11] = -1.0f;
+  result.data[14] = -2.0f * far * near * f;
+
+  return result;
 }
 
-inline Vector4 operator*(const Matrix4& m, const Vector4& v) {
-  Vector4 result;
-  Matrix4::transformVector(m, v, result);
+inline Matrix4 Matrix4::makeTransformation(const Vector3& translation,
+                                           const Quaternion& rotation,
+                                           const Vector3& scale) {
+  return makeTranslation(translation) * makeRotation(rotation) * makeScale(scale);
+}
+
+inline Matrix4 Matrix4::makeLookAt(const Vector3& position,
+                                   const Vector3& target,
+                                   const Vector3& up) {
+  Vector3 upNorm = up.normalized();
+  Vector3 zaxis = (position - target).normalized();
+  Vector3 xaxis = Vector3::cross(up, zaxis).normalized();
+  Vector3 yaxis = Vector3::cross(zaxis, xaxis).normalized();
+
+  return {
+    xaxis.x,
+    yaxis.x,
+    zaxis.x,
+    0.0f,
+    xaxis.y,
+    yaxis.y,
+    zaxis.y,
+    0.0f,
+    xaxis.z,
+    yaxis.z,
+    zaxis.z,
+    0.0f,
+    -Vector3::dot(xaxis, position),
+    -Vector3::dot(yaxis, position),
+    -Vector3::dot(zaxis, position),
+    1.0f
+  };
+}
+
+inline Matrix4 Matrix4::makeBillboard(const Vector3& position,
+                                      const Vector3& cameraPosition,
+                                      const Vector3& cameraUp,
+                                      const Vector3& cameraForward) {
+  Matrix4 result{};
+  result[3] = position.x;
+  result[7] = position.y;
+  result[11] = position.z;
+
+  Matrix4 lookAt = makeLookAt(position, cameraPosition, cameraUp);
+  result[0] = lookAt[0];
+  result[1] = lookAt[4];
+  result[2] = lookAt[8];
+  result[4] = lookAt[1];
+  result[5] = lookAt[5];
+  result[6] = lookAt[9];
+  result[8] = lookAt[2];
+  result[9] = lookAt[6];
+  result[10] = lookAt[10];
+
+  return result;
+}
+
+inline Matrix4 Matrix4::makeReflection(const Plane& plane) {
+  Vector3 n(plane.normal);
+  float k = -2.0f * plane.distance;
+
+  Matrix4 result{};
+
+  result[0] -= 2.0f * n.x * n.x;
+  result[5] -= 2.0f * n.y * n.y;
+  result[10] -= 2.0f * n.z * n.z;
+  result[1] = result[4] = -2.0f * n.x * n.y;
+  result[2] = result[8] = -2.0f * n.x * n.z;
+  result[6] = result[9] = -2.0f * n.y * n.z;
+  result[3] = k * n.x;
+  result[7] = k * n.y;
+  result[11] = k * n.z;
+
+  return result;
+}
+
+inline Matrix4 Matrix4::makeTranslation(const Vector3& translation) {
+  return makeTranslation(translation.x, translation.y, translation.z);
+}
+
+inline Matrix4 Matrix4::makeTranslation(float x, float y, float z) {
+  Matrix4 result{};
+  result[12] = x;
+  result[13] = y;
+  result[14] = z;
+  return result;
+}
+
+inline Matrix4 Matrix4::makeScale(const Vector3& scale) {
+  return makeScale(scale.x, scale.y, scale.z);
+}
+
+inline Matrix4 Matrix4::makeScale(float x, float y, float z) {
+  Matrix4 result{};
+  result[0] = x;
+  result[5] = y;
+  result[10] = z;
+  return result;
+}
+
+inline Matrix4 Matrix4::makeRotation(const Vector3& forward,
+                                     const Vector3& up,
+                                     const Vector3& right) {
+  Matrix4 result;
+  result.clear();
+  result.set(0, 0, right.x);
+  result.set(0, 1, right.y);
+  result.set(0, 2, right.z);
+  result.set(1, 0, up.x);
+  result.set(1, 1, up.y);
+  result.set(1, 2, up.z);
+  result.set(2, 0, forward.x);
+  result.set(2, 1, forward.y);
+  result.set(2, 2, forward.z);
+  result.set(3, 3, 1.0f);
+  return result;
+}
+
+inline Matrix4 Matrix4::makeRotation(const Vector3& forward, const Vector3& up) {
+  Vector3 f = forward.normalized();
+  Vector3 r = Vector3::cross(up.normalized(), f);
+  Vector3 u = Vector3::cross(f, r);
+
+  return makeRotation(f, u, r);
+}
+
+inline Matrix4 Matrix4::makeRotation(const Quaternion& q) {
+  float x2 = q.x + q.x;
+  float y2 = q.y + q.y;
+  float z2 = q.z + q.z;
+
+  float xx2 = q.x * x2;
+  float yy2 = q.y * y2;
+  float zz2 = q.z * z2;
+  float xy2 = q.x * y2;
+  float xz2 = q.x * z2;
+  float yz2 = q.y * z2;
+  float wx2 = q.w * x2;
+  float wy2 = q.w * y2;
+  float wz2 = q.w * z2;
+
+  return {
+    1.0f - yy2 - zz2,
+    xy2 + wz2,
+    xz2 - wy2,
+    0.0f,
+    xy2 - wz2,
+    1.0f - xx2 - zz2,
+    yz2 + wx2,
+    0.0f,
+    xz2 + wy2,
+    yz2 - wx2,
+    1.0f - xx2 - yy2,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    1.0f
+  };
+}
+
+inline Matrix4 Matrix4::makeAxisRotation(const Vector3& axis, float angle) {
+  float x = axis.x;
+  float y = axis.y;
+  float z = axis.z;
+
+  float n = x * x + y * y + z * z;
+
+  if (n != 1.0f) {
+    n = Math::sqrt(n);
+
+    if (n > 0.000001f) {
+      n = 1.0f / n;
+      x *= n;
+      y *= n;
+      z *= n;
+    }
+  }
+
+  float c = Math::cos(angle);
+  float s = Math::sin(angle);
+
+  float t = 1.0f - c;
+  float tx = t * x;
+  float ty = t * y;
+  float tz = t * z;
+  float txy = tx * y;
+  float txz = tx * z;
+  float tyz = ty * z;
+  float sx = s * x;
+  float sy = s * y;
+  float sz = s * z;
+
+  return {
+    c + tx * x,
+    txy + sz,
+    txz - sy,
+    0.0f,
+    txy - sz,
+    c + ty * y,
+    tyz + sx,
+    0.0f,
+    txz + sy,
+    tyz - sx,
+    c + tz * z,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    1.0f
+  };
+}
+
+inline Matrix4 Matrix4::makeEulerRotation(const Vector3& euler) {
+  return makeEulerRotation(euler.x, euler.y, euler.z);
+}
+
+inline Matrix4 Matrix4::makeEulerRotation(float x, float y, float z) {
+  return makeRotationAroundX(x) * makeRotationAroundY(y) * makeRotationAroundZ(z);
+}
+
+inline Matrix4 Matrix4::makeRotationAroundX(float angle) {
+  float sin = Math::sin(angle);
+  float cos = Math::cos(angle);
+
+  Matrix4 result;
+  result.clear();
+  result[5] = cos;
+  result[6] = sin;
+  result[9] = -sin;
+  result[10] = cos;
+
+  return result;
+}
+
+inline Matrix4 Matrix4::makeRotationAroundY(float angle) {
+  float sin = Math::sin(angle);
+  float cos = Math::cos(angle);
+
+  Matrix4 result;
+  result.clear();
+  result[0] = cos;
+  result[2] = -sin;
+  result[8] = sin;
+  result[10] = cos;
+
+  return result;
+}
+
+inline Matrix4 Matrix4::makeRotationAroundZ(float angle) {
+  float sin = Math::sin(angle);
+  float cos = Math::cos(angle);
+
+  Matrix4 result;
+  result.clear();
+  result[0] = cos;
+  result[1] = sin;
+  result[4] = -sin;
+  result[5] = cos;
+
   return result;
 }
 
 // Singletons
-const Matrix4& Matrix4::identity() {
+inline const Matrix4& Matrix4::identity() {
   static Matrix4 value{
     1.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 1.0f, 0.0f, 0.0f,
@@ -594,7 +882,7 @@ const Matrix4& Matrix4::identity() {
   return value;
 }
 
-const Matrix4& Matrix4::zero() {
+inline const Matrix4& Matrix4::zero() {
   static Matrix4 value{};
   return value;
 }
