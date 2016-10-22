@@ -4,7 +4,7 @@
 #include "resource_loader.h"
 #include "resource.h"
 #include "shader.h"
-#include "mesh.h"
+#include "../application.h"
 
 namespace bellum {
 
@@ -45,6 +45,10 @@ Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
     }
     kv.second.location = location;
   }
+
+  Application::getInstance()->logger()->info("Loaded shader vs: '",
+                                             vertexShaderAsset, "' fs: '",
+                                             fragmentShaderAsset, "'");
 
   resources_.push_back(std::unique_ptr<Shader>{new Shader{0, program, uniforms}});
   return dynamic_cast<Shader*>(resources_.back().get());
@@ -109,14 +113,19 @@ std::string ResourceLoader::LoadTextAsset(const std::string& asset) {
   std::ifstream in{asset};
   std::stringstream ss;
   ss << in.rdbuf();
+
+  Application::getInstance()->logger()->info("Loaded text asset '", asset, "'");
+
   return ss.str();
 }
 
 void ResourceLoader::disposeAll() {
-  for(auto& resource : resources_) {
+  for (auto& resource : resources_) {
     resource->dispose();
   }
   resources_.clear();
+
+  Application::getInstance()->logger()->info("Disposed all resources");
 }
 
 }

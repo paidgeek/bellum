@@ -74,11 +74,11 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
   }
 
   ResourceLoader::disposeAll();
+  logger_->info("Application exited");
 }
 
 void StandaloneApplication::exit() {
   running_ = false;
-  logger_->info("Application exited");
 }
 
 }

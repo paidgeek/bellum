@@ -1,4 +1,5 @@
 add_sources(
+  bounds.h
   math.h
   matrix4.h
   plane.h
