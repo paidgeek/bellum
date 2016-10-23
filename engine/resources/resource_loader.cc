@@ -4,6 +4,7 @@
 #include "resource_loader.h"
 #include "resource.h"
 #include "shader.h"
+#include "mesh.h"
 #include "../application.h"
 
 namespace bellum {
@@ -12,8 +13,8 @@ std::vector<std::unique_ptr<Resource>> ResourceLoader::resources_;
 
 Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
                                    const std::string& fragmentShaderAsset,
-                                   BindingInfo bindingInfo,
-                                   std::vector<std::string> uniformNames) {
+                                   const BindingInfo& bindingInfo,
+                                   const std::vector<std::string>& uniformNames) {
   Shader::UniformMap uniforms;
   for (auto& name : uniformNames) {
     uniforms[name] = Shader::Uniform{name, -1};
@@ -32,7 +33,7 @@ Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
 
   // bind attributes
   for (auto& ap : bindingInfo.attribute_pointers) {
-    glBindAttribLocation(program, ap.location, ap.kind.name.c_str());
+    glBindAttribLocation(program, ap.location, AttributeKindUtil::getName(ap.kind));
   }
 
   linkShaderProgram(program);
@@ -107,6 +108,20 @@ void ResourceLoader::linkShaderProgram(uint32 program) {
     glDeleteProgram(program);
     throw Shader::LinkException{};
   }
+}
+
+Mesh* ResourceLoader::makeEmptyMesh(const BindingInfo& bindingInfo) {
+  uint32 vaoId, vboId, iboId;
+  glGenVertexArrays(1, &vaoId);
+  glGenBuffers(1, &vboId);
+  glGenBuffers(1, &iboId);
+
+  if(vaoId == 0 || vboId == 0 || iboId == 0) {
+    throw MakeMeshException{};
+  }
+
+  resources_.push_back(std::unique_ptr<Mesh>{new Mesh{bindingInfo, vaoId, vboId, iboId}});
+  return dynamic_cast<Mesh*>(resources_.back().get());
 }
 
 std::string ResourceLoader::LoadTextAsset(const std::string& asset) {

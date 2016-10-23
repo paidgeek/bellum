@@ -1,5 +1,4 @@
 add_sources(
-  attribute.cc
   attribute.h
   binding_info.h
   mesh.cc

@@ -16,14 +16,14 @@ struct BindingInfo {
 
     for (auto& ak : attributeKinds) {
       attribute_pointers.emplace_back(ak, attribute_pointers.size());
-      size += ak.size;
+      size += AttributeKindUtil::getSize(ak);
     }
   }
 
   inline BindingInfo(std::vector<AttributePointer> attributePointers)
     : attribute_pointers(attributePointers), size(0) {
     for (auto& ap : attributePointers) {
-      size += ap.kind.size;
+      size += AttributeKindUtil::getSize(ap.kind);
     }
   }
 };

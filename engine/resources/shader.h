@@ -22,6 +22,9 @@ public:
   DEFINE_EXCEPTION(LinkException, "Failed to link shader");
   DEFINE_EXCEPTION(BindUniformException, "Could not bind uniform");
 
+protected:
+  void dispose() override;
+
 private:
   struct Uniform {
     std::string name;
@@ -43,7 +46,6 @@ private:
 
   void bind();
   void release();
-  void dispose() override;
 
   uint8 pass_;
   uint32 program_;

@@ -10,6 +10,7 @@ struct Bounds {
   Vector3 center;
   Vector3 size;
 
+  inline Bounds();
   inline Bounds(const Vector3& center, const Vector3& size);
   inline Bounds(const Bounds& other);
   inline Bounds& operator=(const Bounds& other);
@@ -28,13 +29,15 @@ struct Bounds {
   inline float squaredDistance(const Vector3& point) const;
 };
 
-Bounds::Bounds(const Vector3& center, const Vector3& size)
+inline Bounds::Bounds() {}
+
+inline Bounds::Bounds(const Vector3& center, const Vector3& size)
   : center(center), size(size) {}
 
-Bounds::Bounds(const Bounds& other)
+inline Bounds::Bounds(const Bounds& other)
   : center(other.center), size(other.size) {}
 
-Bounds& Bounds::operator=(const Bounds& other) {
+inline Bounds& Bounds::operator=(const Bounds& other) {
   center = other.center;
   size = other.size;
 }

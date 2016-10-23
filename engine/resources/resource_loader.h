@@ -14,11 +14,15 @@ class Mesh;
 class ResourceLoader {
   friend class StandaloneApplication;
 
+  DEFINE_EXCEPTION(AssetNotFoundException, "Asset not found");
+  DEFINE_EXCEPTION(MakeMeshException, "Failed to create a new mesh");
+
 public:
   static Shader* loadShader(const std::string& vertexShaderAsset,
                                             const std::string& fragmentShaderAsset,
-                                            BindingInfo bindingInfo,
-                                            std::vector<std::string> uniformNames);
+                                            const BindingInfo& bindingInfo,
+                                            const std::vector<std::string>& uniformNames);
+  static Mesh* makeEmptyMesh(const BindingInfo& bindingInfo);
   static std::string LoadTextAsset(const std::string& asset);
 
 private:

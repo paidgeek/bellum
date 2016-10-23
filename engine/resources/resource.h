@@ -4,7 +4,9 @@
 namespace bellum {
 
 class Resource {
-public:
+  friend class ResourceLoader;
+
+protected:
   virtual void dispose() = 0;
 };
 

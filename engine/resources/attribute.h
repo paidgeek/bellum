@@ -10,28 +10,44 @@ struct Attribute {
   uint32 location;
 };
 
-struct AttributeKind {
-  uint8 id;
-  uint32 size;
-  std::string name;
-
-  inline bool operator==(const AttributeKind& other) {
-    return id == other.id;
-  }
-
-  inline bool operator!=(const AttributeKind& other) {
-    return id != other.id;
-  }
-
-  static const AttributeKind kPosition;
-  static const AttributeKind kColor;
-  static const AttributeKind kNormal;
-  static const AttributeKind kTextureCoordinate;
-
-private:
-  inline AttributeKind(uint8 id, uint32 size, const std::string& name)
-    : id(id), size(size), name(name) {}
+enum class AttributeKind {
+  POSITION,
+  COLOR,
+  NORMAL,
+  TEXTURE_COORDINATE
 };
+
+namespace AttributeKindUtil {
+
+static uint32 getSize(AttributeKind kind) {
+  switch (kind) {
+    case AttributeKind::POSITION:
+      return 3;
+    case AttributeKind::COLOR:
+      return 4;
+    case AttributeKind::NORMAL:
+      return 3;
+    case AttributeKind::TEXTURE_COORDINATE:
+      return 2;
+  }
+  return 0;
+}
+
+static const char* getName(AttributeKind kind) {
+  switch (kind) {
+    case AttributeKind::POSITION:
+      return "POSITION";
+    case AttributeKind::COLOR:
+      return "COLOR";
+    case AttributeKind::NORMAL:
+      return "NORMAL";
+    case AttributeKind::TEXTURE_COORDINATE:
+      return "UV";
+  }
+  return nullptr;
+}
+
+}
 
 struct AttributePointer {
   AttributeKind kind;
