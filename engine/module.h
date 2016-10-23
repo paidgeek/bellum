@@ -11,7 +11,7 @@ class Module {
 public:
   Module() {}
 
-  virtual void onEnterScene(Scene* scene) = 0;
+  virtual void onStart(Scene* scene) = 0;
   virtual void update() {};
   virtual void render() {};
 

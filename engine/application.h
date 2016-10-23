@@ -2,15 +2,18 @@
 #define __BELLUM_APPLICATION_H__
 
 #include "common.h"
+#include "render/render_module.h"
+#include "update/update_module.h"
 
 namespace bellum {
 
-class SceneManager;
-class UpdateModule;
-class RenderModule;
 class Scene;
 
 class Application {
+  friend class Renderer;
+  friend class Scene;
+  friend class Node;
+
 public:
   Application();
 
@@ -33,9 +36,8 @@ protected:
   bool running_;
 
 private:
-  std::shared_ptr<SceneManager> scene_manager_;
-  std::shared_ptr<UpdateModule> update_module_;
-  std::shared_ptr<RenderModule> render_module_;
+  std::unique_ptr<UpdateModule> update_module_;
+  std::unique_ptr<RenderModule> render_module_;
 };
 
 }

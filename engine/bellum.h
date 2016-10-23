@@ -12,6 +12,14 @@
 #include "node.h"
 #include "component.h"
 
+// resources
+#include "resources/binding_info.h"
+#include "resources/material.h"
+#include "resources/shader.h"
+#include "resources/mesh.h"
+#include "resources/attribute.h"
+#include "resources/resource_loader.h"
+
 // components
 #include "components/mesh_filter.h"
 #include "components/mesh_renderer.h"

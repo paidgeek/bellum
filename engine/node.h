@@ -3,15 +3,17 @@
 
 #include "common.h"
 #include "transform.h"
+#include "component.h"
 
 namespace bellum {
 
-class Component;
-
 class Node {
+  friend class Scene;
+  friend class SceneManager;
+
 public:
   Node(int32 id)
-    : id_(id) {}
+    : id_(id), active_(true) {}
 
   inline int32 id() const {
     return id_;
@@ -41,15 +43,28 @@ public:
     return components_;
   }
 
-  inline void addComponent(std::unique_ptr<Component> component) {
+  template<typename T>
+  inline T* addComponent() {
+    static_assert(std::is_base_of<Component, T>::value, "T must derive from Component");
+
+    std::unique_ptr<Component> component = std::make_unique<T>();
+    Component* c = component.get();
     components_.push_back(std::move(component));
+
+    c->node_ = this;
+    c->onAdd();
+
+    notifyOnAddComponent(c);
+
+    return dynamic_cast<T*>(c);
   }
 
   template<typename T>
   inline T* getComponent() {
     for (const auto& component : components_) {
-      if (dynamic_cast<const T*>(component) != nullptr) {
-        return component.get();
+      T* ptr = dynamic_cast<T*>(component.get());
+      if (ptr != nullptr) {
+        return ptr;
       }
     }
 
@@ -60,7 +75,11 @@ public:
     return children_;
   }
 
+  static Node* make(Node* parent = nullptr);
+
 private:
+  void notifyOnAddComponent(Component* component) const;
+
   int32 id_;
   Transform transform_;
   std::string tag_;

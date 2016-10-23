@@ -14,8 +14,7 @@ struct Vector2;
 
 class Mesh : public Resource {
   friend class ResourceLoader;
-
-  friend class RenderModule;
+  friend class MeshRenderer;
 
   DEFINE_EXCEPTION(NotReadableException, "Mesh data is not readable");
 

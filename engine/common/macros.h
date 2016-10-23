@@ -7,8 +7,12 @@
 
 #define DEFINE_EXCEPTION(Name, What) \
   class Name : public std::exception { \
-  public: const char* what() const throw() override { \
-    return What; \
+  private: std::string msg_; \
+  public: \
+  Name() : msg_(What) {} \
+  Name(const std::string& msg) : msg_(msg) {  } \
+  const char* what() const throw() override { \
+      return msg_.c_str(); \
   } \
   }
 

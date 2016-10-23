@@ -16,8 +16,11 @@ public:
 
   RenderModule() {}
 
-  void onEnterScene(Scene* scene) override;
+  void onStart(Scene* scene) override;
   void render() override;
+  void consolidate();
+
+  void addRenderer(Renderer* renderer);
 
 private:
   struct RenderState {
@@ -31,9 +34,6 @@ private:
   } render_state;
 
   void ambientPass();
-
-  void onAddComponent(Component* component);
-  void onRemoveComponent(Component* component);
 
   std::vector<Renderer*> renderers_;
 };

@@ -8,14 +8,18 @@ namespace bellum {
 class Node;
 
 class Component {
+  friend class Scene;
+  friend class Node;
+
 public:
-  Component() {}
+  Component()
+    : enabled_(true) {}
 
   inline bool enabled() const {
     return enabled_;
   }
 
-  inline Node* node() {
+  inline Node* node() const {
     return node_;
   }
 
@@ -25,7 +29,7 @@ public:
   virtual void onDisable() {};
   virtual void update() {};
 
-private:
+protected:
   Node* node_;
   bool enabled_;
 };

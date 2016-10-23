@@ -1,4 +1,3 @@
-#include <GL/glew.h>
 #include <fstream>
 #include <sstream>
 #include "resource_loader.h"
@@ -7,9 +6,20 @@
 #include "mesh.h"
 #include "../application.h"
 
+#include <GL/glew.h>
+
 namespace bellum {
 
 std::vector<std::unique_ptr<Resource>> ResourceLoader::resources_;
+std::string ResourceLoader::kParentDirectory  = "assets/";
+
+std::string ResourceLoader::getAssetPath(const std::string& asset) {
+  if(asset[0] == '/') {
+    return kParentDirectory + asset;
+  } else {
+    return kParentDirectory + "/" + asset;
+  }
+}
 
 Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
                                    const std::string& fragmentShaderAsset,
@@ -25,8 +35,8 @@ Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
     throw Shader::CreateException{};
   }
 
-  std::string vs = LoadTextAsset(vertexShaderAsset);
-  std::string fs = LoadTextAsset(fragmentShaderAsset);
+  std::string vs = loadTextAsset(vertexShaderAsset);
+  std::string fs = loadTextAsset(fragmentShaderAsset);
 
   compileShader(vs, GL_VERTEX_SHADER, program);
   compileShader(fs, GL_FRAGMENT_SHADER, program);
@@ -51,8 +61,9 @@ Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
                                              vertexShaderAsset, "' fs: '",
                                              fragmentShaderAsset, "'");
 
-  resources_.push_back(std::unique_ptr<Shader>{new Shader{0, program, uniforms}});
-  return dynamic_cast<Shader*>(resources_.back().get());
+  Shader* shader = new Shader{0, program, uniforms};
+  resources_.push_back(std::unique_ptr<Shader>{shader});
+  return shader;
 }
 
 void ResourceLoader::compileShader(const std::string& source, uint32 type, uint32 program) {
@@ -116,7 +127,7 @@ Mesh* ResourceLoader::makeEmptyMesh(const BindingInfo& bindingInfo) {
   glGenBuffers(1, &vboId);
   glGenBuffers(1, &iboId);
 
-  if(vaoId == 0 || vboId == 0 || iboId == 0) {
+  if (vaoId == 0 || vboId == 0 || iboId == 0) {
     throw MakeMeshException{};
   }
 
@@ -124,12 +135,19 @@ Mesh* ResourceLoader::makeEmptyMesh(const BindingInfo& bindingInfo) {
   return dynamic_cast<Mesh*>(resources_.back().get());
 }
 
-std::string ResourceLoader::LoadTextAsset(const std::string& asset) {
-  std::ifstream in{asset};
+std::string ResourceLoader::loadTextAsset(const std::string& asset) {
+  std::string path = getAssetPath(asset);
+  std::ifstream in{path, std::ios::binary};
+  if (!in.is_open()) {
+    throw AssetNotFoundException{Formatter::str("Asset '", path, "' not found")};
+  }
+
   std::stringstream ss;
   ss << in.rdbuf();
 
-  Application::getInstance()->logger()->info("Loaded text asset '", asset, "'");
+  Application::getInstance()->logger()->info("Loaded text asset '", path, "'");
+
+  in.close();
 
   return ss.str();
 }
@@ -140,7 +158,7 @@ void ResourceLoader::disposeAll() {
   }
   resources_.clear();
 
-  Application::getInstance()->logger()->info("Disposed all resources");
+  Application::getInstance()->logger()->info("Released all resources");
 }
 
 }

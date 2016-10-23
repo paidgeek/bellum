@@ -24,7 +24,7 @@ public:
   }
 
   virtual void update() override {
-    Application::getInstance()->logger()->info("update");
+    //Application::getInstance()->logger()->info("update");
   }
 
 };

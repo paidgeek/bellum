@@ -3,6 +3,9 @@
 
 namespace bellum {
 
+Scene* SceneManager::current_scene_;
+std::map<std::string, std::unique_ptr<Scene>> SceneManager::scenes_;
+
 void SceneManager::addScene(const std::string& name, std::unique_ptr<Scene> scene) {
   scenes_.insert(std::make_pair(name, std::move(scene)));
   if (scenes_.size() == 1) {

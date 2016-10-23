@@ -1,15 +1,12 @@
 #include "application.h"
 #include "standalone/standalone_application.h"
-#include "update/update_module.h"
-#include "render/render_module.h"
 #include "scene_manager.h"
 #include "scene.h"
 
 namespace bellum {
 
 Application::Application()
-  : scene_manager_(std::make_unique<SceneManager>()),
-    update_module_(std::make_unique<UpdateModule>()),
+  : update_module_(std::make_unique<UpdateModule>()),
     render_module_(std::make_unique<RenderModule>()) {}
 
 Application* Application::getInstance() {
@@ -20,15 +17,16 @@ Application* Application::getInstance() {
 }
 
 void Application::addScene(const std::string& name, std::unique_ptr<Scene> scene) {
-  scene_manager_->addScene(name, std::move(scene));
+  SceneManager::addScene(name, std::move(scene));
 }
 
 void Application::onStart() {
-  Scene* currentScene = scene_manager_->currentScene();
-  currentScene->make();
+  Scene* currentScene = SceneManager::currentScene();
 
-  update_module_->onEnterScene(currentScene);
-  render_module_->onEnterScene(currentScene);
+  update_module_->onStart(currentScene);
+  render_module_->onStart(currentScene);
+
+  currentScene->make();
 }
 
 void Application::update() {

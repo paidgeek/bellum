@@ -6,8 +6,20 @@
 
 namespace bellum {
 
-class MeshFilter : public Component {
+class Mesh;
 
+class MeshFilter : public Component {
+public:
+  Mesh* mesh() const {
+    return mesh_;
+  }
+
+  void setMesh(Mesh* mesh) {
+    mesh_ = mesh;
+  }
+
+private:
+  Mesh* mesh_;
 };
 
 }

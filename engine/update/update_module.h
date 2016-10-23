@@ -12,7 +12,7 @@ class UpdateModule : public Module {
 public:
   UpdateModule(){}
 
-  void onEnterScene(Scene* scene) override;
+  void onStart(Scene* scene) override;
   void update() override;
 
 private:

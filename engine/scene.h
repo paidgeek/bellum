@@ -8,57 +8,35 @@
 namespace bellum {
 
 class Scene {
+  friend class Node;
+
 public:
+  Scene()
+    : root_(Node{1}) {}
+
   virtual void make() = 0;
 
   inline const std::vector<std::unique_ptr<Node>>& nodes() const {
     return nodes_;
   }
 
-  Node* makeNode() {
-    static int idCounter = 0;
-    nodes_.emplace_back(new Node{++idCounter});
-    return nodes_.back().get();
-  }
-
-  template<typename T>
-  T* makeComponent(Node* node) {
-    static_assert(std::is_base_of<Component, T>::value, "T must derive from Component");
-
-    std::unique_ptr<T> c{std::make_unique<T>()};
-    c->onAdd();
-    node->addComponent(std::move(c));
-  }
-
-  inline void registerOnAddComponent(std::function<void(Component*)> callback) {
-    on_add_component.push_back(callback);
-  }
-
-  inline void registerOnRemoveComponent(std::function<void(Component*)> callback) {
-    on_remove_component.push_back(callback);
-  }
-
-  inline void registerOnMakeNode(std::function<void(Node*)> callback) {
-    on_make_node.push_back(callback);
-  }
-
-  inline void registerOnDestroyNode(std::function<void(Node*)> callback) {
-    on_destroy_node.push_back(callback);
-  }
-
 private:
-  void notifyAddComponent(Component* component);
-  void notifyRemoveComponent(Component* component);
-  void notifyMakeNode(Node* node);
-  void notifyDestroyNode(Node* node);
-  void clearObservers();
+  Node* makeNode(Node* parent = nullptr) {
+    if (parent == nullptr) {
+      parent = &root_;
+    }
 
+    static int idCounter = 1;
+    nodes_.emplace_back(new Node{++idCounter});
+    Node* node = nodes_.back().get();
+
+    parent->children_.push_back(node);
+
+    return node;
+  }
+
+  Node root_;
   std::vector<std::unique_ptr<Node>> nodes_;
-
-  std::vector<std::function<void(Component*)>> on_add_component;
-  std::vector<std::function<void(Component*)>> on_remove_component;
-  std::vector<std::function<void(Node*)>> on_make_node;
-  std::vector<std::function<void(Node*)>> on_destroy_node;
 };
 
 }

@@ -11,18 +11,18 @@ class SceneManager {
 public:
   DEFINE_EXCEPTION(UnknownSceneNameException, "Unknown scene name");
 
-  SceneManager() {}
+  static void addScene(const std::string& name, std::unique_ptr<Scene> scene);
 
-  void addScene(const std::string& name, std::unique_ptr<Scene> scene);
-
-  Scene* currentScene() {
+  static Scene* currentScene() {
     return current_scene_;
   }
 
-  void enterScene(const std::string& name);
+  static void enterScene(const std::string& name);
 private:
-  Scene* current_scene_;
-  std::map<std::string, std::unique_ptr<Scene>> scenes_;
+  SceneManager() {}
+
+  static Scene* current_scene_;
+  static std::map<std::string, std::unique_ptr<Scene>> scenes_;
 };
 
 }

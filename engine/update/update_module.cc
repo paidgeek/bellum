@@ -4,7 +4,7 @@
 
 namespace bellum {
 
-void UpdateModule::onEnterScene(Scene* scene) {
+void UpdateModule::onStart(Scene* scene) {
   scene_ = scene;
 }
 

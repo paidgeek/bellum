@@ -8,12 +8,7 @@ Window::Window(int32 width, int32 height)
   : width_(width), height_(height) {}
 
 void Window::show() {
-  glewExperimental=GL_TRUE;
-  if(!glewInit()) {
-    throw ShowException{};
-  }
-
-  if (!glfwInit()) {
+  if(!glfwInit()) {
     throw ShowException{};
   }
 
@@ -24,6 +19,9 @@ void Window::show() {
   }
 
   glfwMakeContextCurrent(glfw_window_);
+
+  glewExperimental = GL_TRUE;
+  glewInit();
 }
 
 void Window::render() {

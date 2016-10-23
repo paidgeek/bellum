@@ -36,17 +36,8 @@ void Mesh::recalculateBounds() {
 
   for (int i = 1; i < vertices_.size(); i++) {
     v = vertices_[i];
-
-    min.set(
-      Math::min(min.x, v.x),
-      Math::min(min.y, v.y),
-      Math::min(min.z, v.z)
-    );
-    max.set(
-      Math::max(max.x, v.x),
-      Math::max(max.y, v.y),
-      Math::max(max.z, v.z)
-    );
+    min = Vector3::min(min, v);
+    max = Vector3::max(max, v);
   }
 
   bounds_.setMinMax(min, max);
@@ -125,7 +116,7 @@ void Mesh::uploadMeshData(bool markNoLongerReadable) {
   glBufferData(GL_ARRAY_BUFFER, vb.size(), std::begin(vb), drawType);
 
   uint32 offset = 0;
-  for (auto& ap : binding_info_.attribute_pointers) {
+  for (const auto& ap : binding_info_.attribute_pointers) {
     uint32 size = AttributeKindUtil::getSize(ap.kind);
     glVertexAttribPointer(ap.location, size, GL_FLOAT, GL_FALSE, binding_info_.size,
                           (const GLvoid*) offset);
@@ -150,7 +141,7 @@ void Mesh::uploadMeshData(bool markNoLongerReadable) {
 void Mesh::render() {
   glBindVertexArray(vao_id_);
 
-  for (auto& ap : binding_info_.attribute_pointers) {
+  for (const auto& ap : binding_info_.attribute_pointers) {
     glEnableVertexAttribArray(ap.location);
   }
 
@@ -158,7 +149,7 @@ void Mesh::render() {
   glDrawElements(GL_TRIANGLES, triangle_count_, GL_UNSIGNED_INT, 0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-  for (auto& ap : binding_info_.attribute_pointers) {
+  for (const auto& ap : binding_info_.attribute_pointers) {
     glDisableVertexAttribArray(ap.location);
   }
 

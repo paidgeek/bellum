@@ -14,9 +14,10 @@ add_sources(
   common.h
   component.h
   module.h
+  node.cc
   node.h
-  scene.cc
   scene.h
+  scene.cc
   scene_manager.cc
   scene_manager.h
   timing.h

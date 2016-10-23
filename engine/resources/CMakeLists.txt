@@ -1,6 +1,7 @@
 add_sources(
   attribute.h
   binding_info.h
+  material.h
   mesh.cc
   mesh.h
   resource.h

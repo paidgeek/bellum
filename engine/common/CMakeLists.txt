@@ -1,6 +1,7 @@
 add_sources(
-    logger.h
-    macros.h
-    os.h
-    types.h
+  formatter.h
+  logger.h
+  macros.h
+  os.h
+  types.h
 )

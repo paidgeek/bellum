@@ -53,7 +53,6 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
 
   try {
     window_->show();
-
     super::onStart();
 
     while (running_ && !window_->shouldClose()) {
