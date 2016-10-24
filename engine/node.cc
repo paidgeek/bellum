@@ -15,7 +15,7 @@ void Node::notifyOnAddComponent(Component* component) const {
   Renderer* renderer = dynamic_cast<Renderer*>(component);
 
   if (renderer != nullptr) {
-    Application::getInstance()->render_module_->addRenderer(renderer);
+    Application::instance()->render_module_->addRenderer(renderer);
   }
 }
 

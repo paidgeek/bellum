@@ -26,7 +26,7 @@ public:
 
   void addScene(const std::string& name, std::unique_ptr<Scene> scene);
 
-  static Application* getInstance();
+  static Application* instance();
 protected:
   void onStart();
   void update();

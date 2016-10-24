@@ -15,8 +15,7 @@ enum class Space {
 
 class Transform {
 public:
-  Transform()
-    : scale_({1.0f, 1.0f, 1.0f}) {}
+  Transform() {}
 
   void translate(const Vector3& translation, Space space = Space::SELF) {
     translate(translation.x, translation.y, translation.z, space);
@@ -43,7 +42,7 @@ public:
   }
 
   void rotate(const Quaternion& rotation, Space space = Space::WORLD) {
-    if(space == Space::WORLD) {
+    if (space == Space::WORLD) {
       rotation_ = rotation * rotation_;
     } else {
       rotation_ = rotation_ * rotation;
@@ -85,7 +84,7 @@ public:
   }
 
   inline void setLocalRotation(const Quaternion& rotation) {
-    rotation_= rotation;
+    rotation_ = rotation;
   }
 
   inline Vector3 scale() {
@@ -125,7 +124,7 @@ public:
   }
 
   inline Matrix4 localToWorld() {
-    return parent_matrix_ * Matrix4::makeTransformation(position_, rotation_, scale_);
+    return parentMatrix() * Matrix4::makeTransformation(position_, rotation_, scale_);
   }
 
   inline Vector3 forward() {
@@ -153,12 +152,12 @@ public:
   }
 
 private:
-  Vector3 position_;
-  Quaternion rotation_;
-  Vector3 scale_;
+  Vector3 position_{};
+  Quaternion rotation_{};
+  Vector3 scale_{1.0f, 1.0f, 1.0f};
 
-  Transform* parent_;
-  Matrix4 parent_matrix_;
+  Transform* parent_ = nullptr;
+  Matrix4 parent_matrix_{};
 
   inline Matrix4& parentMatrix() {
     if (parent_ != nullptr) {

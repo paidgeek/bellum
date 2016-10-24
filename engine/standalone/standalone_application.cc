@@ -5,6 +5,10 @@
 #include "standalone_application.h"
 #include "window.h"
 #include "../timing.h"
+#include "resources/mesh.h"
+#include "color.h"
+#include "resources/shader.h"
+#include <Gl/glew.h>
 
 namespace bellum {
 
@@ -43,30 +47,50 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
     }
   }
 
-  FixedTimeStepTimer frameTimer{targetUps};
-  frameTimer.start();
+  double frameTime = 1.0 / targetUps;
+  Time::setDeltaTime(static_cast<float>(frameTime));
+  double currentTime;
+  double previousTime = Time::currentSeconds();
+  double elapsed;
+  double lag = 0.0;
+  float lagOffset = 0.0f;
+  double lastFpsUpdate = 0.0;
+  int framesProcessed = 0;
 
   window_ = std::make_unique<Window>(width, height);
 
   logger_->info("Application started");
+  srand((uint32) Time::currentNanoseconds());
   running_ = true;
+
 
   try {
     window_->show();
     super::onStart();
 
     while (running_ && !window_->shouldClose()) {
-      frameTimer.update();
+      currentTime = Time::currentSeconds();
+      elapsed = currentTime - previousTime;
 
       // update
-      while (frameTimer.doUpdate()) {
+      lag += elapsed;
+      while (lag > frameTime) {
         super::update();
+        window_->update();
+        lag -= frameTime;
       }
 
-      // render
-      frameTimer.doRender();
+      lagOffset = static_cast<float>(lag / frameTime);
       super::render();
+
+      framesProcessed++;
+      if(currentTime - lastFpsUpdate >= 1.0) {
+        Time::setFps(framesProcessed);
+        framesProcessed = 0;
+      }
+
       window_->render();
+      previousTime = currentTime;
     }
   } catch (const std::exception& e) {
     logger_->error(e.what());

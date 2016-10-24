@@ -14,6 +14,9 @@ public:
     SOLID_COLOR, DEPTH, NOTHING
   };
 
+  Camera()
+    : clear_flags_(ClearFlags::SOLID_COLOR) {}
+
   const Matrix4& projection() const {
     return projection_;
   }
@@ -42,12 +45,12 @@ public:
   Matrix4 view() const;
   Vector3 worldToViewportPoint(const Vector3& worldPoint) const;
 
-  static Camera* mainCamera() {
-    return mainCamera_;
+  static Camera* current() {
+    return current_;
   }
 
-  static void setMainCamera(Camera* camera) {
-    mainCamera_ = camera;
+  static void setCurrent(Camera* camera) {
+    current_ = camera;
   }
 
 private:
@@ -55,7 +58,7 @@ private:
   ClearFlags clear_flags_;
   Color clear_color_;
 
-  static Camera* mainCamera_;
+  static Camera* current_;
 };
 
 }

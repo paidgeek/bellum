@@ -25,6 +25,7 @@ public:
 protected:
   void dispose() override;
 
+
 private:
   struct Uniform {
     std::string name;
@@ -37,13 +38,12 @@ private:
   void setUniform(const std::string& name, float value);
   void setUniform(const std::string& name, const std::vector<float>& value);
   void setUniform(const std::string& name, int32 value);
-  void setUniform(const std::string& name, const Matrix4& value);
   void setUniform(const std::string& name, const Vector2& value);
   void setUniform(const std::string& name, const Vector3& value);
   void setUniform(const std::string& name, const Vector4& value);
+  void setUniform(const std::string& name, const Matrix4& value);
   void setUniform(const std::string& name, const Color& value);
   void setUniform(const std::string& name, bool value);
-
   void bind();
   void release();
 

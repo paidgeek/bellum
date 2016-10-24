@@ -117,6 +117,7 @@ inline const std::vector<uint32>& Mesh::triangles() const {
 }
 
 inline void Mesh::setTriangles(const std::vector<uint32>& triangles) {
+  triangle_count_ = triangles.size();
   triangles_ = triangles;
 }
 

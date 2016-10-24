@@ -15,7 +15,7 @@ public:
     fps_ = fps;
   }
 
-  static double deltaTime() {
+  static float deltaTime() {
     return dt_;
   }
 
@@ -33,30 +33,6 @@ private:
   static float dt_;
 
   Time() {}
-};
-
-class FixedTimeStepTimer {
-public:
-  FixedTimeStepTimer(double targetUps);
-
-  void start();
-  void update();
-  bool doUpdate();
-  void doRender();
-
-private:
-  double target_ups_;
-  double frame_time_;
-  int32 fps_;
-  float dt_;
-
-  double current_;
-  double previous_;
-  double elapsed_;
-  double lag_;
-  float lag_offset_;
-  double last_fps_update_;
-  int32 frames_processed_;
 };
 
 }

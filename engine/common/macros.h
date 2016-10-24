@@ -17,3 +17,10 @@
   }
 
 #endif
+
+#define GL_CHECK() \
+  { GLenum err = glGetError(); \
+  if (err != GL_NO_ERROR) { \
+    std::cerr << "OpenGL error '" << err << "', at " << __FILE__ << ":" << __LINE__ << std::endl;\
+    std::exit(1); \
+  } }

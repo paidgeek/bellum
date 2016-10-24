@@ -3,6 +3,8 @@
 
 namespace bellum {
 
+Camera* Camera::current_;
+
 Matrix4 Camera::viewProjection() const {
   return projection_ * view();
 }

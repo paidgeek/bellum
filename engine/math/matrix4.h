@@ -136,21 +136,21 @@ inline Matrix4::Matrix4(std::array<std::array<float, 4>, 4> data) {
 }
 
 inline Matrix4::Matrix4(const Matrix4& m) {
-  std::memcpy(data, m.data, 16);
+  std::memcpy(data, m.data, 16 * sizeof(float));
 }
 
 inline Matrix4& Matrix4::operator=(const Matrix4& m) {
-  std::memcpy(data, m.data, 16);
+  std::memcpy(data, m.data, 16 * sizeof(float));
   return *this;
 }
 
 // Setters and getters
 inline void Matrix4::set(const float* data) {
-  std::memcpy(this->data, data, 16);
+  std::memcpy(this->data, data, 16 * sizeof(float));
 }
 
 inline void Matrix4::set(const std::array<float, 16>& data) {
-  std::memcpy(this->data, data.data(), 16);
+  std::memcpy(this->data, data.data(), 16 * sizeof(float));
 }
 
 inline void Matrix4::set(float m11, float m12, float m13, float m14,
@@ -176,7 +176,7 @@ inline void Matrix4::set(float m11, float m12, float m13, float m14,
 }
 
 inline void Matrix4::set(std::array<std::array<float, 4>, 4> data) {
-  std::memcpy(this->data, data.data(), 16);
+  std::memcpy(this->data, data.data(), 16 * sizeof(float));
 }
 
 inline float Matrix4::get(int32 row, int32 column) const {
@@ -200,7 +200,7 @@ inline const float& Matrix4::operator[](size_t i) const {
 }
 
 inline void Matrix4::clear() {
-  std::memset(data, 0, 16);
+  std::memset(data, 0, 16 * sizeof(float));
 }
 
 inline void Matrix4::setTransformation(const Vector3& translation,
@@ -229,7 +229,7 @@ inline float Matrix4::determinant() const {
 
 inline Matrix4& Matrix4::inverse() {
   Matrix4 inv = inversed();
-  std::memcpy(data, inv.data, 16);
+  std::memcpy(data, inv.data, 16 * sizeof(float));
   return *this;
 }
 
@@ -320,7 +320,7 @@ inline Matrix4& Matrix4::transpose() {
     data[2], data[6], data[10], data[14],
     data[3], data[7], data[11], data[15]
   };
-  std::memcpy(data, t, 16);
+  std::memcpy(data, t, 16 * sizeof(float));
 }
 
 inline Matrix4 Matrix4::transposed() const {
@@ -445,6 +445,7 @@ inline Matrix4 Matrix4::operator-() const {
 }
 
 inline Matrix4 Matrix4::operator*(const Matrix4& m) const {
+  /*
   return {
     data[0] * m[0] + data[4] * m[1] + data[8] * m[2] + data[12] * m[3],
     data[1] * m[0] + data[5] * m[1] + data[9] * m[2] + data[13] * m[3],
@@ -463,6 +464,7 @@ inline Matrix4 Matrix4::operator*(const Matrix4& m) const {
     data[2] * m[12] + data[6] * m[13] + data[10] * m[14] + data[14] * m[15],
     data[3] * m[12] + data[7] * m[13] + data[11] * m[14] + data[15] * m[15]
   };
+  */
 }
 
 inline Matrix4& Matrix4::operator*=(const Matrix4& m) {
@@ -591,19 +593,16 @@ inline Matrix4 Matrix4::makeOrthographic(float left, float right,
 }
 
 inline Matrix4 Matrix4::makePerspective(float fov, float aspect, float near, float far) {
-  float f = 1.0f / (far - near);
-  float theta = Math::kDegToRad * fov / 2.0f;
-
-  float d = Math::tan(theta);
-  float m = 1.0f / d;
+  float tan = Math::tan(Math::kDegToRad * fov / 2.0f);
+  float r = near - far;
 
   Matrix4 result;
   result.clear();
-  result.data[0] = (1.0f / aspect) * m;
-  result.data[5] = m;
-  result.data[10] = f * (-far - near);
-  result.data[11] = -1.0f;
-  result.data[14] = -2.0f * far * near * f;
+  result.data[0] = 1.0f / (tan * aspect);
+  result.data[5] = 1.0f / tan;
+  result.data[10] = (-far - near) / r;
+  result.data[11] = 2.0f * far * near / r;
+  result.data[14] = 1.0f;
 
   return result;
 }
@@ -690,9 +689,14 @@ inline Matrix4 Matrix4::makeTranslation(const Vector3& translation) {
 
 inline Matrix4 Matrix4::makeTranslation(float x, float y, float z) {
   Matrix4 result{};
+  /*
   result[12] = x;
   result[13] = y;
   result[14] = z;
+  */
+  result.set(0, 3, x);
+  result.set(1, 3, y);
+  result.set(2, 3, z);
   return result;
 }
 

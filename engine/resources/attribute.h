@@ -36,13 +36,13 @@ static uint32 getSize(AttributeKind kind) {
 static const char* getName(AttributeKind kind) {
   switch (kind) {
     case AttributeKind::POSITION:
-      return "POSITION";
+      return "aPosition";
     case AttributeKind::COLOR:
-      return "COLOR";
+      return "aColor";
     case AttributeKind::NORMAL:
-      return "NORMAL";
+      return "aNormal";
     case AttributeKind::TEXTURE_COORDINATE:
-      return "UV";
+      return "aUV";
   }
   return nullptr;
 }

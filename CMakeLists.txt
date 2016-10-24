@@ -30,9 +30,8 @@ target_link_libraries(bellum
   ${OPENGL_glu_LIBRARY})
 
 # Copy assets
-#add_custom_command(TARGET bellum POST_BUILD
-#  COMMAND ${CMAKE_COMMAND} -E copy_directory
-#  ${CMAKE_SOURCE_DIR}/assets
-#  $<TARGET_FILE_DIR:bellum>/assets)
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets/
-  DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets/)
+add_custom_command(TARGET bellum POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  ${CMAKE_CURRENT_SOURCE_DIR}/assets
+  ${CMAKE_CURRENT_BINARY_DIR}/assets)
+#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets/ DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets/)

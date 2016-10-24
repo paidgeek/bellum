@@ -11,7 +11,7 @@
 namespace bellum {
 
 std::vector<std::unique_ptr<Resource>> ResourceLoader::resources_;
-std::string ResourceLoader::kParentDirectory  = "assets/";
+std::string ResourceLoader::kParentDirectory  = "assets";
 
 std::string ResourceLoader::getAssetPath(const std::string& asset) {
   if(asset[0] == '/') {
@@ -27,7 +27,7 @@ Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
                                    const std::vector<std::string>& uniformNames) {
   Shader::UniformMap uniforms;
   for (auto& name : uniformNames) {
-    uniforms[name] = Shader::Uniform{name, -1};
+    uniforms.insert(std::make_pair(name, Shader::Uniform{name, -1}));
   }
 
   uint32 program = glCreateProgram();
@@ -44,20 +44,23 @@ Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
   // bind attributes
   for (auto& ap : bindingInfo.attribute_pointers) {
     glBindAttribLocation(program, ap.location, AttributeKindUtil::getName(ap.kind));
+    GL_CHECK();
   }
 
   linkShaderProgram(program);
 
+  glUseProgram(program);
   // bind uniforms
   for (auto& kv : uniforms) {
     int32 location = glGetUniformLocation(program, kv.first.c_str());
     if (location == -1) {
-      throw Shader::BindUniformException{};
+      throw Shader::BindUniformException{Formatter::str("Could not bind uniform '", kv.first, "'")};
     }
     kv.second.location = location;
   }
+  glUseProgram(0);
 
-  Application::getInstance()->logger()->info("Loaded shader vs: '",
+  Application::instance()->logger()->info("Loaded shader vs: '",
                                              vertexShaderAsset, "' fs: '",
                                              fragmentShaderAsset, "'");
 
@@ -70,7 +73,6 @@ void ResourceLoader::compileShader(const std::string& source, uint32 type, uint3
   uint32 shader = glCreateShader(type);
 
   if (shader == 0) {
-    glDeleteProgram(program);
     throw Shader::CompilationException{};
   }
 
@@ -131,7 +133,7 @@ Mesh* ResourceLoader::makeEmptyMesh(const BindingInfo& bindingInfo) {
     throw MakeMeshException{};
   }
 
-  resources_.push_back(std::unique_ptr<Mesh>{new Mesh{bindingInfo, vaoId, vboId, iboId}});
+  resources_.emplace_back(new Mesh{bindingInfo, vaoId, vboId, iboId});
   return dynamic_cast<Mesh*>(resources_.back().get());
 }
 
@@ -145,7 +147,7 @@ std::string ResourceLoader::loadTextAsset(const std::string& asset) {
   std::stringstream ss;
   ss << in.rdbuf();
 
-  Application::getInstance()->logger()->info("Loaded text asset '", path, "'");
+  Application::instance()->logger()->info("Loaded text asset '", path, "'");
 
   in.close();
 
@@ -158,7 +160,7 @@ void ResourceLoader::disposeAll() {
   }
   resources_.clear();
 
-  Application::getInstance()->logger()->info("Released all resources");
+  Application::instance()->logger()->info("Released all resources");
 }
 
 }

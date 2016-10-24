@@ -141,7 +141,6 @@ inline Vector3 Quaternion::eulerAngles() const {
 
 inline float Quaternion::magnitude() const {
   return Math::sqrt(x * x + y * y + z * z + w * w);
-
 }
 
 inline float Quaternion::squaredMagnitude() const {
@@ -217,9 +216,34 @@ inline Quaternion Quaternion::makeEuler(const Vector3& euler) {
 }
 
 inline Quaternion Quaternion::makeEuler(float x, float y, float z) {
-  x /= 2.0f;
-  y /= 2.0f;
-  z /= 2.0f;
+  x *= Math::kDegToRad ;
+  y *= Math::kDegToRad ;
+  z *= Math::kDegToRad ;
+
+  float angle = x * 0.5;
+   float sr = sin(angle);
+   float cr = cos(angle);
+
+  angle = y * 0.5;
+   float sp = sin(angle);
+   float cp = cos(angle);
+
+  angle = z * 0.5;
+   float sy = sin(angle);
+   float cy = cos(angle);
+
+   float cpcy = cp * cy;
+   float spcy = sp * cy;
+   float cpsy = cp * sy;
+   float spsy = sp * sy;
+
+  return {
+    (sr * cpcy - cr * spsy),
+    (cr * spcy + sr * cpsy),
+    (cr * cpsy - sr * spcy),
+    (cr * cpcy + sr * spsy)
+  };
+  /*
   float sinx = Math::sin(x);
   float cosx = Math::cos(x);
   float siny = Math::sin(y);
@@ -233,6 +257,7 @@ inline Quaternion Quaternion::makeEuler(float x, float y, float z) {
     cosy * cosx * sinz - siny * sinx * cosz,
     cosy * cosx * cosz + siny * sinx * sinz
   };
+  */
 }
 
 inline Quaternion Quaternion::makeFromToRotation(const Vector3& from, const Vector3& to) {

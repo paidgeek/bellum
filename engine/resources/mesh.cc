@@ -1,6 +1,5 @@
 #include "mesh.h"
 #include <GL/glew.h>
-#include <valarray>
 
 #include "../color.h"
 #include "../math/vector2.h"
@@ -13,7 +12,8 @@ Mesh::Mesh(BindingInfo bindingInfo, uint32 vaoId, uint32 vboId, uint32 iboId)
     vbo_id_(vboId),
     ibo_id_(iboId),
     readable_(true),
-    dynamic_(false) {}
+    dynamic_(false),
+    triangle_count_(0) {}
 
 void Mesh::clear() {
   colors_.clear();
@@ -68,11 +68,9 @@ void Mesh::recalculateNormals() {
 }
 
 void Mesh::uploadMeshData(bool markNoLongerReadable) {
-  readable_ = markNoLongerReadable;
-  triangle_count_ = triangles_.size();
-
   // create vertex buffer
-  std::valarray<float> vb(vertices_.size() * binding_info_.size);
+  uint32 bufferSize = vertices_.size() * binding_info_.size;
+  std::unique_ptr<float[]> vb{new float[bufferSize]};
   uint32 j = 0;
 
   Vector3 v, n;
@@ -113,13 +111,17 @@ void Mesh::uploadMeshData(bool markNoLongerReadable) {
   uint32 drawType = dynamic_ ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW;
   glBindVertexArray(vao_id_);
   glBindBuffer(GL_ARRAY_BUFFER, vbo_id_);
-  glBufferData(GL_ARRAY_BUFFER, vb.size(), std::begin(vb), drawType);
+  glBufferData(GL_ARRAY_BUFFER, bufferSize * sizeof(float), vb.get(), drawType);
 
   uint32 offset = 0;
   for (const auto& ap : binding_info_.attribute_pointers) {
     uint32 size = AttributeKindUtil::getSize(ap.kind);
-    glVertexAttribPointer(ap.location, size, GL_FLOAT, GL_FALSE, binding_info_.size,
-                          (const GLvoid*) offset);
+    glVertexAttribPointer(ap.location,
+                          size,
+                          GL_FLOAT,
+                          GL_FALSE,
+                          binding_info_.size * sizeof(float),
+                          (void*) offset);
     offset += size * sizeof(float);
   }
 
@@ -127,7 +129,7 @@ void Mesh::uploadMeshData(bool markNoLongerReadable) {
   glBindVertexArray(0);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id_);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles_.size(), triangles_.data(), drawType);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangle_count_ * sizeof(uint32), (uint32*)(triangles_.data()), drawType);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
   if (markNoLongerReadable) {

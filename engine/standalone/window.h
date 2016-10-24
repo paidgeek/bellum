@@ -15,13 +15,13 @@ public:
 
   void show();
   bool shouldClose();
+  void update();
   void render();
   void close();
 
 private:
   int32 width_;
   int32 height_;
-
   GLFWwindow* glfw_window_;
 };
 

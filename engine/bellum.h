@@ -11,6 +11,9 @@
 #include "scene.h"
 #include "node.h"
 #include "component.h"
+#include "random.h"
+#include "input.h"
+#include "timing.h"
 
 // resources
 #include "resources/binding_info.h"
@@ -24,6 +27,7 @@
 #include "components/mesh_filter.h"
 #include "components/mesh_renderer.h"
 #include "components/renderer.h"
+#include "components/camera.h"
 
 // math
 #include "math/math.h"

@@ -9,7 +9,7 @@ Application::Application()
   : update_module_(std::make_unique<UpdateModule>()),
     render_module_(std::make_unique<RenderModule>()) {}
 
-Application* Application::getInstance() {
+Application* Application::instance() {
 #ifdef BELLUM_STANDALONE
   static StandaloneApplication instance{};
   return &instance;

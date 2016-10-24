@@ -13,9 +13,12 @@ add_sources(
   color.h
   common.h
   component.h
+  input.cc
+  input.h
   module.h
   node.cc
   node.h
+  random.h
   scene.h
   scene.cc
   scene_manager.cc
