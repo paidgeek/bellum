@@ -51,21 +51,18 @@ void RenderModule::ambientPass() {
 
       material.shader->bind();
       GL_CHECK();
-      //Matrix4 model = renderer->node()->transform().localToWorld();
-      //Matrix4 mvp = render_state.view_projection * model;
+      Matrix4 model = renderer->node()->transform().localToWorld();
+      Matrix4 mvp = Matrix4::identity();
 
-     // Matrix4 proj = Matrix4::makePerspective(60, 16.0f / 9.0f, 0.01f, 100.0f);
-      Matrix4 proj = Matrix4::makeOrthographic(0, 1, 0, 1, -1, 1);
-      Matrix4 model = Matrix4::makeTranslation(0, 0, 5);
+      std::cout << mvp << std::endl;
 
-      material.shader->setUniform("MVP", Matrix4::identity());
+      material.shader->setUniform("MVP", mvp);
       GL_CHECK();
 
       renderer->render();
       GL_CHECK();
 
       material.shader->release();
-      GL_CHECK();
       //glActiveTexture(GL_TEXTURE0);
       //glBindTexture(GL_TEXTURE_2D, 0);
     }

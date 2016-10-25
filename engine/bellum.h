@@ -16,6 +16,7 @@
 #include "timing.h"
 
 // resources
+#include "resources/mesh_factory.h"
 #include "resources/binding_info.h"
 #include "resources/material.h"
 #include "resources/shader.h"

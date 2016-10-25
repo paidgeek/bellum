@@ -445,7 +445,6 @@ inline Matrix4 Matrix4::operator-() const {
 }
 
 inline Matrix4 Matrix4::operator*(const Matrix4& m) const {
-  /*
   return {
     data[0] * m[0] + data[4] * m[1] + data[8] * m[2] + data[12] * m[3],
     data[1] * m[0] + data[5] * m[1] + data[9] * m[2] + data[13] * m[3],
@@ -464,7 +463,6 @@ inline Matrix4 Matrix4::operator*(const Matrix4& m) const {
     data[2] * m[12] + data[6] * m[13] + data[10] * m[14] + data[14] * m[15],
     data[3] * m[12] + data[7] * m[13] + data[11] * m[14] + data[15] * m[15]
   };
-  */
 }
 
 inline Matrix4& Matrix4::operator*=(const Matrix4& m) {
@@ -593,16 +591,18 @@ inline Matrix4 Matrix4::makeOrthographic(float left, float right,
 }
 
 inline Matrix4 Matrix4::makePerspective(float fov, float aspect, float near, float far) {
-  float tan = Math::tan(Math::kDegToRad * fov / 2.0f);
-  float r = near - far;
+  float r = 1.0f /(far -near);
+  float theta = fov * 0.5f;
+  float d = Math::tan(theta);
+  float f = 1.0f / d;
 
   Matrix4 result;
   result.clear();
-  result.data[0] = 1.0f / (tan * aspect);
-  result.data[5] = 1.0f / tan;
-  result.data[10] = (-far - near) / r;
-  result.data[11] = 2.0f * far * near / r;
-  result.data[14] = 1.0f;
+  result.data[0] = (1.0f / aspect) * f;
+  result.data[5] = f;
+  result.data[10] = (-(far - near)) * r;
+  result.data[11] = -1.0f;
+  result.data[14] = -2.0f * far * near * r;
 
   return result;
 }
@@ -689,14 +689,9 @@ inline Matrix4 Matrix4::makeTranslation(const Vector3& translation) {
 
 inline Matrix4 Matrix4::makeTranslation(float x, float y, float z) {
   Matrix4 result{};
-  /*
   result[12] = x;
   result[13] = y;
   result[14] = z;
-  */
-  result.set(0, 3, x);
-  result.set(1, 3, y);
-  result.set(2, 3, z);
   return result;
 }
 

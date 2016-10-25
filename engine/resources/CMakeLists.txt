@@ -4,6 +4,8 @@ add_sources(
   material.h
   mesh.cc
   mesh.h
+  mesh_factory.cc
+  mesh_factory.h
   resource.h
   resource_loader.cc
   resource_loader.h

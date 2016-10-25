@@ -14,9 +14,10 @@ public:
       // camera
       Node* camNode = Node::make();
       Camera* camera = camNode->addComponent<Camera>();
-      camera->setProjection(Matrix4::makePerspective(60.0f, 16.0f / 9.0f, 0.01f, 100.0f));
+      camera->setProjection(
+        Matrix4::makePerspective(Math::rad(60.0f), 16.0f / 9.0f, 0.01f, 100.0f));
 
-      //camNode->addComponent<FlyCamera>();
+      camNode->addComponent<FlyCamera>();
 
       Camera::setCurrent(camera);
     }
@@ -25,24 +26,8 @@ public:
     TestComponent* comp = test->addComponent<TestComponent>();
     MeshFilter* mf = test->addComponent<MeshFilter>();
 
-    Mesh* mesh = ResourceLoader::makeEmptyMesh(BindingInfo{
-      AttributeKind::POSITION, AttributeKind::COLOR
-    });
-
-    {
-      mesh->setVertices({
-                          {0.0f, 0.0f, 0.0f},
-                          {1.0f, 0.0f, 0.0f},
-                          {1.0f, 1.0f, 0.0f}
-                        });
-      mesh->setColors({
-        Color::red(),
-        Color::green(),
-        Color::blue()
-                      });
-      mesh->setTriangles({0, 1, 2});
-      mesh->uploadMeshData(true);
-    }
+    Mesh* mesh = MeshFactory::makeCube({AttributeKind::POSITION, AttributeKind::COLOR}, 1, 1, 1);
+    mesh->uploadMeshData(true);
 
     mf->setMesh(mesh);
 

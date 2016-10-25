@@ -4,15 +4,16 @@
 #include <unordered_map>
 #include "../common.h"
 #include "binding_info.h"
+#include "resource.h"
 
 namespace bellum {
 
-class Resource;
 class Shader;
 class Mesh;
 
 class ResourceLoader {
   friend class StandaloneApplication;
+  friend class MeshFactory;
 
 public:
 
@@ -23,8 +24,8 @@ public:
                             const std::string& fragmentShaderAsset,
                             const BindingInfo& bindingInfo,
                             const std::vector<std::string>& uniformNames = {});
-  static Mesh* makeEmptyMesh(const BindingInfo& bindingInfo);
   static std::string loadTextAsset(const std::string& asset);
+  static Mesh* makeEmptyMesh(const BindingInfo& bindingInfo);
 
 private:
   static std::string kParentDirectory;

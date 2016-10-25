@@ -12,7 +12,7 @@ public:
 
   void update() override {
     if(!Input::mouseLocked()) {
-      if(Input::mouseButtonDown(Input::MOUSE_BUTTON_1)) {
+      if(Input::mousePressed(Input::MOUSE_BUTTON_1)) {
         Input::setMouseLocked(true);
       }
 
@@ -31,23 +31,31 @@ public:
       t->rotate(mouseDelta.y * kMouseSensitivity * dt, t->right());
     }
 
-    if (Input::keyDown(Input::KEY_W)) {
+    if (Input::keyPressed(Input::KEY_W)) {
       t->translate(t->forward() * dt);
     }
 
-    if (Input::keyDown(Input::KEY_S)) {
+    if (Input::keyPressed(Input::KEY_S)) {
       t->translate(t->back() * dt);
     }
 
-    if (Input::keyDown(Input::KEY_A)) {
+    if (Input::keyPressed(Input::KEY_A)) {
       t->translate(t->left() * dt);
     }
 
-    if (Input::keyDown(Input::KEY_D)) {
+    if (Input::keyPressed(Input::KEY_D)) {
       t->translate(t->right() * dt);
     }
 
-    if (Input::keyDown(Input::KEY_ESCAPE)) {
+    if(Input::keyPressed(Input::KEY_E)){
+      t->translate(Vector3::up() * dt);
+    }
+
+    if(Input::keyPressed(Input::KEY_Q)){
+      t->translate(Vector3::down() * dt);
+    }
+
+    if (Input::keyPressed(Input::KEY_ESCAPE)) {
       Input::setMouseLocked(false);
     }
   }

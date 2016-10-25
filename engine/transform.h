@@ -22,11 +22,13 @@ public:
   }
 
   void translate(float x, float y, float z, Space space = Space::SELF) {
+    std::cout << position_ << " + " << x << "," << y << "," << z << std::endl;
     if (space == Space::WORLD) {
-      position_ += {x, y, z};
+      position_ += Vector3{x, y, z};
     } else {
       position_ += rotation_ * Vector3{x, y, z};
     }
+    std::cout << position_ << std::endl;
   }
 
   void rotate(float x, float y, float z, Space space = Space::WORLD) {

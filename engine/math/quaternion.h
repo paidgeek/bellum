@@ -126,8 +126,12 @@ inline Quaternion& Quaternion::operator*=(const Quaternion& q) {
 }
 
 inline Vector3 operator*(const Quaternion& q, const Vector3& v) {
-  // TODO
-  return {};
+  Vector3 qv{q.x,q.y,q.z};
+  Vector3 uv = Vector3::cross(qv, v);
+  Vector3 uuv = Vector3::cross(qv, uv);
+  uv *= q.w * 2.0f;
+  uuv *= 2.0f;
+  return v + uv + uuv;
 }
 
 // Properties

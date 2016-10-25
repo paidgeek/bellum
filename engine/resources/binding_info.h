@@ -20,6 +20,15 @@ struct BindingInfo {
       size += AttributeKindUtil::getSize(ak);
     }
   }
+
+  inline bool has(AttributeKind kind) const {
+    for(const auto& ap : attribute_pointers) {
+      if(ap.kind == kind) {
+        return true;
+      }
+    }
+    return false;
+  }
 };
 
 }

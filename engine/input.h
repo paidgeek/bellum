@@ -12,8 +12,12 @@ class Input {
   friend class Window;
 
 public:
-  static bool keyDown(int32 keyCode);
-  static bool mouseButtonDown(int32 button);
+  static bool keyPressed(uint16 keyCode);
+  static bool keyReleased(uint16 keyCode);
+  static bool keyRepeated(uint16 keyCode);
+  static bool mousePressed(uint16 button);
+  static bool mouseReleased(uint16 button);
+  static bool mouseRepeated(uint16 button);
   static void setMouseLocked(bool locked);
 
   static float scrollX() {
@@ -50,7 +54,7 @@ private:
   static float scroll_y_;
 
 public:
-  enum PrintableKeys : int32 {
+  enum PrintableKeys : uint16 {
     KEY_SPACE = 0x20,
     KEY_APOSTROPHE = 0x27,
     KEY_COMMA = 0x2C,
@@ -103,7 +107,7 @@ public:
     KEY_WORLD_2 = 0xA2
   };
 
-  enum FunctionKeys : int32 {
+  enum FunctionKeys : uint16 {
     KEY_ESCAPE = 0x100,
     KEY_ENTER = 0x101,
     KEY_TAB = 0x102,
@@ -177,7 +181,7 @@ public:
     KEY_LAST = KEY_MENU
   };
 
-  enum MouseButtons : int32 {
+  enum MouseButtons : uint16 {
     MOUSE_BUTTON_1 = 0x0,
     MOUSE_BUTTON_2 = 0x1,
     MOUSE_BUTTON_3 = 0x2,
@@ -190,12 +194,6 @@ public:
     MOUSE_BUTTON_LEFT = MOUSE_BUTTON_1,
     MOUSE_BUTTON_RIGHT = MOUSE_BUTTON_2,
     MOUSE_BUTTON_MIDDLE = MOUSE_BUTTON_3
-  };
-
-  enum OtherKeys : int32 {
-    RELEASE = 0x0,
-    PRESS = 0x0,
-    REPEAT = 0x2
   };
 };
 

@@ -68,9 +68,19 @@ void Mesh::recalculateNormals() {
 }
 
 void Mesh::uploadMeshData(bool markNoLongerReadable) {
+  if(binding_info_.has(AttributeKind::COLOR) && vertices_.size() != colors_.size()) {
+    throw InvalidData{"Invalid color data length"};
+  }
+  if(binding_info_.has(AttributeKind::TEXTURE_COORDINATE) && vertices_.size() != uv_.size()) {
+    throw InvalidData{"Invalid texture coordinate data length"};
+  }
+  if(binding_info_.has(AttributeKind::NORMAL) && vertices_.size() != normals_.size()) {
+    throw InvalidData{"Invalid normal data length"};
+  }
+
   // create vertex buffer
   uint32 bufferSize = vertices_.size() * binding_info_.size;
-  std::unique_ptr<float[]> vb{new float[bufferSize]};
+  float* vb = new float[bufferSize];
   uint32 j = 0;
 
   Vector3 v, n;
@@ -108,10 +118,10 @@ void Mesh::uploadMeshData(bool markNoLongerReadable) {
   }
 
   // upload buffers
-  uint32 drawType = dynamic_ ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW;
   glBindVertexArray(vao_id_);
   glBindBuffer(GL_ARRAY_BUFFER, vbo_id_);
-  glBufferData(GL_ARRAY_BUFFER, bufferSize * sizeof(float), vb.get(), drawType);
+  glBufferData(GL_ARRAY_BUFFER, bufferSize * sizeof(float), vb, GL_STATIC_DRAW);
+  delete[](vb);
 
   uint32 offset = 0;
   for (const auto& ap : binding_info_.attribute_pointers) {
@@ -129,7 +139,7 @@ void Mesh::uploadMeshData(bool markNoLongerReadable) {
   glBindVertexArray(0);
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id_);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangle_count_ * sizeof(uint32), (uint32*)(triangles_.data()), drawType);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangle_count_ * sizeof(uint32), (uint32*)(triangles_.data()), GL_STATIC_DRAW);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
   if (markNoLongerReadable) {
@@ -148,7 +158,7 @@ void Mesh::render() {
   }
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id_);
-  glDrawElements(GL_TRIANGLES, triangle_count_, GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_TRIANGLES, triangle_count_, GL_UNSIGNED_INT, nullptr);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
   for (const auto& ap : binding_info_.attribute_pointers) {

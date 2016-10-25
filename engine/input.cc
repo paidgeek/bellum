@@ -3,26 +3,42 @@
 
 namespace bellum {
 
- GLFWwindow* Input::glfw_window_;
- bool Input::mouse_locked_;
- Vector2 Input::mouse_position_;
- Vector2 Input::mouse_delta_;
- float Input::scroll_x_;
- float Input::scroll_y_;
+GLFWwindow* Input::glfw_window_;
+bool Input::mouse_locked_;
+Vector2 Input::mouse_position_;
+Vector2 Input::mouse_delta_;
+float Input::scroll_x_;
+float Input::scroll_y_;
 
 void Input::setupCallbacks() {
-  glfwSetScrollCallback(glfw_window_, [](GLFWwindow* window, double xoffset, double yoffset){
+  glfwSetScrollCallback(glfw_window_, [](GLFWwindow* window, double xoffset, double yoffset) {
     scroll_x_ = static_cast<float>(xoffset);
     scroll_y_ = static_cast<float>(yoffset);
   });
 }
 
-bool Input::keyDown(int32 keyCode) {
-  return glfwGetKey(glfw_window_, keyCode) == GL_TRUE;
+bool Input::keyPressed(uint16 keyCode) {
+  return glfwGetKey(glfw_window_, keyCode) == GLFW_PRESS;
 }
 
-bool Input::mouseButtonDown(int32 button) {
-  return glfwGetMouseButton(glfw_window_, button) == GL_TRUE;
+bool Input::keyReleased(uint16 keyCode) {
+  return glfwGetKey(glfw_window_, keyCode) == GLFW_RELEASE;
+}
+
+bool Input::keyRepeated(uint16 keyCode) {
+  return glfwGetKey(glfw_window_, keyCode) == GLFW_REPEAT;
+}
+
+bool Input::mousePressed(uint16 button) {
+  return glfwGetMouseButton(glfw_window_, button) == GLFW_PRESS;
+}
+
+bool Input::mouseReleased(uint16 button) {
+  return glfwGetMouseButton(glfw_window_, button) == GLFW_RELEASE;
+}
+
+bool Input::mouseRepeated(uint16 button) {
+  return glfwGetMouseButton(glfw_window_, button) == GLFW_REPEAT;
 }
 
 void Input::setMouseLocked(bool locked) {

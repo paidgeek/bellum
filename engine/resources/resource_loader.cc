@@ -1,7 +1,6 @@
 #include <fstream>
 #include <sstream>
 #include "resource_loader.h"
-#include "resource.h"
 #include "shader.h"
 #include "mesh.h"
 #include "../application.h"
@@ -20,6 +19,19 @@ std::string ResourceLoader::getAssetPath(const std::string& asset) {
     return kParentDirectory + "/" + asset;
   }
 }
+
+Mesh* ResourceLoader::makeEmptyMesh(const BindingInfo& bindingInfo) {
+  uint32 vaoId, vboId, iboId;
+  glGenVertexArrays(1, &vaoId);
+  glGenBuffers(1, &vboId);
+  glGenBuffers(1, &iboId);
+
+  if (vaoId == 0 || vboId == 0 || iboId == 0) {
+    throw MakeMeshException{};
+  }
+
+  resources_.emplace_back(new Mesh{bindingInfo, vaoId, vboId, iboId});
+  return dynamic_cast<Mesh*>(resources_.back().get());}
 
 Shader* ResourceLoader::loadShader(const std::string& vertexShaderAsset,
                                    const std::string& fragmentShaderAsset,
@@ -121,20 +133,6 @@ void ResourceLoader::linkShaderProgram(uint32 program) {
     glDeleteProgram(program);
     throw Shader::LinkException{};
   }
-}
-
-Mesh* ResourceLoader::makeEmptyMesh(const BindingInfo& bindingInfo) {
-  uint32 vaoId, vboId, iboId;
-  glGenVertexArrays(1, &vaoId);
-  glGenBuffers(1, &vboId);
-  glGenBuffers(1, &iboId);
-
-  if (vaoId == 0 || vboId == 0 || iboId == 0) {
-    throw MakeMeshException{};
-  }
-
-  resources_.emplace_back(new Mesh{bindingInfo, vaoId, vboId, iboId});
-  return dynamic_cast<Mesh*>(resources_.back().get());
 }
 
 std::string ResourceLoader::loadTextAsset(const std::string& asset) {

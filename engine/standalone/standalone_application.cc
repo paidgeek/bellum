@@ -63,7 +63,6 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
   srand((uint32) Time::currentNanoseconds());
   running_ = true;
 
-
   try {
     window_->show();
     super::onStart();
@@ -80,6 +79,7 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
         lag -= frameTime;
       }
 
+      // render
       lagOffset = static_cast<float>(lag / frameTime);
       super::render();
 

@@ -15,6 +15,14 @@ public:
   static constexpr float kRadToDeg = 180.0f / kPi;
   static constexpr float kDegToRad = kPi / 180.0f;
 
+  static inline float rad(float deg) {
+    return deg * kDegToRad;
+  }
+
+  static inline float deg(float rad) {
+    return rad * kRadToDeg;
+  }
+
   static inline float sqrt(float x) {
     return std::sqrt(x);
   }
