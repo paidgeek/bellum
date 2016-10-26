@@ -54,7 +54,7 @@ void RenderModule::ambientPass() {
       Matrix4 model = renderer->node()->transform().localToWorld();
       Matrix4 mvp = render_state.view_projection * model;
 
-      material.shader->setUniform("MVP", render_state.view_projection);
+      material.shader->setUniform("MVP", mvp);
 
       renderer->render();
 

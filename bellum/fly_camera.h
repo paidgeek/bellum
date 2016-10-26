@@ -21,7 +21,7 @@ public:
 
     Vector2 mouseDelta = Input::mouseDelta();
     Transform* t = &node_->transform();
-    float dt = kSpeed * Time::deltaTime();
+    float dt = Time::deltaTime();
 
     if (mouseDelta.x != 0.0f) {
       t->rotate(0.0f, mouseDelta.x * kMouseSensitivity * dt, 0.0f);
@@ -32,27 +32,27 @@ public:
     }
 
     if (Input::keyPressed(Input::KEY_W)) {
-      t->translate(t->forward() * dt);
+      t->translate(t->forward() * kSpeed * dt, Space::WORLD);
     }
 
     if (Input::keyPressed(Input::KEY_S)) {
-      t->translate(t->back() * dt);
+      t->translate(t->back() * kSpeed * dt, Space::WORLD);
     }
 
     if (Input::keyPressed(Input::KEY_A)) {
-      t->translate(t->left() * dt);
+      t->translate(t->left() * kSpeed * dt, Space::WORLD);
     }
 
     if (Input::keyPressed(Input::KEY_D)) {
-      t->translate(t->right() * dt);
+      t->translate(t->right() * kSpeed * dt, Space::WORLD);
     }
 
     if(Input::keyPressed(Input::KEY_E)){
-      t->translate(Vector3::up() * dt);
+      t->translate(Vector3::up() * kSpeed * dt, Space::WORLD);
     }
 
     if(Input::keyPressed(Input::KEY_Q)){
-      t->translate(Vector3::down() * dt);
+      t->translate(Vector3::down() * kSpeed * dt, Space::WORLD);
     }
 
     if (Input::keyPressed(Input::KEY_ESCAPE)) {

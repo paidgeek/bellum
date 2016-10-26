@@ -109,8 +109,8 @@ inline const float& Quaternion::operator[](int32 i) const {
 inline Quaternion Quaternion::operator*(const Quaternion& q) const {
   return {
     w * q.x + x * q.w + y * q.z - z * q.y,
-    w * q.y - x * q.z + y * q.w + z * q.x,
-    w * q.z + x * q.y - y * q.x + z * q.w,
+    w * q.y + y * q.w + z * q.x - x * q.z,
+    w * q.z + z * q.w + x * q.y - y * q.x,
     w * q.w - x * q.x - y * q.y - z * q.z
   };
 }
@@ -126,12 +126,16 @@ inline Quaternion& Quaternion::operator*=(const Quaternion& q) {
 }
 
 inline Vector3 operator*(const Quaternion& q, const Vector3& v) {
-  Vector3 qv{q.x,q.y,q.z};
-  Vector3 uv = Vector3::cross(qv, v);
-  Vector3 uuv = Vector3::cross(qv, uv);
-  uv *= q.w * 2.0f;
-  uuv *= 2.0f;
-  return v + uv + uuv;
+  Quaternion conj = q.conjugated();
+  float nw = -q.x * v.x - q.y * v.y - q.z * v.z;
+  float nx = q.w * v.x + q.y * v.z - q.z * v.y;
+  float ny = q.w * v.y + q.z * v.x - q.x * v.z;
+  float nz = q.w * v.z + q.x * v.y - q.y * v.x;
+  Quaternion w{nx, ny, nz, nw};
+
+  w *= conj;
+
+  return {w.x, w.y, w.z};
 }
 
 // Properties
@@ -191,7 +195,7 @@ inline Quaternion& Quaternion::inverse() {
 }
 
 inline Quaternion Quaternion::inversed() const {
-  return normalized().conjugate();
+  return normalized().conjugated();
 }
 
 // Algebra
@@ -200,11 +204,16 @@ float Quaternion::angle(const Quaternion& a, const Quaternion& b) {
 }
 
 Quaternion Quaternion::makeAngleAxis(float angle, const Vector3& axis) {
+  /*
   float ha = angle / 2.0f;
   float sin = Math::sin(ha);
   Vector3 n = axis.normalized();
 
   return {n.x * sin, n.y * sin, n.z * sin, ha};
+  */
+  float a = angle / 2.0f;
+  float s = Math::sin(a);
+  return {axis.x * s, axis.y * s, axis.z * s, Math::cos(a)};
 }
 
 inline float Quaternion::dot(const Quaternion& q) {
@@ -220,48 +229,11 @@ inline Quaternion Quaternion::makeEuler(const Vector3& euler) {
 }
 
 inline Quaternion Quaternion::makeEuler(float x, float y, float z) {
-  x *= Math::kDegToRad ;
-  y *= Math::kDegToRad ;
-  z *= Math::kDegToRad ;
+  Quaternion rx = makeAngleAxis(x, Vector3::right());
+  Quaternion ry = makeAngleAxis(y, Vector3::up());
+  Quaternion rz = makeAngleAxis(z, Vector3::back());
 
-  float angle = x * 0.5;
-   float sr = sin(angle);
-   float cr = cos(angle);
-
-  angle = y * 0.5;
-   float sp = sin(angle);
-   float cp = cos(angle);
-
-  angle = z * 0.5;
-   float sy = sin(angle);
-   float cy = cos(angle);
-
-   float cpcy = cp * cy;
-   float spcy = sp * cy;
-   float cpsy = cp * sy;
-   float spsy = sp * sy;
-
-  return {
-    (sr * cpcy - cr * spsy),
-    (cr * spcy + sr * cpsy),
-    (cr * cpsy - sr * spcy),
-    (cr * cpcy + sr * spsy)
-  };
-  /*
-  float sinx = Math::sin(x);
-  float cosx = Math::cos(x);
-  float siny = Math::sin(y);
-  float cosy = Math::cos(y);
-  float sinz = Math::sin(z);
-  float cosz = Math::cos(z);
-
-  return {
-    siny * cosx * cosz - cosy * sinx * sinz,
-    cosy * sinx * cosz + siny * cosx * sinz,
-    cosy * cosx * sinz - siny * sinx * cosz,
-    cosy * cosx * cosz + siny * sinx * sinz
-  };
-  */
+  return rz * ry * rx;
 }
 
 inline Quaternion Quaternion::makeFromToRotation(const Vector3& from, const Vector3& to) {

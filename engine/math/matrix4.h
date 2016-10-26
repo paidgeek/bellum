@@ -18,20 +18,19 @@ struct Matrix4 {
   inline Matrix4();
   inline Matrix4(const float* data);
   inline Matrix4(const std::array<float, 16>& data);
-  inline Matrix4(float m11, float m12, float m13, float m14,
-                 float m21, float m22, float m23, float m24,
-                 float m31, float m32, float m33, float m34,
-                 float m41, float m42, float m43, float m44);
+  inline Matrix4(float m11, float m21, float m31, float m41,
+                 float m12, float m22, float m32, float m42,
+                 float m13, float m23, float m33, float m43,
+                 float m14, float m24, float m34, float m44);
   inline Matrix4(const Matrix4& m);
   inline Matrix4& operator=(const Matrix4& m);
 
   inline void set(const float* data);
   inline void set(const std::array<float, 16>& data);
-  inline void set(float m11, float m12, float m13, float m14,
-                  float m21, float m22, float m23, float m24,
-                  float m31, float m32, float m33, float m34,
-                  float m41, float m42, float m43, float m44);
-  inline void set(std::array<std::array<float, 4>, 4> data);
+  inline void set(float m11, float m21, float m31, float m41,
+                  float m12, float m22, float m32, float m42,
+                  float m13, float m23, float m33, float m43,
+                  float m14, float m24, float m34, float m44);
   inline float get(int32 row, int32 column) const;
   inline void set(int32 row, int32 column, float value);
   inline void set(int32 i, float value);
@@ -82,8 +81,9 @@ struct Matrix4 {
   inline static Matrix4 makeTransformation(const Vector3& translation,
                                            const Quaternion& rotation,
                                            const Vector3& scale);
-  inline static Matrix4
-  makeLookAt(const Vector3& position, const Vector3& target, const Vector3& up);
+  inline static Matrix4 makeLookAt(const Vector3& position,
+                                   const Vector3& target,
+                                   const Vector3& up);
   inline static Matrix4 makeBillboard(const Vector3& position,
                                       const Vector3& cameraPosition,
                                       const Vector3& cameraUp,
@@ -93,8 +93,9 @@ struct Matrix4 {
   inline static Matrix4 makeTranslation(float x, float y, float z);
   inline static Matrix4 makeScale(const Vector3& scale);
   inline static Matrix4 makeScale(float x, float y, float z);
-  inline static Matrix4
-  makeRotation(const Vector3& forward, const Vector3& up, const Vector3& right);
+  inline static Matrix4 makeRotation(const Vector3& forward,
+                                     const Vector3& up,
+                                     const Vector3& right);
   inline static Matrix4 makeRotation(const Vector3& forward, const Vector3& up);
   inline static Matrix4 makeRotation(const Quaternion& q);
   inline static Matrix4 makeAxisRotation(const Vector3& axis, float angle);
@@ -123,11 +124,10 @@ inline Matrix4::Matrix4(const std::array<float, 16>& data) {
   this->set(data);
 }
 
-inline Matrix4::Matrix4(float m11, float m12, float m13, float m14,
-                        float m21, float m22, float m23, float m24,
-                        float m31, float m32, float m33, float m34,
-                        float m41, float m42, float m43, float m44) {
-  this->set(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
+Matrix4::Matrix4(float m11, float m21, float m31, float m41, float m12, float m22, float m32,
+                 float m42, float m13, float m23, float m33, float m43, float m14, float m24,
+                 float m34, float m44) {
+  set(m11, m21, m31, m41, m12, m22, m32, m42, m13, m23, m33, m43, m14, m24, m34, m44);
 }
 
 inline Matrix4::Matrix4(const Matrix4& m) {
@@ -148,10 +148,9 @@ inline void Matrix4::set(const std::array<float, 16>& data) {
   std::memcpy(this->data, data.data(), 16 * sizeof(float));
 }
 
-inline void Matrix4::set(float m11, float m12, float m13, float m14,
-                         float m21, float m22, float m23, float m24,
-                         float m31, float m32, float m33, float m34,
-                         float m41, float m42, float m43, float m44) {
+void Matrix4::set(float m11, float m21, float m31, float m41, float m12, float m22, float m32,
+                  float m42, float m13, float m23, float m33, float m43, float m14, float m24,
+                  float m34, float m44) {
   data[0] = m11;
   data[1] = m21;
   data[2] = m31;
@@ -168,10 +167,6 @@ inline void Matrix4::set(float m11, float m12, float m13, float m14,
   data[13] = m24;
   data[14] = m34;
   data[15] = m44;
-}
-
-inline void Matrix4::set(std::array<std::array<float, 4>, 4> data) {
-  std::memcpy(this->data, data.data(), 16 * sizeof(float));
 }
 
 inline float Matrix4::get(int32 row, int32 column) const {
@@ -440,26 +435,24 @@ inline Matrix4 Matrix4::operator-() const {
 }
 
 inline Matrix4 Matrix4::operator*(const Matrix4& m) const {
-  Matrix4 result;
-
-  result[0]  = data[0] * m.data[0]  + data[4] * m.data[1] + data[8]   * m.data[2]  + data[12] * m.data[3];
-  result[1]  = data[1] * m.data[0]  + data[5] * m.data[1] + data[9]   * m.data[2]  + data[13] * m.data[3];
-  result[2]  = data[2] * m.data[0]  + data[6] * m.data[1] + data[10]  * m.data[2]  + data[14] * m.data[3];
-  result[3]  = data[3] * m.data[0]  + data[7] * m.data[1] + data[11]  * m.data[2]  + data[15] * m.data[3];
-  result[4]  = data[0] * m.data[4]  + data[4] * m.data[5] + data[8]   * m.data[6]  + data[12] * m.data[7];
-  result[5]  = data[1] * m.data[4]  + data[5] * m.data[5] + data[9]   * m.data[6]  + data[13] * m.data[7];
-  result[6]  = data[2] * m.data[4]  + data[6] * m.data[5] + data[10]  * m.data[6]  + data[14] * m.data[7];
-  result[7]  = data[3] * m.data[4]  + data[7] * m.data[5] + data[11]  * m.data[6]  + data[15] * m.data[7];
-  result[8]  = data[0] * m.data[8]  + data[4] * m.data[9] + data[8]   * m.data[10] + data[12] * m.data[11];
-  result[9]  = data[1] * m.data[8]  + data[5] * m.data[9] + data[9]   * m.data[10] + data[13] * m.data[11];
-  result[10] = data[2] * m.data[8]  + data[6] * m.data[9] + data[10]  * m.data[10] + data[14] * m.data[11];
-  result[11] = data[3] * m.data[8]  + data[7] * m.data[9] + data[11]  * m.data[10] + data[15] * m.data[11];
-  result[12] = data[0] * m.data[12] + data[4] * m.data[13] + data[8]  * m.data[14] + data[12] * m.data[15];
-  result[13] = data[1] * m.data[12] + data[5] * m.data[13] + data[9]  * m.data[14] + data[13] * m.data[15];
-  result[14] = data[2] * m.data[12] + data[6] * m.data[13] + data[10] * m.data[14] + data[14] * m.data[15];
-  result[15] = data[3] * m.data[12] + data[7] * m.data[13] + data[11] * m.data[14] + data[15] * m.data[15];
-
-  return result;
+  return {
+    data[0] * m.data[0] + data[4] * m.data[1] + data[8] * m.data[2] + data[12] * m.data[3],
+    data[1] * m.data[0] + data[5] * m.data[1] + data[9] * m.data[2] + data[13] * m.data[3],
+    data[2] * m.data[0] + data[6] * m.data[1] + data[10] * m.data[2] + data[14] * m.data[3],
+    data[3] * m.data[0] + data[7] * m.data[1] + data[11] * m.data[2] + data[15] * m.data[3],
+    data[0] * m.data[4] + data[4] * m.data[5] + data[8] * m.data[6] + data[12] * m.data[7],
+    data[1] * m.data[4] + data[5] * m.data[5] + data[9] * m.data[6] + data[13] * m.data[7],
+    data[2] * m.data[4] + data[6] * m.data[5] + data[10] * m.data[6] + data[14] * m.data[7],
+    data[3] * m.data[4] + data[7] * m.data[5] + data[11] * m.data[6] + data[15] * m.data[7],
+    data[0] * m.data[8] + data[4] * m.data[9] + data[8] * m.data[10] + data[12] * m.data[11],
+    data[1] * m.data[8] + data[5] * m.data[9] + data[9] * m.data[10] + data[13] * m.data[11],
+    data[2] * m.data[8] + data[6] * m.data[9] + data[10] * m.data[10] + data[14] * m.data[11],
+    data[3] * m.data[8] + data[7] * m.data[9] + data[11] * m.data[10] + data[15] * m.data[11],
+    data[0] * m.data[12] + data[4] * m.data[13] + data[8] * m.data[14] + data[12] * m.data[15],
+    data[1] * m.data[12] + data[5] * m.data[13] + data[9] * m.data[14] + data[13] * m.data[15],
+    data[2] * m.data[12] + data[6] * m.data[13] + data[10] * m.data[14] + data[14] * m.data[15],
+    data[3] * m.data[12] + data[7] * m.data[13] + data[11] * m.data[14] + data[15] * m.data[15]
+  };
 }
 
 inline Matrix4& Matrix4::operator*=(const Matrix4& m) {
@@ -588,20 +581,27 @@ inline Matrix4 Matrix4::makeOrthographic(float left, float right,
 }
 
 inline Matrix4 Matrix4::makePerspective(float fov, float aspect, float near, float far) {
-  float r = 1.0f /(far -near);
-  float theta = fov * 0.5f;
-  float d = Math::tan(theta);
-  float f = 1.0f / d;
+  float tan = Math::tan(fov / 2.0f);
+  float r = near - far;
 
-  Matrix4 result;
-  result.clear();
-  result.data[0] = (1.0f / aspect) * f;
-  result.data[5] = f;
-  result.data[10] = (-(far - near)) * r;
-  result.data[11] = -1.0f;
-  result.data[14] = -2.0f * far * near * r;
-
-  return result;
+  return {
+    1.0f / (tan * aspect),
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    1.0f / tan,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    (-near - far) / r,
+    1.0f,
+    0.0f,
+    0.0f,
+    2.0f * far * near / r,
+    0.0f
+  };
 }
 
 inline Matrix4 Matrix4::makeTransformation(const Vector3& translation,
@@ -707,19 +707,24 @@ inline Matrix4 Matrix4::makeScale(float x, float y, float z) {
 inline Matrix4 Matrix4::makeRotation(const Vector3& forward,
                                      const Vector3& up,
                                      const Vector3& right) {
-  Matrix4 result;
-  result.clear();
-  result.set(0, 0, right.x);
-  result.set(0, 1, right.y);
-  result.set(0, 2, right.z);
-  result.set(1, 0, up.x);
-  result.set(1, 1, up.y);
-  result.set(1, 2, up.z);
-  result.set(2, 0, forward.x);
-  result.set(2, 1, forward.y);
-  result.set(2, 2, forward.z);
-  result.set(3, 3, 1.0f);
-  return result;
+  return {
+    right.x,
+    up.x,
+    forward.x,
+    0.0f,
+    right.y,
+    up.y,
+    forward.y,
+    0.0f,
+    right.z,
+    up.z,
+    forward.z,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    1.0f
+  };
 }
 
 inline Matrix4 Matrix4::makeRotation(const Vector3& forward, const Vector3& up) {
@@ -745,24 +750,27 @@ inline Matrix4 Matrix4::makeRotation(const Quaternion& q) {
   float wy2 = q.w * y2;
   float wz2 = q.w * z2;
 
-  return {
-    1.0f - yy2 - zz2,
-    xy2 + wz2,
-    xz2 - wy2,
-    0.0f,
-    xy2 - wz2,
-    1.0f - xx2 - zz2,
-    yz2 + wx2,
-    0.0f,
-    xz2 + wy2,
-    yz2 - wx2,
-    1.0f - xx2 - yy2,
-    0.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    1.0f
-  };
+  Matrix4 result;
+  result[0] = 1.0f - yy2 - zz2;
+  result[1] = xy2 + wz2;
+  result[2] = xz2 - wy2;
+  result[3] = 0.0f;
+
+  result[4] = xy2 - wz2;
+  result[5] = 1.0f - xx2 - zz2;
+  result[6] = yz2 + wx2;
+  result[7] = 0.0f;
+
+  result[8] = xz2 + wy2;
+  result[9] = yz2 - wx2;
+  result[10] = 1.0f - xx2 - yy2;
+  result[11] = 0.0f;
+
+  result[12] = 0.0f;
+  result[13] = 0.0f;
+  result[14] = 0.0f;
+  result[15] = 1.0f;
+  return result;
 }
 
 inline Matrix4 Matrix4::makeAxisRotation(const Vector3& axis, float angle) {
@@ -797,23 +805,50 @@ inline Matrix4 Matrix4::makeAxisRotation(const Vector3& axis, float angle) {
   float sy = s * y;
   float sz = s * z;
 
+  // m11 m12 m13 m14 m21 m22 m23 m24 m31 m32 m33 m34 m41 m42 m43 m44
+  // m11 m21 m31 m41 m12 m22 m32 m42 m13 m23 m33 m43 m14 m24 m34 m44
+
   return {
     c + tx * x,
-    txy + sz,
-    txz - sy,
-    0.0f,
     txy - sz,
-    c + ty * y,
-    tyz + sx,
-    0.0f,
     txz + sy,
-    tyz - sx,
+    0.0f,
+
+    txy + sz,
+    c + ty * y,
+    txz + sy,
+    0.0f,
+
+    txz - sy,
+    tyz + sx,
     c + tz * z,
     0.0f,
+
     0.0f,
     0.0f,
     0.0f,
     1.0f
+    /*
+    c + tx * x,
+    txy + sz,
+    txz - sy,
+    0.0f,
+
+    txy - sz,
+    c + ty * y,
+    tyz + sx,
+    0.0f,
+
+    txz + sy,
+    tyz - sx,
+    c + tz * z,
+    0.0f,
+
+    0.0f,
+    0.0f,
+    0.0f,
+    1.0f
+     */
   };
 }
 
@@ -869,22 +904,22 @@ inline Matrix4 Matrix4::makeRotationAroundZ(float angle) {
 
 // Singletons
 inline const Matrix4& Matrix4::identity() {
-  static const Matrix4 value{
-    1.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 1.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 1.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 1.0f
-  };
+  static const Matrix4 value{{
+                               1.0f, 0.0f, 0.0f, 0.0f,
+                               0.0f, 1.0f, 0.0f, 0.0f,
+                               0.0f, 0.0f, 1.0f, 0.0f,
+                               0.0f, 0.0f, 0.0f, 1.0f
+                             }};
   return value;
 }
 
 inline const Matrix4& Matrix4::zero() {
-  static const Matrix4 value{
-    0.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 0.0f,
-    0.0f, 0.0f, 0.0f, 0.0f
-  };
+  static const Matrix4 value{{
+                               0.0f, 0.0f, 0.0f, 0.0f,
+                               0.0f, 0.0f, 0.0f, 0.0f,
+                               0.0f, 0.0f, 0.0f, 0.0f,
+                               0.0f, 0.0f, 0.0f, 0.0f
+                             }};
   return value;
 }
 
