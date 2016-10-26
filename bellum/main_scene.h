@@ -27,6 +27,11 @@ public:
     MeshFilter* mf = test->addComponent<MeshFilter>();
 
     Mesh* mesh = MeshFactory::makeCube({AttributeKind::POSITION, AttributeKind::COLOR}, 1, 1, 1);
+    std::vector<Color> colors = mesh->colors();
+    for(uint32 i = 0; i < colors.size(); i++) {
+      colors[i] = Random::color();
+    }
+    mesh->setColors(colors);
     mesh->uploadMeshData(true);
 
     mf->setMesh(mesh);

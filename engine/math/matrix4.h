@@ -22,7 +22,6 @@ struct Matrix4 {
                  float m21, float m22, float m23, float m24,
                  float m31, float m32, float m33, float m34,
                  float m41, float m42, float m43, float m44);
-  inline Matrix4(std::array<std::array<float, 4>, 4> data);
   inline Matrix4(const Matrix4& m);
   inline Matrix4& operator=(const Matrix4& m);
 
@@ -131,10 +130,6 @@ inline Matrix4::Matrix4(float m11, float m12, float m13, float m14,
   this->set(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
 }
 
-inline Matrix4::Matrix4(std::array<std::array<float, 4>, 4> data) {
-  this->set(data);
-}
-
 inline Matrix4::Matrix4(const Matrix4& m) {
   std::memcpy(data, m.data, 16 * sizeof(float));
 }
@@ -180,11 +175,11 @@ inline void Matrix4::set(std::array<std::array<float, 4>, 4> data) {
 }
 
 inline float Matrix4::get(int32 row, int32 column) const {
-  return data[column + (row << 2)];
+  return data[(column << 2) + row];
 }
 
 inline void Matrix4::set(int32 row, int32 column, float value) {
-  data[column + (row << 2)] = value;
+  data[(column << 2) + row] = value;
 }
 
 inline void Matrix4::set(int32 i, float value) {
@@ -445,24 +440,26 @@ inline Matrix4 Matrix4::operator-() const {
 }
 
 inline Matrix4 Matrix4::operator*(const Matrix4& m) const {
-  return {
-    data[0] * m[0] + data[4] * m[1] + data[8] * m[2] + data[12] * m[3],
-    data[1] * m[0] + data[5] * m[1] + data[9] * m[2] + data[13] * m[3],
-    data[2] * m[0] + data[6] * m[1] + data[10] * m[2] + data[14] * m[3],
-    data[3] * m[0] + data[7] * m[1] + data[11] * m[2] + data[15] * m[3],
-    data[0] * m[4] + data[4] * m[5] + data[8] * m[6] + data[12] * m[7],
-    data[1] * m[4] + data[5] * m[5] + data[9] * m[6] + data[13] * m[7],
-    data[2] * m[4] + data[6] * m[5] + data[10] * m[6] + data[14] * m[7],
-    data[3] * m[4] + data[7] * m[5] + data[11] * m[6] + data[15] * m[7],
-    data[0] * m[8] + data[4] * m[9] + data[8] * m[10] + data[12] * m[11],
-    data[1] * m[8] + data[5] * m[9] + data[9] * m[10] + data[13] * m[11],
-    data[2] * m[8] + data[6] * m[9] + data[10] * m[10] + data[14] * m[11],
-    data[3] * m[8] + data[7] * m[9] + data[11] * m[10] + data[15] * m[11],
-    data[0] * m[12] + data[4] * m[13] + data[8] * m[14] + data[12] * m[15],
-    data[1] * m[12] + data[5] * m[13] + data[9] * m[14] + data[13] * m[15],
-    data[2] * m[12] + data[6] * m[13] + data[10] * m[14] + data[14] * m[15],
-    data[3] * m[12] + data[7] * m[13] + data[11] * m[14] + data[15] * m[15]
-  };
+  Matrix4 result;
+
+  result[0]  = data[0] * m.data[0]  + data[4] * m.data[1] + data[8]   * m.data[2]  + data[12] * m.data[3];
+  result[1]  = data[1] * m.data[0]  + data[5] * m.data[1] + data[9]   * m.data[2]  + data[13] * m.data[3];
+  result[2]  = data[2] * m.data[0]  + data[6] * m.data[1] + data[10]  * m.data[2]  + data[14] * m.data[3];
+  result[3]  = data[3] * m.data[0]  + data[7] * m.data[1] + data[11]  * m.data[2]  + data[15] * m.data[3];
+  result[4]  = data[0] * m.data[4]  + data[4] * m.data[5] + data[8]   * m.data[6]  + data[12] * m.data[7];
+  result[5]  = data[1] * m.data[4]  + data[5] * m.data[5] + data[9]   * m.data[6]  + data[13] * m.data[7];
+  result[6]  = data[2] * m.data[4]  + data[6] * m.data[5] + data[10]  * m.data[6]  + data[14] * m.data[7];
+  result[7]  = data[3] * m.data[4]  + data[7] * m.data[5] + data[11]  * m.data[6]  + data[15] * m.data[7];
+  result[8]  = data[0] * m.data[8]  + data[4] * m.data[9] + data[8]   * m.data[10] + data[12] * m.data[11];
+  result[9]  = data[1] * m.data[8]  + data[5] * m.data[9] + data[9]   * m.data[10] + data[13] * m.data[11];
+  result[10] = data[2] * m.data[8]  + data[6] * m.data[9] + data[10]  * m.data[10] + data[14] * m.data[11];
+  result[11] = data[3] * m.data[8]  + data[7] * m.data[9] + data[11]  * m.data[10] + data[15] * m.data[11];
+  result[12] = data[0] * m.data[12] + data[4] * m.data[13] + data[8]  * m.data[14] + data[12] * m.data[15];
+  result[13] = data[1] * m.data[12] + data[5] * m.data[13] + data[9]  * m.data[14] + data[13] * m.data[15];
+  result[14] = data[2] * m.data[12] + data[6] * m.data[13] + data[10] * m.data[14] + data[14] * m.data[15];
+  result[15] = data[3] * m.data[12] + data[7] * m.data[13] + data[11] * m.data[14] + data[15] * m.data[15];
+
+  return result;
 }
 
 inline Matrix4& Matrix4::operator*=(const Matrix4& m) {
@@ -872,7 +869,7 @@ inline Matrix4 Matrix4::makeRotationAroundZ(float angle) {
 
 // Singletons
 inline const Matrix4& Matrix4::identity() {
-  static Matrix4 value{
+  static const Matrix4 value{
     1.0f, 0.0f, 0.0f, 0.0f,
     0.0f, 1.0f, 0.0f, 0.0f,
     0.0f, 0.0f, 1.0f, 0.0f,
@@ -882,7 +879,12 @@ inline const Matrix4& Matrix4::identity() {
 }
 
 inline const Matrix4& Matrix4::zero() {
-  static Matrix4 value{};
+  static const Matrix4 value{
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f,
+    0.0f, 0.0f, 0.0f, 0.0f
+  };
   return value;
 }
 

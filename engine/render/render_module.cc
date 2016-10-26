@@ -5,6 +5,7 @@
 #include "../resources/mesh.h"
 #include <GL/glew.h>
 #include "../components/camera.h"
+#include "../timing.h"
 
 namespace bellum {
 
@@ -50,21 +51,16 @@ void RenderModule::ambientPass() {
       Material material = renderer->material();
 
       material.shader->bind();
-      GL_CHECK();
       Matrix4 model = renderer->node()->transform().localToWorld();
-      Matrix4 mvp = Matrix4::identity();
+      Matrix4 mvp = render_state.view_projection * model;
 
-      std::cout << mvp << std::endl;
-
-      material.shader->setUniform("MVP", mvp);
-      GL_CHECK();
+      material.shader->setUniform("MVP", render_state.view_projection);
 
       renderer->render();
-      GL_CHECK();
 
       material.shader->release();
-      //glActiveTexture(GL_TEXTURE0);
-      //glBindTexture(GL_TEXTURE_2D, 0);
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, 0);
     }
   }
 }

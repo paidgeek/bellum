@@ -15,6 +15,7 @@ namespace bellum {
 class Shader : public Resource {
   friend class ResourceLoader;
   friend class RenderModule;
+  friend class StandaloneApplication;
 
 public:
   DEFINE_EXCEPTION(CreateException, "Failed to create a new shader program");
