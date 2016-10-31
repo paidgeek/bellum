@@ -12,22 +12,7 @@ struct Vector3;
 struct Matrix4;
 
 struct Quaternion {
-  float x;
-  float y;
-  float z;
-  float w;
-
-  inline Quaternion(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 1.0f);
-  inline Quaternion(const float* data);
-  inline Quaternion(const Quaternion& q);
-  Quaternion(const Matrix4& m);
-  inline Quaternion& operator=(const Quaternion& q);
-
-  inline void set(float x, float y, float z, float w);
-  inline void set(const float* data);
-  void set(const Matrix4& m);
-  inline float& operator[](int32 i);
-  inline const float& operator[](int32 i) const;
+  float x, y, z, w;
 
   inline Quaternion operator*(const Quaternion& q) const;
   inline Quaternion& operator*=(const Quaternion& q);
@@ -49,6 +34,7 @@ struct Quaternion {
   inline static Quaternion makeEuler(const Vector3& euler);
   inline static Quaternion makeEuler(float x, float y, float z);
   inline static Quaternion makeFromToRotation(const Vector3& from, const Vector3& to);
+  static Quaternion makeFromMatrix(const Matrix4& m);
   inline static Quaternion lerp(const Quaternion& a, const Quaternion& b, float t);
   inline static Quaternion lerpUnclamped(const Quaternion& a, const Quaternion& b, float t);
   inline static Quaternion makeLookRotation(const Vector3& forward, const Vector3& upwards);
@@ -61,50 +47,6 @@ struct Quaternion {
   friend std::ostream& operator<<(std::ostream& os, const Quaternion& q);
 };
 
-// Constructors
-inline Quaternion::Quaternion(float x, float y, float z, float w)
-  : x(x), y(y), z(z), w(w) {}
-
-inline Quaternion::Quaternion(const float* data)
-  : x(data[0]), y(data[1]), z(data[2]), w(data[3]) {}
-
-inline Quaternion::Quaternion(const Quaternion& q) {
-  x = q.x;
-  y = q.y;
-  z = q.z;
-  w = q.w;
-}
-
-inline Quaternion& Quaternion::operator=(const Quaternion& q) {
-  x = q.x;
-  y = q.y;
-  z = q.z;
-  w = q.w;
-}
-
-// Setters
-inline void Quaternion::set(float x, float y, float z, float w) {
-  this->x = x;
-  this->y = y;
-  this->z = z;
-  this->w = w;
-}
-
-inline void Quaternion::set(const float* data) {
-  x = data[0];
-  y = data[1];
-  z = data[2];
-  w = data[3];
-}
-
-inline float& Quaternion::operator[](int32 i) {
-  return *(&this->x + i);
-}
-
-inline const float& Quaternion::operator[](int32 i) const {
-  return *(&this->x + i);
-}
-
 // Operators
 inline Quaternion Quaternion::operator*(const Quaternion& q) const {
   return {
@@ -116,12 +58,12 @@ inline Quaternion Quaternion::operator*(const Quaternion& q) const {
 }
 
 inline Quaternion& Quaternion::operator*=(const Quaternion& q) {
-  set(
+  *this = {
     w * q.x + x * q.w + y * q.z - z * q.y,
     w * q.y - x * q.z + y * q.w + z * q.x,
     w * q.z + x * q.y - y * q.x + z * q.w,
     w * q.w - x * q.x - y * q.y - z * q.z
-  );
+  };
   return *this;
 }
 
@@ -159,9 +101,9 @@ inline Quaternion& Quaternion::normalize() {
   float m = magnitude();
 
   if (m != 0.0f) {
-    set(x / m, y / m, z / m, w / m);
+    *this = {x / m, y / m, z / m, w / m};
   } else {
-    set(0.0f, 0.0f, 0.0f, 1.0f);
+    *this = {0.0f, 0.0f, 0.0f, 1.0f};
   }
 
   return *this;
@@ -180,7 +122,7 @@ inline Quaternion Quaternion::normalized() const {
 }
 
 inline Quaternion& Quaternion::conjugate() {
-  set(-x, -y, -z, w);
+  *this = conjugated();
   return *this;
 }
 

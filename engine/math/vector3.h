@@ -7,21 +7,10 @@
 namespace bellum {
 
 struct Vector3 {
-  float x;
-  float y;
-  float z;
+  float x, y, z;
 
-  inline Vector3(float x = 0.0f, float y = 0.0f, float z = 0.0f);
-  inline Vector3(const float* data);
-  inline Vector3(const Vector3& v);
-  inline Vector3& operator=(const Vector3& v);
-
-  inline void set(float x, float y, float z = 0.0f);
-  inline void set(const float* data);
   inline void setMagnitude(float magnitude);
   inline void setSquaredMagnitude(float sqrMagnitude);
-  inline float& operator[](int32 i);
-  inline const float& operator[](int32 i) const;
 
   inline float magnitude() const;
   inline float squaredMagnitude() const;
@@ -73,36 +62,6 @@ struct Vector3 {
   inline friend std::ostream& operator<<(std::ostream& os, const Vector3& v);
 };
 
-// Constructors
-Vector3::Vector3(float x, float y, float z)
-  : x(x), y(y), z(z) {}
-
-Vector3::Vector3(const float* data)
-  : x(data[0]), y(data[1]), z(data[2]) {}
-
-Vector3::Vector3(const Vector3& v)
-  : x(v.x), y(v.y), z(v.z) {}
-
-Vector3& Vector3::operator=(const Vector3& v) {
-  x = v.x;
-  y = v.y;
-  z = v.z;
-  return *this;
-}
-
-// Setters
-inline void Vector3::set(float x, float y, float z) {
-  this->x = x;
-  this->y = y;
-  this->z = z;
-}
-
-inline void Vector3::set(const float* data) {
-  x = data[0];
-  y = data[1];
-  z = data[2];
-}
-
 inline void Vector3::setMagnitude(float magnitude) {
   this->setSquaredMagnitude(magnitude * magnitude);
 }
@@ -116,14 +75,6 @@ inline void Vector3::setSquaredMagnitude(float sqrMagnitude) {
     y *= s;
     z *= s;
   }
-}
-
-inline float& Vector3::operator[](int32 i) {
-  return *(&this->x + i);
-}
-
-inline const float& Vector3::operator[](int32 i) const {
-  return *(&this->x + i);
 }
 
 // Properties

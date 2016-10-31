@@ -4,45 +4,43 @@
 
 namespace bellum {
 
-Quaternion::Quaternion(const Matrix4& m) {
-  set(m);
-}
-
-void Quaternion::set(const Matrix4& m) {
+Quaternion Quaternion::makeFromMatrix(const Matrix4& m) {
   float m11 = m.get(0, 0);
   float m22 = m.get(1, 1);
   float m33 = m.get(2, 2);
   float trace = m11 + m22 + m33;
+  Quaternion result{};
 
   if (trace > 0.0f) {
     float s = 0.5f / Math::sqrt(trace + 1.0f);
-    w = 0.25f / s;
-    x = (m.get(1, 2) - m.get(2, 1)) * s;
-    y = (m.get(2, 0) - m.get(0, 2)) * s;
-    z = (m.get(0, 1) - m.get(1, 0)) * s;
+    result.w = 0.25f / s;
+    result. x = (m.get(1, 2) - m.get(2, 1)) * s;
+    result.y = (m.get(2, 0) - m.get(0, 2)) * s;
+    result.z = (m.get(0, 1) - m.get(1, 0)) * s;
   } else {
     if (m11 > m22 && m11 > m33) {
       float s = 2.0f * Math::sqrt(1.0f + m11 - m22 - m33);
-      w = (m.get(1, 2) - m.get(2, 1)) / s;
-      x = 0.25f * s;
-      y = (m.get(1, 0) + m.get(0, 1)) / s;
-      z = (m.get(2, 0) + m.get(0, 2)) / s;
+      result. w = (m.get(1, 2) - m.get(2, 1)) / s;
+      result.  x = 0.25f * s;
+      result.  y = (m.get(1, 0) + m.get(0, 1)) / s;
+      result.  z = (m.get(2, 0) + m.get(0, 2)) / s;
     } else if (m22 > m33) {
       float s = 2.0f * Math::sqrt(1.0f + m22 - m11 - m33);
-      w = (m.get(2, 0) - m.get(0, 2)) / s;
-      x = (m.get(1, 0) + m.get(0, 1)) / s;
-      y = 0.25f * s;
-      z = (m.get(2, 1) + m.get(1, 2)) / s;
+      result.  w = (m.get(2, 0) - m.get(0, 2)) / s;
+      result. x = (m.get(1, 0) + m.get(0, 1)) / s;
+      result.y = 0.25f * s;
+      result. z = (m.get(2, 1) + m.get(1, 2)) / s;
     } else {
       float s = 2.0f * Math::sqrt(1.0f + m33 - m11 - m22);
-      w = (m.get(0, 1) - m.get(1, 0)) / s;
-      x = (m.get(2, 0) + m.get(0, 2)) / s;
-      y = (m.get(1, 2) + m.get(2, 1)) / s;
-      z = 0.25f * s;
+      result.w = (m.get(0, 1) - m.get(1, 0)) / s;
+      result.x = (m.get(2, 0) + m.get(0, 2)) / s;
+      result. y = (m.get(1, 2) + m.get(2, 1)) / s;
+      result. z = 0.25f * s;
     }
   }
 
-  this->normalize();
+  result.normalize();
+  return result;
 }
 
 Quaternion Quaternion::makeLookRotation(const Vector3& forward, const Vector3& upwards) {
@@ -52,7 +50,7 @@ Quaternion Quaternion::makeLookRotation(const Vector3& forward, const Vector3& u
 
   Matrix4 m = Matrix4::makeRotation(f, upwards);
 
-  return Quaternion{m};
+  return Quaternion::makeFromMatrix(m);
 }
 
 }

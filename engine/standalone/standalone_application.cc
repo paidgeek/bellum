@@ -5,10 +5,6 @@
 #include "standalone_application.h"
 #include "window.h"
 #include "../timing.h"
-#include "resources/mesh.h"
-#include "color.h"
-#include "resources/shader.h"
-#include <Gl/glew.h>
 
 namespace bellum {
 
@@ -16,7 +12,7 @@ StandaloneApplication::StandaloneApplication() : super::Application() {}
 
 StandaloneApplication::~StandaloneApplication() {}
 
-void StandaloneApplication::start(int argc, const char* argv[]) {
+void StandaloneApplication::start(std::vector<std::string> args) {
   logger_ = std::make_unique<Logger>("Bellum");
 
   int32 width = 480;
@@ -27,20 +23,20 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
     // parse '--x=y' arguments
     std::stringstream ss;
 
-    for (int32 i = 1; i < argc; i++) {
-      if (std::strncmp("--width=", argv[i], 8) == 0) {
-        ss.str(argv[i] + 8);
+    for(const auto& arg : args) {
+      if (arg.compare(0, 8, "--width=") == 0) {
+        ss.str(arg.substr(8));
         ss >> width;
-      } else if (std::strncmp("--height=", argv[i], 9) == 0) {
-        ss.str(argv[i] + 9);
+      } else if (arg.compare(0, 9, "--height=") == 0) {
+        ss.str(arg.substr(9));
         ss >> height;
       } else {
-        logger_->error("Unknown option '", argv[i], "'");
+        logger_->error("Unknown option '", arg, "'");
         continue;
       }
 
       if (ss.fail() || ss.get() != -1) {
-        logger_->error("Failed to parse '", argv[i], "', using defaults");
+        logger_->error("Failed to parse '", arg, "', using defaults");
       }
 
       ss.clear();
@@ -84,7 +80,7 @@ void StandaloneApplication::start(int argc, const char* argv[]) {
       super::render();
 
       framesProcessed++;
-      if(currentTime - lastFpsUpdate >= 1.0) {
+      if (currentTime - lastFpsUpdate >= 1.0) {
         Time::setFps(framesProcessed);
         framesProcessed = 0;
       }

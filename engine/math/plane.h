@@ -19,9 +19,6 @@ struct Plane {
   Plane(const Vector3& normal, float distance);
   Plane(const Vector3& p1, const Vector3& p2, const Vector3& p3);
 
-  Plane(const Plane& p);
-  Plane operator=(const Plane& p);
-
   Plane& normalize();
   void normalize(Plane* dst) const;
 

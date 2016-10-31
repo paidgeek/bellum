@@ -17,7 +17,7 @@ class Application {
 public:
   Application();
 
-  virtual void start(int argc, const char* argv[]) = 0;
+  virtual void start(std::vector<std::string> args) = 0;
   virtual void exit() = 0;
 
   Logger* logger() {

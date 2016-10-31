@@ -6,22 +6,10 @@
 namespace bellum {
 
 struct Vector4 {
-  float x;
-  float y;
-  float z;
-  float w;
+  float x, y, z, w;
 
-  inline Vector4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
-  inline Vector4(const float* data);
-  inline Vector4(const Vector4& v);
-  inline Vector4& operator=(const Vector4& v);
-
-  inline void set(float x, float y, float z, float w = 0.0f);
-  inline void set(const float* data);
   inline void setMagnitude(float magnitude);
   inline void setSquaredMagnitude(float sqrMagnitude);
-  inline float& operator[](int32 i);
-  inline const float& operator[](int32 i) const;
 
   inline float magnitude() const;
   inline float squaredMagnitude() const;
@@ -58,39 +46,6 @@ struct Vector4 {
   inline friend std::ostream& operator<<(std::ostream& os, const Vector4& vector3);
 };
 
-// Constructors
-inline Vector4::Vector4(float x, float y, float z, float w)
-  : x(x), y(y), z(z), w(w) {}
-
-inline Vector4::Vector4(const float* data)
-  : x(data[0]), y(data[1]), z(data[2]), w(data[3]) {}
-
-inline Vector4::Vector4(const Vector4& v)
-  : x(v.x), y(v.y), z(v.z), w(v.w) {}
-
-inline Vector4& Vector4::operator=(const Vector4& v) {
-  x = v.x;
-  y = v.y;
-  z = v.z;
-  w = v.w;
-  return *this;
-}
-
-// Setters
-inline void Vector4::set(float x, float y, float z, float w) {
-  this->x = x;
-  this->y = y;
-  this->z = z;
-  this->w = w;
-}
-
-inline void Vector4::set(const float* data) {
-  x = data[0];
-  y = data[1];
-  z = data[2];
-  w = data[3];
-}
-
 inline void Vector4::setMagnitude(float magnitude) {
   this->setSquaredMagnitude(magnitude * magnitude);
 }
@@ -105,14 +60,6 @@ inline void Vector4::setSquaredMagnitude(float sqrMagnitude) {
     z *= s;
     w *= s;
   }
-}
-
-inline float& Vector4::operator[](int32 i) {
-  return *(&this->x + i);
-}
-
-inline const float& Vector4::operator[](int32 i) const {
-  return *(&this->x + i);
 }
 
 // Properties

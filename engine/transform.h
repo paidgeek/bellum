@@ -97,7 +97,7 @@ public:
 
   inline void setScale(const Vector3& scale) {
     Vector3 ps = parent_->scale();
-    scale_.set(1.0f / ps.x, 1.0f / ps.y, 1.0f / ps.z);
+    scale_ = {1.0f / ps.x, 1.0f / ps.y, 1.0f / ps.z};
   }
 
   inline const Vector3& localScale() const {
@@ -117,7 +117,7 @@ public:
       position_ = parent->localToWorld().inverse() * position_;
       rotation_ = parent_->rotation().inverse() * rotation_;
       Vector3 ps = parent->scale();
-      scale_.set(scale_.x / ps.x, scale_.y / ps.y, scale_.z / ps.z);
+      scale_ = {scale_.x / ps.x, scale_.y / ps.y, scale_.z / ps.z};
     }
 
     parent_ = parent;
@@ -157,7 +157,7 @@ private:
   Vector3 scale_{1.0f, 1.0f, 1.0f};
 
   Transform* parent_ = nullptr;
-  Matrix4 parent_matrix_{};
+  Matrix4 parent_matrix_ = Matrix4::identity();
 
   inline Matrix4& parentMatrix() {
     if (parent_ != nullptr) {

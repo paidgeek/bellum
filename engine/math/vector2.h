@@ -7,20 +7,10 @@
 namespace bellum {
 
 struct Vector2 {
-  float x;
-  float y;
+  float x, y;
 
-  inline Vector2(float x = 0.0f, float y = 0.0f);
-  inline Vector2(const float* data);
-  inline Vector2(const Vector2& v);
-  inline Vector2& operator=(const Vector2& v);
-
-  inline void set(float x, float y);
-  inline void set(const float* data);
   inline void setMagnitude(float magnitude);
   inline void setSquaredMagnitude(float sqrMagnitude);
-  inline float& operator[](int32 i);
-  inline const float& operator[](int32 i) const;
 
   inline float magnitude() const;
   inline float squaredMagnitude() const;
@@ -42,33 +32,6 @@ struct Vector2 {
   inline friend std::ostream& operator<<(std::ostream& os, const Vector2& v);
 };
 
-// Constructors
-Vector2::Vector2(float x, float y)
-  : x(x), y(y) {}
-
-Vector2::Vector2(const float* data)
-  : x(data[0]), y(data[1]) {}
-
-Vector2::Vector2(const Vector2& v)
-  : x(v.x), y(v.y) {}
-
-Vector2& Vector2::operator=(const Vector2& v) {
-  x = v.x;
-  y = v.y;
-  return *this;
-}
-
-// Setters
-inline void Vector2::set(float x, float y) {
-  this->x = x;
-  this->y = y;
-}
-
-inline void Vector2::set(const float* data) {
-  x = data[0];
-  y = data[1];
-}
-
 inline void Vector2::setMagnitude(float magnitude) {
   this->setSquaredMagnitude(magnitude * magnitude);
 }
@@ -81,14 +44,6 @@ inline void Vector2::setSquaredMagnitude(float sqrMagnitude) {
     x *= s;
     y *= s;
   }
-}
-
-inline float& Vector2::operator[](int32 i) {
-  return *(&this->x + i);
-}
-
-inline const float& Vector2::operator[](int32 i) const {
-  return *(&this->x + i);
 }
 
 // Properties

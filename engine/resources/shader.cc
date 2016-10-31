@@ -23,7 +23,7 @@ void Shader::setUniform(const std::string& name, int32 value) {
 
 void Shader::setUniform(const std::string& name, const Matrix4& value) {
   int32 location = uniforms_[name].location;
-  glUniformMatrix4fv(location, 1, GL_FALSE, value.data);
+  glUniformMatrix4fv(location, 1, GL_FALSE, value.data.data());
 }
 
 void Shader::setUniform(const std::string& name, const Vector2& value) {

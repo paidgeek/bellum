@@ -64,7 +64,7 @@ Mesh* MeshFactory::makeCube(const BindingInfo& bindingInfo,
   triangles.reserve(vertData.size() / 3);
 
   for(uint32 i = 0; i < vertData.size() / 3; i++) {
-    vertices.push_back(Vector3{&vertData[i*3]});
+    vertices.push_back(Vector3{vertData[i*3], vertData[i*3 + 1], vertData[i*3 + 2]});
     triangles.push_back(i);
   }
 

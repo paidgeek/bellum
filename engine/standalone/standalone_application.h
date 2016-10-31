@@ -13,7 +13,7 @@ public:
   ~StandaloneApplication();
   DELETE_COPY_AND_ASSIGN(StandaloneApplication);
 
-  void start(int argc, const char* argv[]) override;
+  void start(std::vector<std::string> args) override;
   void exit() override;
 
 private:
